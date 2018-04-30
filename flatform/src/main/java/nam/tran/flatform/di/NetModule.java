@@ -21,7 +21,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
-@SuppressWarnings("unused")
 public class NetModule {
 
     @Provides

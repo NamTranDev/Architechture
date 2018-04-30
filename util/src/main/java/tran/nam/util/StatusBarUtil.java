@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"WeakerAccess", "unused", "NumericOverflow"})
 public class StatusBarUtil {
 
     public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
@@ -156,7 +156,7 @@ public class StatusBarUtil {
      * <p>
      * Applicable to the picture as the background of the interface, then need to fill the picture to the status bar
      *
-     * @param activity need to set the activity
+     * @param activity       need to set the activity
      * @param statusBarAlpha status bar transparency
      */
     public static void setTranslucent(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha) {
@@ -169,12 +169,14 @@ public class StatusBarUtil {
 
     /**
      * For the root layout is CoordinatorLayout, so that the status bar is translucent
-     * <p>
-     * Applicable to the picture as the background of the interface, then need to fill the picture to the status bar
-     *
+     *      * <p>
+     *      * Applicable to the picture as the background of the interface, then need to fill the picture to the status bar
+     *      *
+     *
      * @param activity need to set the activity
-     * @param statusBarAlpha status bar transparency
-     **/
+     *                      * @param statusBarAlpha status bar transparency
+     *                      
+     **/
     public static void setTranslucentForCoordinatorLayout(Activity activity, @IntRange(from = 0, to = 255) int statusBarAlpha) {
         transparentStatusBar(activity);
         addTranslucentView(activity, statusBarAlpha);
@@ -233,9 +235,9 @@ public class StatusBarUtil {
     /**
      * Set the status bar for the DrawerLayout layout
      *
-     * @param activity need to set the activity
-     * @param drawerLayout DrawerLayout
-     * @param color status bar color value
+     * @param activity       need to set the activity
+     * @param drawerLayout   DrawerLayout
+     * @param color          status bar color value
      * @param statusBarAlpha status bar transparency
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -274,7 +276,7 @@ public class StatusBarUtil {
     /**
      * Set the DrawerLayout property
      *
-     * @param drawerLayout DrawerLayout
+     * @param drawerLayout              DrawerLayout
      * @param drawerLayoutContentLayout The layout of the contents of the DrawerLayout
      */
     private static void setDrawerLayoutProperty(DrawerLayout drawerLayout, ViewGroup drawerLayoutContentLayout) {
@@ -288,9 +290,9 @@ public class StatusBarUtil {
     /**
      * Set the status bar for the DrawerLayout layout color change (5.0 below no translucent effect, not recommended)
      *
-     * @param activity need to set the activity
+     * @param activity     need to set the activity
      * @param drawerLayout DrawerLayout
-     * @param color status bar color value
+     * @param color        status bar color value
      */
     @Deprecated
     public static void setColorForDrawerLayoutDiff(Activity activity, DrawerLayout drawerLayout, @ColorInt int color) {
@@ -320,7 +322,7 @@ public class StatusBarUtil {
     /**
      * Set the status bar transparent for the DrawerLayout layout
      *
-     * @param activity need to set the activity
+     * @param activity     need to set the activity
      * @param drawerLayout DrawerLayout
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -331,7 +333,7 @@ public class StatusBarUtil {
     /**
      * Set the status bar transparent for the DrawerLayout layout
      *
-     * @param activity need to set the activity
+     * @param activity     need to set the activity
      * @param drawerLayout DrawerLayout
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -344,7 +346,7 @@ public class StatusBarUtil {
     /**
      * Set the status bar transparent for the DrawerLayout layout
      *
-     * @param activity need to set the activity
+     * @param activity     need to set the activity
      * @param drawerLayout DrawerLayout
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -370,7 +372,7 @@ public class StatusBarUtil {
     /**
      * Set the status bar for the DrawerLayout layout transparent (5.0 or more translucent, not recommended)
      *
-     * @param activity need to set the activity
+     * @param activity     need to set the activity
      * @param drawerLayout DrawerLayout
      */
     @Deprecated
@@ -393,7 +395,7 @@ public class StatusBarUtil {
     /**
      * For the head of the ImageView interface, the status bar is fully transparent
      *
-     * @param activity need to set the activity
+     * @param activity       need to set the activity
      * @param needOffsetView needs to be offset from the View
      */
     public static void setTransparentForImageView(Activity activity, View needOffsetView) {
@@ -403,7 +405,7 @@ public class StatusBarUtil {
     /**
      * For the header is the interface of the ImageView setting status bar transparent (using default transparency)
      *
-     * @param activity need to set the activity
+     * @param activity       need to set the activity
      * @param needOffsetView needs to be offset from the View
      */
     public static void setTranslucentForImageView(Activity activity, View needOffsetView) {
@@ -413,7 +415,7 @@ public class StatusBarUtil {
     /**
      * The status bar for the ImageView interface is transparent
      *
-     * @param activity need to set the activity
+     * @param activity       need to set the activity
      * @param statusBarAlpha status bar transparency
      * @param needOffsetView needs to be offset from the View
      */
@@ -436,7 +438,7 @@ public class StatusBarUtil {
     /**
      * For the fragmentation header is the ImageView setting status bar transparent
      *
-     * @param activity fragment The corresponding activity
+     * @param activity       fragment The corresponding activity
      * @param needOffsetView needs to be offset from the View
      */
     public static void setTranslucentForImageViewInFragment(Activity activity, View needOffsetView) {
@@ -446,7 +448,7 @@ public class StatusBarUtil {
     /**
      * For fragmented headers, the ImageView setting status bar is transparent
      *
-     * @param activity clip corresponding activity
+     * @param activity       clip corresponding activity
      * @param needOffsetView needs to be offset from the view
      */
     public static void setTransparentForImageViewInFragment(Activity activity, View needOffsetView) {
@@ -456,7 +458,7 @@ public class StatusBarUtil {
     /**
      * For the fragmentation header is the ImageView setting status bar transparent
      *
-     * @param activity fragment The corresponding activity
+     * @param activity       fragment The corresponding activity
      * @param statusBarAlpha status bar transparency
      * @param needOffsetView needs to be offset from the View
      */
@@ -627,7 +629,6 @@ public class StatusBarUtil {
      * @param alpha alpha value
      * @return The final status bar color
      */
-    @SuppressWarnings("NumericOverflow")
     private static int calculateStatusColor(@ColorInt int color, int alpha) {
         if (alpha == 0) {
             return color;

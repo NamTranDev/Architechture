@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
+@SuppressWarnings("unused")
 public class Utils {
 
     public static float scalePixel(Context context) {

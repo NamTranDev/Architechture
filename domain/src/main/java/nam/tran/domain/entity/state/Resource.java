@@ -26,7 +26,7 @@ import static nam.tran.domain.entity.state.Status.SUCCESS;
  *
  * @param <T>
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings("WeakerAccess")
 public class Resource<T> {
 
     public final @Status int status;

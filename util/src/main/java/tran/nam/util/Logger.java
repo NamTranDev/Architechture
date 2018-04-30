@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 
-@SuppressWarnings({"unused"})
+@SuppressWarnings("unused")
 public final class Logger {
 
     private static final String TAG = "Nam Tran";

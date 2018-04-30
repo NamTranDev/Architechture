@@ -15,12 +15,11 @@ public class Repository implements IRepository {
     private final AppExecutors appExecutors;
     private final IPreference iPreference;
     private final DataEntityMapper dataEntityMapper;
-    private final IApi iApi;
+    private IApi iApi;
 
-    @Inject Repository(AppExecutors appExecutors, IPreference iPreference, DataEntityMapper dataEntityMapper, IApi iApi) {
+    @Inject Repository(AppExecutors appExecutors, IPreference iPreference, DataEntityMapper dataEntityMapper) {
         this.appExecutors = appExecutors;
         this.iPreference = iPreference;
         this.dataEntityMapper = dataEntityMapper;
-        this.iApi = iApi;
     }
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.Hashtable;
 
+@SuppressWarnings("unused")
 public class FontCache {
     private static final String TAG = FontCache.class.getSimpleName();
 

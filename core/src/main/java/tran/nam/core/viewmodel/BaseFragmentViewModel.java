@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
-@SuppressWarnings("unused")
 public class BaseFragmentViewModel<V extends IViewModel> extends AndroidViewModel implements LifecycleObserver {
 
     @Nullable

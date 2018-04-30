@@ -13,5 +13,5 @@ public abstract class PreferenceModule {
 
     @Binds
     @Singleton
-    abstract IPreference bindPreference(Preference preferenceProvider);
+    abstract IPreference providePreference(Preference preferenceProvider);
 }

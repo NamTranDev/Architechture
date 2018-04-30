@@ -2,7 +2,7 @@ package nam.tran.domain.interactor;
 
 import nam.tran.domain.IRepository;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
 public abstract class UseCase {
 
     private final IRepository iRepository;

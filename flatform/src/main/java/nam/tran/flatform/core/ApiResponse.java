@@ -23,6 +23,7 @@ import android.support.v4.util.ArrayMap;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,7 +55,6 @@ public class ApiResponse<T> {
         links = Collections.emptyMap();
     }
 
-    @SuppressWarnings("ConstantConditions")
     public ApiResponse(Response<T> response) {
         code = response.code();
         if(response.isSuccessful()) {
@@ -64,7 +64,7 @@ public class ApiResponse<T> {
             String message = null;
             if (response.errorBody() != null) {
                 try {
-                    message = response.errorBody().string();
+                    message = Objects.requireNonNull(response.errorBody()).string();
                 } catch (IOException ignored) {
                     Logger.debug(ignored, "error while parsing response");
                 }

@@ -27,7 +27,6 @@ import nam.tran.flatform.IApi;
 import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 
-@SuppressWarnings("unused")
 public class LiveDataCallAdapterFactory extends CallAdapter.Factory {
 
     @Override

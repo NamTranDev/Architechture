@@ -51,7 +51,7 @@ import tran.nam.core.R;
  * <b>VIEW BINDING</b>
  * This fragment handles view bind and unbinding.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"deprecation", "unused"})
 public abstract class BaseFragment extends Fragment implements HasSupportFragmentInjector {
 
     protected boolean mIsCurrentScreen;
@@ -69,11 +69,11 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
     /**
      * @return layout resource id
      */
-    public abstract @LayoutRes int getLayoutId();
+    public abstract @LayoutRes
+    int getLayoutId();
 
     protected abstract void initView(Bundle savedInstanceState);
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -109,7 +109,7 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return initLayout(inflater,container);
+        return initLayout(inflater, container);
     }
 
     @Override
@@ -209,12 +209,12 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
             ((BaseActivityWithFragment) getActivity()).replaceFragment(fragment);
     }
 
-    protected void showLoadingDialog(){
+    protected void showLoadingDialog() {
         if (getActivity() != null && getActivity() instanceof BaseActivityWithFragment && !getActivity().isFinishing())
             ((BaseActivity) getActivity()).showLoadingDialog();
     }
 
-    protected void hideLoadingDialog(){
+    protected void hideLoadingDialog() {
         if (getActivity() != null && getActivity() instanceof BaseActivityWithFragment && !getActivity().isFinishing())
             ((BaseActivity) getActivity()).hideLoadingDialog();
     }
@@ -266,11 +266,14 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
         return true;
     }
 
-    protected void onVisible() {}
+    protected void onVisible() {
+    }
 
-    protected void handleAfterVisible() {}
+    protected void handleAfterVisible() {
+    }
 
-    protected void onInVisible() {}
+    protected void onInVisible() {
+    }
 
     protected int getPushExitAnimId() {
         return R.anim.slide_out_left;

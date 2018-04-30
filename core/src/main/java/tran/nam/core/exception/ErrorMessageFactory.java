@@ -10,7 +10,6 @@ import javax.inject.Inject;
 
 import tran.nam.core.R;
 
-@SuppressWarnings("unused")
 public final class ErrorMessageFactory {
 
     @Inject

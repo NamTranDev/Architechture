@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import java.util.List;
 
-@SuppressWarnings({"ConstantConditions", "WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused"})
 public final class Checker {
 
     private Checker() {

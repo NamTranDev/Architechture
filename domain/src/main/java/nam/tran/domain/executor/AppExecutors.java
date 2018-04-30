@@ -32,7 +32,7 @@ import javax.inject.Singleton;
  * Grouping tasks like this avoids the effects of task starvation (e.g. disk reads don't wait behind
  * webservice requests).
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings("unused")
 @Singleton
 public class AppExecutors {
 
@@ -42,16 +42,11 @@ public class AppExecutors {
 
     private final Executor mainThread;
 
-    AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
-        this.diskIO = diskIO;
-        this.networkIO = networkIO;
-        this.mainThread = mainThread;
-    }
-
     @Inject
-    public AppExecutors() {
-        this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(3),
-                new MainThreadExecutor());
+    AppExecutors() {
+        this.diskIO = Executors.newSingleThreadExecutor();
+        this.networkIO = Executors.newFixedThreadPool(3);
+        this.mainThread = new MainThreadExecutor();
     }
 
     public Executor diskIO() {
