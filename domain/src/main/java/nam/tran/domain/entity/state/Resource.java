@@ -19,7 +19,9 @@ package nam.tran.domain.entity.state;
 import android.support.annotation.Nullable;
 
 import static nam.tran.domain.entity.state.Status.ERROR;
+import static nam.tran.domain.entity.state.Status.LOADING;
 import static nam.tran.domain.entity.state.Status.SUCCESS;
+import static tran.nam.util.Constant.EMPTY;
 
 /**
  * A generic class that holds a value with its loading status.
@@ -30,6 +32,8 @@ import static nam.tran.domain.entity.state.Status.SUCCESS;
 public class Resource<T> {
 
     public final @Status int status;
+
+    public @Loading int loading;
 
     @Nullable
     public final String message;
@@ -43,6 +47,13 @@ public class Resource<T> {
         this.message = message;
     }
 
+    public Resource(@Status int status, @Nullable T data, @Nullable String message,int loading) {
+        this.status = status;
+        this.loading = loading;
+        this.message = message;
+        this.data = data;
+    }
+
     public static <T> Resource<T> success(@Nullable T data) {
         return new Resource<>(SUCCESS, data, null);
     }
@@ -51,16 +62,8 @@ public class Resource<T> {
         return new Resource<>(ERROR, data, msg);
     }
 
-    public static <T> Resource<T> noneLoading(@Nullable T data) {
-        return new Resource<>(Status.LOADING_NONE, data, null);
-    }
-
-    public static <T> Resource<T> normalLoading(@Nullable T data) {
-        return new Resource<>(Status.LOADING_NORMAL, data, null);
-    }
-
-    public static <T> Resource<T> dialogLoading(@Nullable T data) {
-        return new Resource<>(Status.LOADING_DIALOG, data, null);
+    public static <T> Resource<T> loading(@Nullable T data,@Loading int loading) {
+        return new Resource<>(LOADING, data, null,loading);
     }
 
     @Override
@@ -90,8 +93,9 @@ public class Resource<T> {
     @Override
     public String toString() {
         return "Resource{" +
-                "status=" + getStatus(status) +
-                ", message='" + message + '\'' +
+                "status=" + getStatus(status) + "\n" +
+                "loading=" + getLoading(loading) + "\n" +
+                ", message='" + message + '\'' + "\n" +
                 ", data=" + data +
                 '}';
     }
@@ -100,15 +104,23 @@ public class Resource<T> {
         switch (status) {
             case ERROR:
                 return "Error";
-            case Status.LOADING_DIALOG:
-                return "Loading Dialog";
-            case Status.LOADING_NONE:
-                return "Loading None";
-            case Status.LOADING_NORMAL:
-                return "Loading Normal";
+            case LOADING:
+                return "Loading";
             case SUCCESS:
-            default:
                 return "Success";
         }
+        return EMPTY;
+    }
+
+    private String getLoading(@Loading int loading){
+        switch (loading) {
+            case Loading.LOADING_DIALOG:
+                return "Loading Dialog";
+            case Loading.LOADING_NONE:
+                return "Loading None";
+            case Loading.LOADING_NORMAL:
+                return "Loading Normal";
+        }
+        return EMPTY;
     }
 }

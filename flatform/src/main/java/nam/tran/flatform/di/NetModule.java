@@ -20,6 +20,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static tran.nam.util.Constant.API_URL;
+
 @Module
 public class NetModule {
 
@@ -57,7 +59,7 @@ public class NetModule {
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(BuildConfig.APPLICATION_ID)
+                .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .build();

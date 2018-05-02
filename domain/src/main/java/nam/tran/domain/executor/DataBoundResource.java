@@ -23,10 +23,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
+import nam.tran.domain.entity.state.Loading;
 import nam.tran.domain.entity.state.Resource;
-import nam.tran.domain.entity.state.Status;
 import nam.tran.flatform.core.ApiResponse;
 import tran.nam.util.Objects;
+
+import static nam.tran.domain.entity.state.Loading.LOADING_NONE;
+import static nam.tran.domain.entity.state.Loading.LOADING_NORMAL;
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.
@@ -44,7 +47,7 @@ public abstract class DataBoundResource<ResultType, RequestType> {
     private final MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
 
     @MainThread
-    DataBoundResource(AppExecutors appExecutors) {
+    public DataBoundResource(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
         result.setValue(getStateLoading());
         LiveData<ResultType> dbSource = loadFromDb();
@@ -92,19 +95,14 @@ public abstract class DataBoundResource<ResultType, RequestType> {
         });
     }
 
-    private Resource<ResultType> getStateLoading(){
-        switch (statusLoading()) {
-            case Status.LOADING_DIALOG:
-                return Resource.dialogLoading(null);
-            case Status.LOADING_NONE:
-                return Resource.noneLoading(null);
-            case Status.LOADING_NORMAL:
-                return Resource.normalLoading(null);
-            case Status.ERROR:
-            case Status.SUCCESS:
-                break;
+    private Resource<ResultType> getStateLoading() {
+        if (statusLoading() == LOADING_NORMAL) {
+            return Resource.loading(null, LOADING_NORMAL);
+        } else if (statusLoading() == Loading.LOADING_DIALOG) {
+            return Resource.loading(null, Loading.LOADING_DIALOG);
+        } else {
+            return Resource.loading(null, LOADING_NONE);
         }
-        return Resource.noneLoading(null);
     }
 
     protected void onFetchFailed() {
@@ -133,5 +131,6 @@ public abstract class DataBoundResource<ResultType, RequestType> {
     @MainThread
     protected abstract LiveData<ApiResponse<RequestType>> createCall();
 
-    protected abstract @Status int statusLoading();
+    protected abstract @Loading
+    int statusLoading();
 }
