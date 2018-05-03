@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivityWithFragment {
 
     @Override
     public BaseFragment[] getFragments() {
-        return new BaseFragment[0];
+        return new BaseFragment[]{SoccerSeasonFragment.getInstance()};
     }
 
     @Override

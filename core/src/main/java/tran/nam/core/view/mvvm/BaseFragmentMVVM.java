@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -92,5 +93,10 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     @Override
     public void hideDialogLoading() {
         hideLoadingDialog();
+    }
+
+    @Override
+    public void onShowDialogError(String message) {
+        Toast.makeText(getBaseActivity(),"Error Dialog",Toast.LENGTH_SHORT).show();
     }
 }

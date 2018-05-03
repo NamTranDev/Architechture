@@ -7,14 +7,12 @@ import javax.inject.Singleton;
 @Singleton
 public class DataEntityMapper {
 
-    private final PreferenceEntityMapper mPreferenceEntityMapper;
+    public final PreferenceEntityMapper mPreferenceEntityMapper;
+    public final SoccerSeasonEntityDataMapper mSoccerSeasonEntityDataMapper;
 
     @Inject
-    DataEntityMapper(PreferenceEntityMapper mPreferenceEntityMapper) {
+    DataEntityMapper(PreferenceEntityMapper mPreferenceEntityMapper, SoccerSeasonEntityDataMapper mSoccerSeasonEntityDataMapper) {
         this.mPreferenceEntityMapper = mPreferenceEntityMapper;
-    }
-
-    public PreferenceEntityMapper getPreferenceEntityMapper() {
-        return mPreferenceEntityMapper;
+        this.mSoccerSeasonEntityDataMapper = mSoccerSeasonEntityDataMapper;
     }
 }

@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -96,6 +97,11 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
     @Override
     public void hideDialogLoading() {
         hideLoadingDialog();
+    }
+
+    @Override
+    public void onShowDialogError(String message) {
+        Toast.makeText(this,"Error Dialog",Toast.LENGTH_SHORT).show();
     }
 }
 

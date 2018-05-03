@@ -4,7 +4,7 @@ import android.util.SparseArray;
 
 public interface Constant {
 
-    String API_URL = "";
+    String API_URL = "https://api.football-data.org";
     String EMPTY = "";
 
     /*Roboto FONT*/

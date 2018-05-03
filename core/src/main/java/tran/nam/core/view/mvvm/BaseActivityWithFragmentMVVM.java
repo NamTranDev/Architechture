@@ -20,6 +20,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -76,6 +77,11 @@ public abstract class BaseActivityWithFragmentMVVM<V extends ViewDataBinding, VM
     @Override
     public void hideDialogLoading() {
         hideLoadingDialog();
+    }
+
+    @Override
+    public void onShowDialogError(String message) {
+        Toast.makeText(this,"Error Dialog",Toast.LENGTH_SHORT).show();
     }
 }
 

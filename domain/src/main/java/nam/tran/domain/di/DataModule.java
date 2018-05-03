@@ -9,9 +9,14 @@ import nam.tran.domain.Repository;
 import nam.tran.domain.executor.AppSchedulerProvider;
 import nam.tran.domain.executor.SchedulerProvider;
 import nam.tran.flatform.di.PreferenceModule;
+import nam.tran.domain.interactor.SoccerSeasonUseCase;
+import nam.tran.domain.interactor.usecase.ISoccerSeasonUseCase;
+import nam.tran.flatform.di.DbModule;
+import nam.tran.flatform.di.NetModule;
+
 
 @SuppressWarnings("unused")
-@Module(includes = {PreferenceModule.class})
+@Module(includes = {NetModule.class, DbModule.class, PreferenceModule.class})
 public abstract class DataModule {
 
     @Binds
@@ -21,4 +26,8 @@ public abstract class DataModule {
     @Binds
     @Singleton
     abstract SchedulerProvider provideSchedulerProvider(AppSchedulerProvider schedulerProvider);
+    
+    @Binds
+    @Singleton
+    abstract ISoccerSeasonUseCase provideSoccerUseCase(SoccerSeasonUseCase soccerSeasonUseCase);
 }

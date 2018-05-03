@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,17 +14,26 @@ import java.lang.ref.WeakReference;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import nam.tran.domain.entity.state.Resource;
 
 @SuppressWarnings("unused")
-public abstract class BaseActivityViewModel<V extends IViewModel> extends AndroidViewModel implements LifecycleObserver {
+public abstract class BaseActivityViewModel<V extends IViewModel,T> extends AndroidViewModel implements LifecycleObserver {
 
     @Nullable
     private volatile WeakReference<V> mViewWeakReference;
+
+    protected MutableLiveData<Resource<T>> results;
 
     private CompositeDisposable compositeDisposables;
 
     public BaseActivityViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public Resource<T> getResource(){
+        if (results == null)
+            return null;
+        return results.getValue();
     }
 
     @Nullable
