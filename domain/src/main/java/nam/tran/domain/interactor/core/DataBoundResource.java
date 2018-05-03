@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package nam.tran.domain.executor;
+package nam.tran.domain.interactor.core;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
@@ -25,6 +25,7 @@ import android.support.annotation.WorkerThread;
 
 import nam.tran.domain.entity.state.Loading;
 import nam.tran.domain.entity.state.Resource;
+import nam.tran.domain.executor.AppExecutors;
 import nam.tran.flatform.core.ApiResponse;
 import tran.nam.util.Objects;
 

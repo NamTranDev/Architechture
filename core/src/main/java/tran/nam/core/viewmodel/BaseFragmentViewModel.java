@@ -10,10 +10,15 @@ import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 public class BaseFragmentViewModel<V extends IViewModel> extends AndroidViewModel implements LifecycleObserver {
 
     @Nullable
     private volatile WeakReference<V> mViewWeakReference;
+
+    private CompositeDisposable compositeDisposables;
 
     public BaseFragmentViewModel(@NonNull Application application) {
         super(application);
@@ -36,8 +41,9 @@ public class BaseFragmentViewModel<V extends IViewModel> extends AndroidViewMode
 
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    public void onCreated() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE) public void onCreated() {
+        if (compositeDisposables == null)
+            compositeDisposables = new CompositeDisposable();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -66,5 +72,16 @@ public class BaseFragmentViewModel<V extends IViewModel> extends AndroidViewMode
                 view.getLifecycle().removeObserver(this);
             }
         }
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (compositeDisposables != null)
+            compositeDisposables.dispose();
+    }
+
+    protected void addDisposable(Disposable disposable) {
+        compositeDisposables.add(disposable);
     }
 }

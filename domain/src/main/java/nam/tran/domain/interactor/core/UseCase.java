@@ -1,4 +1,4 @@
-package nam.tran.domain.interactor;
+package nam.tran.domain.interactor.core;
 
 import nam.tran.domain.IRepository;
 

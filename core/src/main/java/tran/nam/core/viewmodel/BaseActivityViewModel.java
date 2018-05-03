@@ -11,11 +11,16 @@ import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 @SuppressWarnings("unused")
 public abstract class BaseActivityViewModel<V extends IViewModel> extends AndroidViewModel implements LifecycleObserver {
 
     @Nullable
     private volatile WeakReference<V> mViewWeakReference;
+
+    private CompositeDisposable compositeDisposables;
 
     public BaseActivityViewModel(@NonNull Application application) {
         super(application);
@@ -31,6 +36,8 @@ public abstract class BaseActivityViewModel<V extends IViewModel> extends Androi
 
     public void onCreated(@NonNull V view) {
         mViewWeakReference = new WeakReference<>(view);
+        if (compositeDisposables == null)
+            compositeDisposables = new CompositeDisposable();
         view.getLifecycle().addObserver(this);
     }
 
@@ -68,5 +75,16 @@ public abstract class BaseActivityViewModel<V extends IViewModel> extends Androi
                 view.getLifecycle().removeObserver(this);
             }
         }
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (compositeDisposables != null)
+            compositeDisposables.dispose();
+    }
+
+    public void addDisposable(Disposable disposable) {
+        compositeDisposables.add(disposable);
     }
 }
