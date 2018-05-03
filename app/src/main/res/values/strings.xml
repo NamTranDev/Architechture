@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Architechture</string>
+
+    <string name="unknown_error">"Unknown Error</string>
 </resources>
