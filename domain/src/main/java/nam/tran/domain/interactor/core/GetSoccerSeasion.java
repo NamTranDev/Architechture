@@ -9,7 +9,8 @@ import nam.tran.domain.entity.state.Resource;
 public abstract class GetSoccerSeasion<T> extends DisposableSubscriber<T> {
 
     private MutableLiveData<Resource<T>> results;
-    private @Loading int loading;
+    private @Loading
+    int loading;
 
     public GetSoccerSeasion(MutableLiveData<Resource<T>> results, int loading) {
         this.results = results;
@@ -19,12 +20,12 @@ public abstract class GetSoccerSeasion<T> extends DisposableSubscriber<T> {
     @Override
     protected void onStart() {
         super.onStart();
-        results.setValue(Resource.loading(null,loading));
+        results.setValue(Resource.loading(null, loading));
     }
 
     @Override
     public void onError(Throwable t) {
-        results.setValue(Resource.error(t.getMessage(), null));
+        results.setValue(Resource.error(t.getMessage(), null, loading));
     }
 
     @Override

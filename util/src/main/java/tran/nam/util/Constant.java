@@ -30,6 +30,10 @@ public interface Constant {
     }
 
     interface KEY_INTENT{
+        String ID_SEASON = "id season";
+    }
+
+    interface KEY_ARGUMENT{
 
     }
 

@@ -1,10 +1,14 @@
 package tran.nam.core.di.module;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+
+import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import tran.nam.core.di.inject.PerActivity;
 
 /**
@@ -15,7 +19,7 @@ import tran.nam.core.di.inject.PerActivity;
 @Module
 public abstract class BaseActivityModule {
 
-    static final String ACTIVITY_FRAGMENT_MANAGER = "BaseActivityModule.activityFragmentManager";
+    public static final String ACTIVITY_FRAGMENT_MANAGER = "BaseActivityModule.activityFragmentManager";
 
     @Binds
     @PerActivity
@@ -29,4 +33,11 @@ public abstract class BaseActivityModule {
      * at what is being provided in order to understand its scope.
      */
     abstract Context activityContext(AppCompatActivity activity);
+
+    @Provides
+    @Named(ACTIVITY_FRAGMENT_MANAGER)
+    @PerActivity
+    static FragmentManager activityFragmentManager(AppCompatActivity activity) {
+        return activity.getSupportFragmentManager();
+    }
 }

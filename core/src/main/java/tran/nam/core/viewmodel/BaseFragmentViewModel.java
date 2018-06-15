@@ -17,23 +17,15 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import nam.tran.domain.entity.state.Resource;
 
-public class BaseFragmentViewModel<V extends IViewModel,T> extends AndroidViewModel implements LifecycleObserver {
+public class BaseFragmentViewModel<V extends IViewModel> extends AndroidViewModel implements LifecycleObserver {
 
     @Nullable
     private volatile WeakReference<V> mViewWeakReference;
 
     private CompositeDisposable compositeDisposables;
 
-    protected MutableLiveData<Resource<T>> results;
-
     public BaseFragmentViewModel(@NonNull Application application) {
         super(application);
-    }
-
-    public Resource<T> getResource(){
-        if (results == null)
-            return null;
-        return results.getValue();
     }
 
     @Nullable

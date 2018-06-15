@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Architechture</string>
-
-    <string name="unknown_error">"Unknown Error</string>
+    <string name="activity_with_fragment_test">Activity With Fragment Test</string>
+    <string name="finish">Finish</string>
 </resources>

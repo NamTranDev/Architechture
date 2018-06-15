@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="nam.tran.domain.entity.state.Resource"/>
         <variable
             name="viewModel"
-            type="tran.nam.core.viewmodel.BaseFragmentViewModel"/>
+            type="nam.tran.architechture.view.season.viewmodel.SoccerSeasonViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -19,13 +18,13 @@
             android:id="@+id/rv_soccer_season"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:visibleView="@{viewModel.getResource()}"/>
+            app:visibleView="@{viewModel}"/>
 
         <include
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             layout="@layout/loading_state"
-            app:resource="@{viewModel.getResource()}"
+            app:iProgress="@{viewModel}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

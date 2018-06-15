@@ -34,6 +34,7 @@ import tran.nam.core.view.BaseActivity;
 import tran.nam.core.viewmodel.BaseActivityViewModel;
 import tran.nam.core.viewmodel.IViewModel;
 
+@SuppressWarnings("unchecked")
 public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends BaseActivityViewModel> extends BaseActivity implements IViewModel{
 
     @Inject
@@ -46,6 +47,12 @@ public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends Bas
     @Override
     protected void initLayout() {
         mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        if (mViewModel != null)
+            mViewModel.onCreated(this);
     }
 
     @Override

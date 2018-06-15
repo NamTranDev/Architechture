@@ -8,9 +8,18 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
-import nam.tran.architechture.application.view.AppState;
-import nam.tran.architechture.application.view.main.MainActivity;
-import nam.tran.architechture.di.module.activity.MainActivityModule;
+import nam.tran.architechture.test.activity.baseActivity.TestActivityBase;
+import nam.tran.architechture.test.activity.baseActivity.module.TestActivityBaseModule;
+import nam.tran.architechture.test.activity.mvvm.TestActivityMvvm;
+import nam.tran.architechture.test.activity.mvvm.module.TestActivityMvvmActivityModule;
+import nam.tran.architechture.test.activity.mvvm.viewmodel.TestActivityMvvmViewModel;
+import nam.tran.architechture.test.activity.mvvmWithFragment.TestActivityMvvmWithFM;
+import nam.tran.architechture.test.activity.mvvmWithFragment.module.TestActivityMvvmWithFmActivityModule;
+import nam.tran.architechture.test.activity.withFragment.TestActivityWithFragment;
+import nam.tran.architechture.test.activity.withFragment.module.TestActivityWithFragmentModule;
+import nam.tran.architechture.view.AppState;
+import nam.tran.architechture.view.main.MainActivity;
+import nam.tran.architechture.view.main.module.MainActivityModule;
 import nam.tran.domain.di.DataModule;
 import tran.nam.core.di.inject.PerActivity;
 
@@ -44,4 +53,36 @@ public abstract class AppModule {
     @PerActivity
     @ContributesAndroidInjector(modules = MainActivityModule.class)
     abstract MainActivity splashActivityInjector();
+
+    /**
+     * Provides the injector for the {@link MainActivityModule}, which has access to the dependencies
+     * provided by this application instance (singleton scoped objects).
+     */
+    @PerActivity
+    @ContributesAndroidInjector(modules = TestActivityBaseModule.class)
+    abstract TestActivityBase testActivityBaseActivityInjector();
+
+    /**
+     * Provides the injector for the {@link TestActivityWithFragmentModule}, which has access to the dependencies
+     * provided by this application instance (singleton scoped objects).
+     */
+    @PerActivity
+    @ContributesAndroidInjector(modules = TestActivityWithFragmentModule.class)
+    abstract TestActivityWithFragment testActivityWithFragmentInjector();
+
+    /**
+     * Provides the injector for the {@link TestActivityMvvmActivityModule}, which has access to the dependencies
+     * provided by this application instance (singleton scoped objects).
+     */
+    @PerActivity
+    @ContributesAndroidInjector(modules = TestActivityMvvmActivityModule.class)
+    abstract TestActivityMvvm testActivityMvvmInjector();
+
+    /**
+     * Provides the injector for the {@link TestActivityMvvmWithFmActivityModule}, which has access to the dependencies
+     * provided by this application instance (singleton scoped objects).
+     */
+    @PerActivity
+    @ContributesAndroidInjector(modules = TestActivityMvvmWithFmActivityModule.class)
+    abstract TestActivityMvvmWithFM testActivityMvvmWithFMInjector();
 }

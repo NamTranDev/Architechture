@@ -10,7 +10,7 @@ public class Navigator {
         activity.overridePendingTransition(tran.nam.core.R.anim.slide_in_left, tran.nam.core.R.anim.slide_out_right);
     }
 
-    private void animationTransition(BaseActivity activity) {
+    protected void animationTransition(BaseActivity activity) {
         activity.overridePendingTransition(tran.nam.core.R.anim.slide_in_right, tran.nam.core.R.anim.slide_out_left);
     }
 

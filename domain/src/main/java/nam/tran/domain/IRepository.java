@@ -12,5 +12,5 @@ public interface IRepository {
 
     LiveData<Resource<List<SoccerSeasonEntity>>> getListSeason();
 
-    LiveData<Resource<List<TeamEntity>>> getListTeam(int idSeason);
+    LiveData<Resource<List<TeamEntity>>> getListTeam(int idSeason,int type);
 }

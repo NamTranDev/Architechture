@@ -3,7 +3,7 @@ package nam.tran.architechture.mapper;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import nam.tran.architechture.application.model.PreferenceModel;
+import nam.tran.architechture.model.PreferenceModel;
 import nam.tran.domain.entity.PreferenceEntity;
 
 @SuppressWarnings({"FieldCanBeLocal", "unused"})

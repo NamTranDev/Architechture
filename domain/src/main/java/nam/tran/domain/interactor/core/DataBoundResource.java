@@ -57,7 +57,7 @@ public abstract class DataBoundResource<ResultType, RequestType> {
             if (shouldFetch(data)) {
                 fetchFromNetwork(dbSource);
             } else {
-                result.addSource(dbSource, newData -> setValue(Resource.success(newData)));
+                result.addSource(dbSource, newData -> setValue(Resource.success(newData, statusLoading())));
             }
         });
     }
@@ -85,13 +85,13 @@ public abstract class DataBoundResource<ResultType, RequestType> {
                             // otherwise we will get immediately last cached value,
                             // which may not be updated with latest results received from network.
                             result.addSource(loadFromDb(),
-                                    newData -> setValue(Resource.success(newData)))
+                                    newData -> setValue(Resource.success(newData, statusLoading())))
                     );
                 });
             } else {
                 onFetchFailed();
                 result.addSource(dbSource,
-                        newData -> setValue(Resource.error(response.errorMessage, newData)));
+                        newData -> setValue(Resource.error(response.errorMessage, newData, statusLoading())));
             }
         });
     }

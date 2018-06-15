@@ -74,12 +74,6 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initView(savedInstanceState);
-    }
-
-    @Override
     public void onDestroy() {
         this.mViewDataBinding.unbind();
         super.onDestroy();

@@ -21,6 +21,8 @@ import nam.tran.flatform.core.ApiResponse;
 import nam.tran.flatform.database.DbProvider;
 import nam.tran.flatform.local.IPreference;
 import nam.tran.flatform.model.response.session.SoccerSeason;
+import nam.tran.flatform.model.response.team.ListTeamResponse;
+import nam.tran.flatform.model.response.team.Team;
 
 import static nam.tran.domain.entity.state.Loading.LOADING_NORMAL;
 
@@ -85,7 +87,47 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public LiveData<Resource<List<TeamEntity>>> getListTeam(int idSeason) {
-        return null;
+    public LiveData<Resource<List<TeamEntity>>> getListTeam(int idSeason, int type) {
+        return new DataBoundResource<List<TeamEntity>, ListTeamResponse>(appExecutors) {
+            @Override
+            protected void saveCallResult(@NonNull ListTeamResponse item) {
+                for (Team team : item.getTeams()){
+                    team.idSeason = idSeason;
+                }
+                dbProvider.beginTransaction();
+                try {
+                    dbProvider.teamDao().insert(item.getTeams());
+                    dbProvider.setTransactionSuccessful();
+                } finally {
+                    dbProvider.endTransaction();
+                }
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable List<TeamEntity> data) {
+                return data == null || data.isEmpty();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<List<TeamEntity>> loadFromDb() {
+                return Transformations.switchMap(dbProvider.teamDao().fetchTeams(idSeason), input -> {
+                    MutableLiveData<List<TeamEntity>> data = new MutableLiveData<>();
+                    data.setValue(dataEntityMapper.mTeamEntityDataMapper.transform(input));
+                    return data;
+                });
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<ListTeamResponse>> createCall() {
+                return iApi.getListTeam(idSeason);
+            }
+
+            @Override
+            protected int statusLoading() {
+                return type;
+            }
+        }.asLiveData();
     }
 }

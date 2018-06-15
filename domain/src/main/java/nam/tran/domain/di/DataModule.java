@@ -8,6 +8,8 @@ import nam.tran.domain.IRepository;
 import nam.tran.domain.Repository;
 import nam.tran.domain.executor.AppSchedulerProvider;
 import nam.tran.domain.executor.SchedulerProvider;
+import nam.tran.domain.interactor.TeamUseCase;
+import nam.tran.domain.interactor.usecase.ITeamUseCase;
 import nam.tran.flatform.di.PreferenceModule;
 import nam.tran.domain.interactor.SoccerSeasonUseCase;
 import nam.tran.domain.interactor.usecase.ISoccerSeasonUseCase;
@@ -30,4 +32,8 @@ public abstract class DataModule {
     @Binds
     @Singleton
     abstract ISoccerSeasonUseCase provideSoccerUseCase(SoccerSeasonUseCase soccerSeasonUseCase);
+
+    @Binds
+    @Singleton
+    abstract ITeamUseCase provideTeamUseCase(TeamUseCase teamUseCase);
 }

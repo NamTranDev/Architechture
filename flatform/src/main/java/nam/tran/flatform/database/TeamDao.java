@@ -19,6 +19,6 @@ public interface TeamDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<Team> teams);
 
-    @Query("SELECT * FROM team WHERE idSeason = :idSeason")
+    @Query("SELECT * FROM Team WHERE idSeason = :idSeason")
     LiveData<List<Team>> fetchTeams(int idSeason);
 }

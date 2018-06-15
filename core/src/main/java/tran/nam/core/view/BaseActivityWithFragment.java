@@ -38,7 +38,7 @@ public abstract class BaseActivityWithFragment extends BaseActivity implements H
 
     @Override
     public FragmentManager fragmentManager() {
-        return getSupportFragmentManager();
+        return fragmentManager;
     }
 
     @Override

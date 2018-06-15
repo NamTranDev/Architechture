@@ -24,6 +24,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +33,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.HasSupportFragmentInjector;
 import tran.nam.core.R;
+import tran.nam.core.di.module.BaseFragmentModule;
 
 /**
  * Abstract Fragment for all Fragments and child Fragments to extend. This contains some boilerplate
@@ -63,16 +66,42 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
     private boolean mViewDestroyed = false;
     private WaitThread mWaitThread;
 
+    /**
+     * A reference to the activity Context is injected and used instead of the getter method. This
+     * enables ease of mocking and verification in tests (in case Activity needs testing).
+     * More importantly, the getter method (getContext()) is not available for API level below 23.
+     * We could use getActivity() though since that is available since API 11. However, exposing the
+     * Activity reference is less safe than just exposing the Context since a lot more can be done
+     * with the Activity reference.
+     */
+    @Inject
+    protected Context activityContext;
+
+    /**
+     * A reference to the FragmentManager is injected and used instead of the getter method. This
+     * enables ease of mocking and verification in tests (in case Fragment needs testing).
+     *
+     * For more details, see https://github.com/vestrel00/android-dagger-butterknife-mvp/pull/52
+     */
+    // Note that this should not be used within a child fragment.
+    @Inject
+    @Named(BaseFragmentModule.CHILD_FRAGMENT_MANAGER)
+    protected FragmentManager childFragmentManager;
+
     @Inject
     DispatchingAndroidInjector<Fragment> childFragmentInjector;
 
     /**
      * @return layout resource id
      */
-    public abstract @LayoutRes
-    int getLayoutId();
+    public abstract @LayoutRes int getLayoutId();
 
     protected abstract void initView(Bundle savedInstanceState);
+
+    /*
+     * Init Fragment Helper
+     **/
+    protected void initFragment() {}
 
     @Override
     public void onAttach(Activity activity) {
@@ -99,7 +128,9 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
     }
 
     public View initLayout(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        return inflater.inflate(getLayoutId(), container, false);
+        View view = inflater.inflate(getLayoutId(), container, false);
+        initFragment();
+        return view;
     }
 
     protected BaseActivityWithFragment getBaseActivity() {
@@ -181,6 +212,12 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
             });
         }
         return animation;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initView(savedInstanceState);
     }
 
     @Override

@@ -17,23 +17,15 @@ import io.reactivex.disposables.Disposable;
 import nam.tran.domain.entity.state.Resource;
 
 @SuppressWarnings("unused")
-public abstract class BaseActivityViewModel<V extends IViewModel,T> extends AndroidViewModel implements LifecycleObserver {
+public abstract class BaseActivityViewModel<V extends IViewModel> extends AndroidViewModel implements LifecycleObserver {
 
     @Nullable
     private volatile WeakReference<V> mViewWeakReference;
-
-    protected MutableLiveData<Resource<T>> results;
 
     private CompositeDisposable compositeDisposables;
 
     public BaseActivityViewModel(@NonNull Application application) {
         super(application);
-    }
-
-    public Resource<T> getResource(){
-        if (results == null)
-            return null;
-        return results.getValue();
     }
 
     @Nullable
