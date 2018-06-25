@@ -16,15 +16,12 @@
 
 package tran.nam.core.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,15 +29,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.AndroidSupportInjection;
-import dagger.android.support.HasSupportFragmentInjector;
 import tran.nam.core.R;
-import tran.nam.core.di.module.BaseFragmentModule;
 
 /**
  * Abstract Fragment for all Fragments and child Fragments to extend. This contains some boilerplate
@@ -55,7 +44,7 @@ import tran.nam.core.di.module.BaseFragmentModule;
  * This fragment handles view bind and unbinding.
  */
 @SuppressWarnings({"deprecation", "unused"})
-public abstract class BaseFragment extends Fragment implements HasSupportFragmentInjector {
+public abstract class BaseFragment extends Fragment {
 
     protected boolean mIsCurrentScreen;
     private boolean mIsInLeft;
@@ -67,86 +56,35 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
     private WaitThread mWaitThread;
 
     /**
-     * A reference to the activity Context is injected and used instead of the getter method. This
-     * enables ease of mocking and verification in tests (in case Activity needs testing).
-     * More importantly, the getter method (getContext()) is not available for API level below 23.
-     * We could use getActivity() though since that is available since API 11. However, exposing the
-     * Activity reference is less safe than just exposing the Context since a lot more can be done
-     * with the Activity reference.
-     */
-    @Inject
-    protected Context activityContext;
-
-    /**
-     * A reference to the FragmentManager is injected and used instead of the getter method. This
-     * enables ease of mocking and verification in tests (in case Fragment needs testing).
-     *
-     * For more details, see https://github.com/vestrel00/android-dagger-butterknife-mvp/pull/52
-     */
-    // Note that this should not be used within a child fragment.
-    @Inject
-    @Named(BaseFragmentModule.CHILD_FRAGMENT_MANAGER)
-    protected FragmentManager childFragmentManager;
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> childFragmentInjector;
-
-    /**
      * @return layout resource id
      */
-    public abstract @LayoutRes int getLayoutId();
-
-    protected abstract void initView(Bundle savedInstanceState);
+    public abstract @LayoutRes
+    int getLayoutId();
 
     /*
-     * Init Fragment Helper
+     * Init Child Fragment Helper
      **/
-    protected void initFragment() {}
-
-    @Override
-    public void onAttach(Activity activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            // Perform injection here before M, L (API 22) and below because onAttach(Context)
-            // is not yet available at L.
-            AndroidSupportInjection.inject(this);
-        }
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // Perform injection here for M (API 23) due to deprecation of onAttach(Activity).
-            AndroidSupportInjection.inject(this);
-        }
-        super.onAttach(context);
-    }
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return childFragmentInjector;
-    }
+    protected void initChildFragment() {}
 
     public View initLayout(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        View view = inflater.inflate(getLayoutId(), container, false);
-        initFragment();
-        return view;
+        return inflater.inflate(getLayoutId(), container, false);
     }
 
-    protected BaseActivityWithFragment getBaseActivity() {
-        return ((BaseActivityWithFragment) getActivity());
+    protected BaseActivity activity() {
+        return ((BaseActivity) getActivity());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return initLayout(inflater, container);
+        View view = initLayout(inflater,container);
+        initChildFragment();
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         onVisible();
         mViewCreated = true;
         mViewDestroyed = false;
@@ -154,42 +92,50 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
             mWaitThread.continueProcessing();
     }
 
+    protected boolean isHaveAnimation(){
+        return true;
+    }
+
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         Animation animation;
-        if (mIsCurrentScreen) {
-            int popExit = getPopExitAnimId();
-            int pushEnter = getPushEnterAnimId();
-            int pushExit = getPushExitAnimId();
-            int popEnter = getPopEnterAnimId();
-            if (mIsPush)
-                animation = AnimationUtils.loadAnimation(getBaseActivity(), enter ? pushEnter : pushExit);
-            else
-                animation = AnimationUtils.loadAnimation(getBaseActivity(), enter ? popEnter : popExit);
-        } else {
-            if (enter) {
-                int left = getLeftInAnimId();
-                int right = getRightInAnimId();
-                if (mIsInLeft) {
-                    if (left == 0) {
-                        animation = new AlphaAnimation(1, 1);
-                        animation.setDuration(getResources().getInteger(R.integer.animation_time_full));
+        if (isHaveAnimation()){
+            if (mIsCurrentScreen) {
+                int popExit = getPopExitAnimId();
+                int pushEnter = getPushEnterAnimId();
+                int pushExit = getPushExitAnimId();
+                int popEnter = getPopEnterAnimId();
+                if (mIsPush)
+                    animation = AnimationUtils.loadAnimation(activity(), enter ? pushEnter : pushExit);
+                else
+                    animation = AnimationUtils.loadAnimation(activity(), enter ? popEnter : popExit);
+            } else {
+                if (enter) {
+                    int left = getLeftInAnimId();
+                    int right = getRightInAnimId();
+                    if (mIsInLeft) {
+                        if (left == 0) {
+                            animation = new AlphaAnimation(1, 1);
+                            animation.setDuration(getResources().getInteger(R.integer.animation_time_full));
+                        } else {
+                            animation = AnimationUtils.loadAnimation(activity(), left);
+                        }
                     } else {
-                        animation = AnimationUtils.loadAnimation(getBaseActivity(), left);
+                        if (right == 0) {
+                            animation = new AlphaAnimation(1, 1);
+                            animation.setDuration(getResources().getInteger(R.integer.animation_time_full));
+                        } else {
+                            animation = AnimationUtils.loadAnimation(activity(), right);
+                        }
                     }
                 } else {
-                    if (right == 0) {
-                        animation = new AlphaAnimation(1, 1);
-                        animation.setDuration(getResources().getInteger(R.integer.animation_time_full));
-                    } else {
-                        animation = AnimationUtils.loadAnimation(getBaseActivity(), right);
-                    }
+                    int left = getLeftOutAnimId();
+                    int right = getRightOutAnimId();
+                    animation = AnimationUtils.loadAnimation(activity(), mIsOutLeft ? left : right);
                 }
-            } else {
-                int left = getLeftOutAnimId();
-                int right = getRightOutAnimId();
-                animation = AnimationUtils.loadAnimation(getBaseActivity(), mIsOutLeft ? left : right);
             }
+        }else {
+            animation = AnimationUtils.loadAnimation(getContext(), R.anim.no_anim);
         }
 
         if (enter) {
@@ -215,12 +161,6 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initView(savedInstanceState);
-    }
-
-    @Override
     public void onDestroyView() {
         // This lifecycle method still gets called even if onCreateView returns a null view.
         mViewDestroyed = true;
@@ -231,40 +171,25 @@ public abstract class BaseFragment extends Fragment implements HasSupportFragmen
         super.onDestroyView();
     }
 
-    protected void addFragment(BaseFragment fragment) {
-        if (getActivity() != null && getActivity() instanceof BaseActivityWithFragment && !getActivity().isFinishing())
-            ((BaseActivityWithFragment) getActivity()).addFragment(fragment);
-    }
-
-    protected void showFragment(int position) {
-        if (getActivity() != null && getActivity() instanceof BaseActivityWithFragment && !getActivity().isFinishing())
-            ((BaseActivityWithFragment) getActivity()).showFragment(position);
-    }
-
-    protected void replaceFragment(BaseFragment fragment) {
-        if (getActivity() != null && getActivity() instanceof BaseActivityWithFragment && !getActivity().isFinishing())
-            ((BaseActivityWithFragment) getActivity()).replaceFragment(fragment);
-    }
-
     protected void showLoadingDialog() {
-        if (getActivity() != null && getActivity() instanceof BaseActivityWithFragment && !getActivity().isFinishing())
+        if (getActivity() != null && getActivity() instanceof BaseActivity && !getActivity().isFinishing())
             ((BaseActivity) getActivity()).showLoadingDialog();
     }
 
     protected void hideLoadingDialog() {
-        if (getActivity() != null && getActivity() instanceof BaseActivityWithFragment && !getActivity().isFinishing())
+        if (getActivity() != null && getActivity() instanceof BaseActivity && !getActivity().isFinishing())
             ((BaseActivity) getActivity()).hideLoadingDialog();
     }
 
     protected void showKeyboard() {
-        if (getBaseActivity() != null && getBaseActivity() instanceof BaseActivityWithFragment && !getBaseActivity().isFinishing()) {
-            getBaseActivity().showKeyboard();
+        if (activity() != null && !activity().isFinishing()) {
+            activity().showKeyboard();
         }
     }
 
     protected void hideKeyboard() {
-        if (getBaseActivity() != null && getBaseActivity() instanceof BaseActivity && !getBaseActivity().isFinishing())
-            getBaseActivity().hideKeyboard();
+        if (activity() != null && !activity().isFinishing())
+            activity().hideKeyboard();
     }
 
     public String getTagName() {

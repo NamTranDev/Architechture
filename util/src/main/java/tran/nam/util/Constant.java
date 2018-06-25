@@ -26,7 +26,7 @@ public interface Constant {
 
     @SuppressWarnings("unused")
     interface REQUEST_CODE{
-
+        int TARGET_FRAGMENT = 123;
     }
 
     interface KEY_INTENT{
@@ -34,7 +34,8 @@ public interface Constant {
     }
 
     interface KEY_ARGUMENT{
-
+        String LIST_TEAM_DATA = "List Team Data";
+        String TEAM_DATA = "Team Data";
     }
 
     interface KEY_INTENT_RESULT{

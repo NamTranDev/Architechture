@@ -3,11 +3,21 @@ package nam.tran.architechture.view.main;
 import android.os.Bundle;
 
 import nam.tran.architechture.R;
-import nam.tran.architechture.view.season.SoccerSeasonFragment;
-import tran.nam.core.view.BaseActivityWithFragment;
-import tran.nam.core.view.BaseFragment;
+import nam.tran.architechture.view.NavigatorApp;
+import tran.nam.core.view.BaseActivityInjection;
 
-public class MainActivity extends BaseActivityWithFragment {
+import android.databinding.DataBindingUtil;
+
+import javax.inject.Inject;
+
+import nam.tran.architechture.databinding.ActivityMainBinding;
+
+public class MainActivity extends BaseActivityInjection {
+
+    @Inject
+    NavigatorApp mNavigatorApp;
+
+    private ActivityMainBinding mViewDataBinding;
 
     @Override
     public int getLayoutId() {
@@ -15,13 +25,9 @@ public class MainActivity extends BaseActivityWithFragment {
     }
 
     @Override
-    protected void setStatusBar() {
-
-    }
-
-    @Override
     public void initView(Bundle savedInstanceState) {
-
+        mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
+        mViewDataBinding.setView(this);
     }
 
     @Override
@@ -29,13 +35,11 @@ public class MainActivity extends BaseActivityWithFragment {
 
     }
 
-    @Override
-    public BaseFragment[] getFragments() {
-        return new BaseFragment[]{SoccerSeasonFragment.getInstance()};
+    public void onActivityClick(){
+        mNavigatorApp.goToTestTempleteActivity(this);
     }
 
-    @Override
-    public int getContentLayoutId() {
-        return R.id.main_contain;
+    public void onFragmentClick(){
+        mNavigatorApp.goToTestFragmentTemplete(this);
     }
 }

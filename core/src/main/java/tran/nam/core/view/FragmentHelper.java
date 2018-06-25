@@ -5,14 +5,15 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 import javax.inject.Inject;
 
 import tran.nam.core.di.inject.PerActivity;
+import tran.nam.util.Constant;
 
 @SuppressWarnings({"unused", "UnusedAssignment"})
-@PerActivity
 public class FragmentHelper<T extends BaseFragment> {
 
     private List<Stack<T>> mPageList;
@@ -35,7 +36,7 @@ public class FragmentHelper<T extends BaseFragment> {
         this.mBuildFragments = fragmentProvider.getFragments();
         this.mFragmentManager = fragmentProvider.fragmentManager();
 
-        initFragments(mBuildFragments);
+        initFragments(Objects.requireNonNull(mBuildFragments));
     }
 
     public void setOnChangedFragmentListener(OnChangedFragmentListener mOnChangedFragmentListener) {
@@ -100,10 +101,16 @@ public class FragmentHelper<T extends BaseFragment> {
         popFragment(level);
     }
 
-    private boolean popFragment(int level) {
+    protected boolean popFragment(int level) {
         if (level <= 0) return false;
+        T parentFragment = mPageList.get(mPageIndex).peek();
+        if (parentFragment instanceof IParentFragmentListener && ((IParentFragmentListener)parentFragment).popChildFragment(level)){
+            return true;
+        }
         if (mPageList.get(mPageIndex).size() <= level) return false;
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
+
+        boolean isParentFragment = false;
 
         while (level >= 1) {
             T fragment = mPageList.get(mPageIndex).pop();

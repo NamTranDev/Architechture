@@ -1,23 +1,15 @@
 package tran.nam.core.view;
 
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
-
 @SuppressWarnings("unused")
-public abstract class BaseActivityWithFragment extends BaseActivity implements HasSupportFragmentInjector, IFragmentProvider {
+public abstract class BaseActivityWithFragment extends BaseActivityInjection implements IFragmentProvider {
 
     @Inject
     public FragmentHelper<BaseFragment> mFragmentHelper;
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     protected void addFragment(BaseFragment fragment) {
         mFragmentHelper.pushFragment(fragment);
@@ -41,12 +33,14 @@ public abstract class BaseActivityWithFragment extends BaseActivity implements H
         return fragmentManager;
     }
 
-    @Override
-    public final AndroidInjector<Fragment> supportFragmentInjector() {
-        return fragmentInjector;
-    }
-
     protected void popToRoot() {
         mFragmentHelper.popFragmentToRoot();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mFragmentHelper.popFragment()) {
+            mNavigator.finish(this);
+        }
     }
 }

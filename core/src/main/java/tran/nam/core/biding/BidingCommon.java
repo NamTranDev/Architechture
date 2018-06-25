@@ -1,6 +1,8 @@
 package tran.nam.core.biding;
 
+import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -9,6 +11,9 @@ import nam.tran.domain.entity.state.Loading;
 import nam.tran.domain.entity.state.Resource;
 import nam.tran.domain.entity.state.Status;
 import tran.nam.core.R;
+import tran.nam.core.view.BaseActivityWithFragment;
+import tran.nam.core.view.BaseParentFragment;
+import tran.nam.core.view.FragmentHelper;
 import tran.nam.core.viewmodel.IProgressViewModel;
 import tran.nam.core.viewmodel.IViewModel;
 
@@ -24,9 +29,7 @@ public class BidingCommon {
                 switch (resource.loading) {
                     case Loading.LOADING_DIALOG:
                         view.setVisibility(View.GONE);
-                        if (view.getContext() instanceof IViewModel){
-                            ((IViewModel) view.getContext()).onShowDialogError(resource.message);
-                        }
+                        dialogError(view,resource.message);
                         break;
                     case Loading.LOADING_NONE:
                         Toast.makeText(view.getContext(),resource.message,Toast.LENGTH_SHORT).show();
@@ -38,9 +41,7 @@ public class BidingCommon {
             case Status.LOADING:
                 switch (resource.loading) {
                     case Loading.LOADING_DIALOG:
-                        if (view.getContext() instanceof IViewModel){
-                            ((IViewModel) view.getContext()).showDialogLoading();
-                        }
+                        loadingDialog(view,true);
                         break;
                     case Loading.LOADING_NONE:
                         break;
@@ -52,9 +53,7 @@ public class BidingCommon {
             case Status.SUCCESS:
                 switch (resource.loading) {
                     case Loading.LOADING_DIALOG:
-                        if (view.getContext() instanceof IViewModel){
-                            ((IViewModel) view.getContext()).hideDialogLoading();
-                        }
+                        loadingDialog(view,false);
                         break;
                     case Loading.LOADING_NONE:
                         break;
@@ -151,10 +150,61 @@ public class BidingCommon {
     @BindingAdapter("textError")
     public static void textError(TextView text,IProgressViewModel iProgress){
         Resource resource = iProgress.getResource();
-        text.setText(text.getContext().getString(R.string.unknown_error));
         if (resource == null)
             return;
+        switch (resource.status) {
+            case Status.ERROR:
+                text.setText(resource.message);
+                break;
+            case Status.LOADING:
+            case Status.SUCCESS:
+                break;
+        }
+    }
 
-        text.setText(resource.message);
+    private static void loadingDialog(View view,Boolean isShow){
+        Context context = view.getContext();
+        if (context instanceof IViewModel){
+            if (isShow){
+                ((IViewModel)context).showDialogLoading();
+            }else {
+                ((IViewModel)context).hideDialogLoading();
+            }
+        }else {
+            if (context instanceof BaseActivityWithFragment){
+                FragmentHelper fragmentHelper = ((BaseActivityWithFragment)context).mFragmentHelper;
+                Fragment fragment = fragmentHelper.getCurrentFragment();
+                if (fragment != null && fragment instanceof BaseParentFragment){
+                    FragmentHelper fragmentHelperChild = ((BaseParentFragment)fragment).mChildFragmentHelper;
+                    Fragment childFragment = fragmentHelperChild.getCurrentFragment();
+                    if (childFragment instanceof IViewModel){
+                        if (isShow){
+                            ((IViewModel)childFragment).showDialogLoading();
+                        }else {
+                            ((IViewModel)childFragment).hideDialogLoading();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void dialogError(View view,String error){
+        Context context = view.getContext();
+        if (context instanceof IViewModel){
+            ((IViewModel)context).onShowDialogError(error);
+        }else {
+            if (context instanceof BaseActivityWithFragment){
+                FragmentHelper fragmentHelper = ((BaseActivityWithFragment)context).mFragmentHelper;
+                Fragment fragment = fragmentHelper.getCurrentFragment();
+                if (fragment != null && fragment instanceof BaseParentFragment){
+                    FragmentHelper fragmentHelperChild = ((BaseParentFragment)fragment).mChildFragmentHelper;
+                    Fragment childFragment = fragmentHelperChild.getCurrentFragment();
+                    if (childFragment instanceof IViewModel){
+                        ((IViewModel)childFragment).onShowDialogError(error);
+                    }
+                }
+            }
+        }
     }
 }

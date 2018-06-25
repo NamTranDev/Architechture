@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="nam.tran.architechture.view.season.viewmodel.SoccerSeasonViewModel"/>
+            type="nam.tran.architechture.view.main.activity.season.viewmodel.SoccerSeasonViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

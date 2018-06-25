@@ -16,8 +16,11 @@
 
 package tran.nam.core.di.module;
 
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+
+import java.util.Objects;
 
 import javax.inject.Named;
 
@@ -43,6 +46,9 @@ public abstract class BaseFragmentModule {
     @Named(CHILD_FRAGMENT_MANAGER)
     @PerFragment
     static FragmentManager childFragmentManager(@Named(FRAGMENT) Fragment fragment) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+//            return Objects.requireNonNull(fragment.getActivity()).getSupportFragmentManager();
+//        }
         return fragment.getChildFragmentManager();
     }
 }

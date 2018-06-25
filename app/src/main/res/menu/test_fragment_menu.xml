@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/base_fragment"
+        android:title="Base Fragment"/>
+
+    <item android:id="@+id/fragment_mvvm"
+        android:title="Mvvm Fragment"/>
+
+    <item android:id="@+id/parent_fragment"
+        android:title="Parent Fragment"/>
+
+</menu>

@@ -32,11 +32,12 @@ import javax.inject.Inject;
 
 import tran.nam.common.AutoClearedValue;
 import tran.nam.core.view.BaseFragment;
+import tran.nam.core.view.BaseFragmentInjection;
 import tran.nam.core.viewmodel.BaseFragmentViewModel;
 import tran.nam.core.viewmodel.IViewModel;
 
 @SuppressWarnings("unchecked")
-public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends BaseFragmentViewModel> extends BaseFragment implements IViewModel {
+public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends BaseFragmentViewModel> extends BaseFragmentInjection implements IViewModel {
 
     /**
      * MVVM ViewModel ViewModelProvider.Factory
@@ -91,6 +92,7 @@ public abstract class BaseFragmentMVVM<V extends ViewDataBinding, VM extends Bas
 
     @Override
     public void onShowDialogError(String message) {
-        Toast.makeText(getBaseActivity(),"Error Dialog",Toast.LENGTH_SHORT).show();
+        hideDialogLoading();
+        Toast.makeText(activity(),"Error Dialog",Toast.LENGTH_SHORT).show();
     }
 }

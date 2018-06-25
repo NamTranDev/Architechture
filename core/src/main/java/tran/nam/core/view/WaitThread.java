@@ -31,7 +31,7 @@ public class WaitThread extends Thread {
 
             final BaseFragment finalFragment = fragmentWeak.get();
             if (finalFragment != null) {
-                finalFragment.getBaseActivity().runOnUiThread(() -> {
+                finalFragment.activity().runOnUiThread(() -> {
                     if (finalFragment.isInitialized())
                         finalFragment.initialized();
                     else

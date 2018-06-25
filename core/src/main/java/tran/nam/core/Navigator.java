@@ -1,9 +1,14 @@
 package tran.nam.core;
 
+import javax.inject.Inject;
+
 import tran.nam.core.view.BaseActivity;
 
 @SuppressWarnings("unused")
 public class Navigator {
+
+    @Inject
+    public Navigator(){}
 
     public void finish(BaseActivity activity) {
         activity.finish();

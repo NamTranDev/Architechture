@@ -12,17 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".test.activity.baseActivity.TestActivityBase">
+        <activity android:name=".view.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".test.activity.withFragment.TestActivityWithFm" />
-        <activity android:name=".test.activity.withFragment.TestActivityWithFragment" />
-        <activity android:name=".test.activity.mvvm.TestActivityMvvm" />
-        <activity android:name=".test.activity.mvvmWithFragment.TestActivityMvvmWithFM" />
+        <activity android:name=".view.main.MainActivity" />
+        <activity android:name=".view.main.activity.TestTempleteActivity" />
+        <activity android:name=".view.main.activity.team.TeamActivity" />
+        <activity android:name=".view.main.fragment.TestFragmentTempleteActivity" />
     </application>
 
 </manifest>

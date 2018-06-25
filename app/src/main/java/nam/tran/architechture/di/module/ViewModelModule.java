@@ -6,9 +6,9 @@ import android.arch.lifecycle.ViewModelProvider;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
-import nam.tran.architechture.test.activity.mvvm.viewmodel.TestActivityMvvmViewModel;
-import nam.tran.architechture.test.activity.mvvmWithFragment.viewmodel.TestActivityMvvmWithFmViewModel;
-import nam.tran.architechture.view.season.viewmodel.SoccerSeasonViewModel;
+import nam.tran.architechture.view.main.activity.season.viewmodel.SoccerSeasonViewModel;
+import nam.tran.architechture.view.main.activity.team.viewmodel.TeamViewModel;
+import nam.tran.architechture.view.main.fragment.parent.season.viewmodel.SoccerSeasonChildViewModel;
 import tran.nam.core.di.ViewModelFactory;
 import tran.nam.core.di.inject.ViewModelKey;
 
@@ -22,15 +22,15 @@ public abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(SoccerSeasonViewModel.class)
-    abstract ViewModel bindFragmentSoccerSeasonViewModel(SoccerSeasonViewModel model);
+    abstract ViewModel bindSoccerSeasonViewModel(SoccerSeasonViewModel model);
 
     @Binds
     @IntoMap
-    @ViewModelKey(TestActivityMvvmViewModel.class)
-    abstract ViewModel bindTestActivityMvvmViewModel(TestActivityMvvmViewModel model);
+    @ViewModelKey(TeamViewModel.class)
+    abstract ViewModel bindTeamViewModel(TeamViewModel model);
 
     @Binds
     @IntoMap
-    @ViewModelKey(TestActivityMvvmWithFmViewModel.class)
-    abstract ViewModel bindTestActivityMvvmWithFmViewModel(TestActivityMvvmWithFmViewModel model);
+    @ViewModelKey(SoccerSeasonChildViewModel.class)
+    abstract ViewModel bindSoccerSeasonChildViewModel(SoccerSeasonChildViewModel model);
 }
