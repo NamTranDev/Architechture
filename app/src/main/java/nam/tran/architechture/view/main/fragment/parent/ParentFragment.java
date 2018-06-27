@@ -1,7 +1,5 @@
 package nam.tran.architechture.view.main.fragment.parent;
 
-import android.os.Bundle;
-
 import nam.tran.architechture.R;
 import nam.tran.architechture.view.main.fragment.parent.season.SoccerSeasonChildFragment;
 import tran.nam.core.view.BaseFragment;

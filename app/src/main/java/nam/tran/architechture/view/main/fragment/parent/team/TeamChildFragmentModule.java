@@ -6,7 +6,6 @@ import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
-import nam.tran.architechture.view.main.fragment.parent.season.SoccerSeasonChildFragment;
 import tran.nam.core.di.inject.PerChildFragment;
 import tran.nam.core.di.module.BaseChildFragmentModule;
 import tran.nam.core.di.module.BaseFragmentModule;

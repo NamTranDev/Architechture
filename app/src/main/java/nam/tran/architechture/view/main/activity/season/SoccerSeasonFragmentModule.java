@@ -7,7 +7,6 @@ import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
-import nam.tran.architechture.view.main.activity.season.SoccerSeasonFragment;
 import tran.nam.core.di.inject.PerFragment;
 import tran.nam.core.di.module.BaseFragmentModule;
 
