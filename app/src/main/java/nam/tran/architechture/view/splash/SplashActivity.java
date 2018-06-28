@@ -1,24 +1,19 @@
 package nam.tran.architechture.view.splash;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import nam.tran.architechture.R;
-import nam.tran.architechture.view.main.MainActivity;
-import tran.nam.core.view.BaseActivity;
-
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.os.Handler;
 
+import nam.tran.architechture.R;
 import nam.tran.architechture.databinding.ActivitySplashBinding;
+import tran.nam.core.view.BaseActivity;
 
 public class SplashActivity extends BaseActivity {
 
     private ActivitySplashBinding mViewDataBinding;
     private Handler handler;
     private Runnable runnable = () -> {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+
     };
 
     @Override
@@ -34,7 +29,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         handler = new Handler();
-        handler.postDelayed(runnable,3000);
+        handler.postDelayed(runnable, 3000);
     }
 
     @Override

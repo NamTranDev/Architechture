@@ -12,9 +12,9 @@ import javax.inject.Singleton;
 public class Preference implements IPreference {
 
     /**
-     * normal configurations
+     * Normal configurations
      */
-    private static final String SHARED_REFERENCE_NAME = "Alarm Timer Config";
+    private static final String SHARED_REFERENCE_NAME = "Config";
 
     private SharedPreferences mPref;
     private Application mApp;

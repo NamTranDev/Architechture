@@ -23,6 +23,7 @@ public interface Constant {
     };
     // No breaking space letter
     String NON_BREAKING_SPACE = "\u00A0";
+    String DB_NAME = ".db";
 
     @SuppressWarnings("unused")
     interface REQUEST_CODE{
