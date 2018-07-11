@@ -41,6 +41,7 @@ public abstract class BaseFragmentInjection<T extends Navigator> extends BaseFra
     @Named(BaseFragmentModule.CHILD_FRAGMENT_MANAGER)
     protected FragmentManager childFragmentManager;
 
+    @Inject
     protected T mNavigator;
 
     @Inject
