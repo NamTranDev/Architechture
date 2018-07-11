@@ -21,7 +21,9 @@ import ${applicationPackage}.databinding.Fragment${Name}Binding;
 import tran.nam.core.view.BaseFragment;
 import tran.nam.core.view.BaseParentFragment;
 
-public class ${fragmentName} extends BaseParentFragment{
+import ${packageName}.view.NavigatorApp;
+
+public class ${fragmentName} extends BaseParentFragment<NavigatorApp>{
 
     <#if hasBiding>
     private Fragment${Name}Binding mViewDataBinding;

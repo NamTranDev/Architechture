@@ -6,12 +6,14 @@ import android.os.Bundle;
 import ${packageName}.${funtionName}.viewmodel.I${Name}ViewModel;
 import ${packageName}.${funtionName}.viewmodel.${Name}ViewModel;
 
+import ${packageName}.view.NavigatorApp;
+
 import ${applicationPackage}.R;
 import ${applicationPackage}.databinding.Activity${Name}Binding;
 
 import tran.nam.core.view.mvvm.BaseActivityMVVM;
 
-public class ${activityName} extends BaseActivityMVVM<Activity${Name}Binding, ${Name}ViewModel> implements I${Name}ViewModel {
+public class ${activityName} extends BaseActivityMVVM<NavigatorApp,Activity${Name}Binding, ${Name}ViewModel> implements I${Name}ViewModel {
 
     @Override
     public int getLayoutId() {

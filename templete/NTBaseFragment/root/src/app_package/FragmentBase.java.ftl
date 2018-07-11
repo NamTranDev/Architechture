@@ -20,11 +20,12 @@ import ${applicationPackage}.databinding.Fragment${Name}Binding;
 
 <#if hasInject>
 import tran.nam.core.view.BaseFragmentInjection;
+import ${packageName}.view.NavigatorApp;
 <#else>
 import tran.nam.core.view.BaseFragment;
 </#if>
 
-public class ${fragmentName} extends <#if hasInject>BaseFragmentInjection<#else>BaseFragment</#if>{
+public class ${fragmentName} extends <#if hasInject>BaseFragmentInjection<NavigatorApp><#else>BaseFragment</#if>{
 
     <#if hasBiding>
     private Fragment${Name}Binding mViewDataBinding;

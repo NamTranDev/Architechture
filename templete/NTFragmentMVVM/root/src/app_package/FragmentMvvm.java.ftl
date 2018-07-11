@@ -13,8 +13,9 @@ import ${applicationPackage}.R;
 import ${applicationPackage}.databinding.Fragment${Name}Binding;
 
 import tran.nam.core.view.mvvm.BaseFragmentMVVM;
+import ${packageName}.view.NavigatorApp;
 
-public class ${fragmentName} extends BaseFragmentMVVM<Fragment${Name}Binding, ${Name}ViewModel> implements I${Name}ViewModel {
+public class ${fragmentName} extends BaseFragmentMVVM<NavigatorApp,Fragment${Name}Binding, ${Name}ViewModel> implements I${Name}ViewModel {
 
     public static ${fragmentName} getInstance() {
         <#if hasArgument>

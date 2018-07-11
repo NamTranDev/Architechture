@@ -6,12 +6,14 @@ import ${applicationPackage}.R;
 import tran.nam.core.view.BaseActivityWithFragment;
 import tran.nam.core.view.BaseFragment;
 
+import ${packageName}.view.NavigatorApp;
+
 <#if hasBiding>
 import android.databinding.DataBindingUtil;
 import ${applicationPackage}.databinding.Activity${Name}Binding;
 </#if>
 
-public class ${activityName} extends BaseActivityWithFragment {
+public class ${activityName} extends BaseActivityWithFragment<NavigatorApp> {
 
     <#if hasBiding>
     private Activity${Name}Binding mViewDataBinding;
