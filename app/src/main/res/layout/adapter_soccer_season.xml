@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="soccerSeason"
+            type="nam.tran.architechture.model.SoccerSeasonModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <tran.nam.core.widget.NTTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_caption"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:text="@{soccerSeason.caption}"
+            app:fontStyle="medium"/>
+
+        <tran.nam.core.widget.NTTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:id="@+id/tv_league"
+            android:textColor="@android:color/black"
+            android:text="@{soccerSeason.league}"
+            app:fontStyle="regular"
+            app:layout_constraintTop_toBottomOf="@+id/tv_caption"/>
+
+        <tran.nam.core.widget.NTTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textColor="@android:color/black"
+            android:text="@{soccerSeason.getNumberOfTeams()}"
+            app:fontStyle="thin"
+            app:layout_constraintTop_toBottomOf="@+id/tv_league"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
