@@ -12,10 +12,7 @@ import javax.inject.Inject;
 
 import nam.tran.architechture.databinding.ActivityMainBinding;
 
-public class MainActivity extends BaseActivityInjection {
-
-    @Inject
-    NavigatorApp mNavigatorApp;
+public class MainActivity extends BaseActivityInjection<NavigatorApp> {
 
     private ActivityMainBinding mViewDataBinding;
 
@@ -36,10 +33,10 @@ public class MainActivity extends BaseActivityInjection {
     }
 
     public void onActivityClick(){
-        mNavigatorApp.goToTestTempleteActivity(this);
+        mNavigator.goToTestTempleteActivity(this);
     }
 
     public void onFragmentClick(){
-        mNavigatorApp.goToTestFragmentTemplete(this);
+        mNavigator.goToTestFragmentTemplete(this);
     }
 }

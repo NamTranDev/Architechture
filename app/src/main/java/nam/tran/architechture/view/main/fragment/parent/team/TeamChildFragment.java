@@ -15,6 +15,7 @@ import java.util.List;
 import nam.tran.architechture.R;
 import nam.tran.architechture.databinding.FragmentTeamChildBinding;
 import nam.tran.architechture.model.TeamModel;
+import nam.tran.architechture.view.NavigatorApp;
 import nam.tran.architechture.view.main.fragment.parent.team.adapter.TeamChildAdapter;
 import nam.tran.architechture.view.main.fragment.parent.team.detail.TeamDetailFragment;
 import tran.nam.common.AutoClearedValue;
@@ -22,7 +23,7 @@ import tran.nam.core.biding.FragmentDataBindingComponent;
 import tran.nam.core.view.BaseFragmentInjection;
 import tran.nam.util.Constant;
 
-public class TeamChildFragment extends BaseFragmentInjection implements TeamChildAdapter.OnItemTeamChildListener {
+public class TeamChildFragment extends BaseFragmentInjection<NavigatorApp> implements TeamChildAdapter.OnItemTeamChildListener {
 
     private FragmentTeamChildBinding mViewDataBinding;
     private AutoClearedValue<FragmentTeamChildBinding> binding;

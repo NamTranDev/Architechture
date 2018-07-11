@@ -1,11 +1,12 @@
 package nam.tran.architechture.view.main.fragment.parent;
 
 import nam.tran.architechture.R;
+import nam.tran.architechture.view.NavigatorApp;
 import nam.tran.architechture.view.main.fragment.parent.season.SoccerSeasonChildFragment;
 import tran.nam.core.view.BaseFragment;
 import tran.nam.core.view.BaseParentFragment;
 
-public class ParentFragment extends BaseParentFragment {
+public class ParentFragment extends BaseParentFragment<NavigatorApp> {
 
     public static ParentFragment getInstance() {
         return new ParentFragment();

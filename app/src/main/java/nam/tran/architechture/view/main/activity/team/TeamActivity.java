@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 import nam.tran.architechture.model.TeamModel;
+import nam.tran.architechture.view.NavigatorApp;
 import nam.tran.architechture.view.main.activity.team.adapter.TeamAdapter;
 import nam.tran.architechture.view.main.activity.team.viewmodel.ITeamViewModel;
 import nam.tran.architechture.view.main.activity.team.viewmodel.TeamViewModel;
@@ -19,7 +20,7 @@ import tran.nam.core.biding.ActivityDataBindingComponent;
 import tran.nam.core.view.mvvm.BaseActivityMVVM;
 import tran.nam.util.Constant;
 
-public class TeamActivity extends BaseActivityMVVM<ActivityTeamBinding, TeamViewModel> implements ITeamViewModel {
+public class TeamActivity extends BaseActivityMVVM<NavigatorApp,ActivityTeamBinding, TeamViewModel> implements ITeamViewModel {
 
     private android.databinding.DataBindingComponent dataBindingComponent = new ActivityDataBindingComponent(this);
     private TeamAdapter adapter;

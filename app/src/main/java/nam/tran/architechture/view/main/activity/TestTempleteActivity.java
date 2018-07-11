@@ -3,6 +3,7 @@ package nam.tran.architechture.view.main.activity;
 import android.os.Bundle;
 
 import nam.tran.architechture.R;
+import nam.tran.architechture.view.NavigatorApp;
 import nam.tran.architechture.view.main.activity.season.SoccerSeasonFragment;
 import tran.nam.core.view.BaseActivityWithFragment;
 import tran.nam.core.view.BaseFragment;
@@ -11,7 +12,7 @@ import android.databinding.DataBindingUtil;
 
 import nam.tran.architechture.databinding.ActivityTestTempleteBinding;
 
-public class TestTempleteActivity extends BaseActivityWithFragment {
+public class TestTempleteActivity extends BaseActivityWithFragment<NavigatorApp> {
 
     private ActivityTestTempleteBinding mViewDataBinding;
 

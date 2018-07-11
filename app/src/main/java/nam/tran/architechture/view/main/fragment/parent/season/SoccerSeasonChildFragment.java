@@ -22,7 +22,7 @@ import nam.tran.architechture.databinding.FragmentSoccerSeasonChildBinding;
 import tran.nam.core.biding.FragmentDataBindingComponent;
 import tran.nam.core.view.mvvm.BaseFragmentMVVM;
 
-public class SoccerSeasonChildFragment extends BaseFragmentMVVM<FragmentSoccerSeasonChildBinding, SoccerSeasonChildViewModel> implements ISoccerSeasonChildViewModel {
+public class SoccerSeasonChildFragment extends BaseFragmentMVVM<NavigatorApp,FragmentSoccerSeasonChildBinding, SoccerSeasonChildViewModel> implements ISoccerSeasonChildViewModel {
 
     private DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     private AutoClearedValue<SoccerSeasonChildAdapter> adapter;

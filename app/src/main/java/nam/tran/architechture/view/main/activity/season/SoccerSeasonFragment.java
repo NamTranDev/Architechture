@@ -19,10 +19,7 @@ import tran.nam.common.AutoClearedValue;
 import tran.nam.core.biding.FragmentDataBindingComponent;
 import tran.nam.core.view.mvvm.BaseFragmentMVVM;
 
-public class SoccerSeasonFragment extends BaseFragmentMVVM<FragmentSoccerSeasonBinding, SoccerSeasonViewModel> implements ISoccerSeasonViewModel {
-
-    @Inject
-    NavigatorApp mNavigatorApp;
+public class SoccerSeasonFragment extends BaseFragmentMVVM<NavigatorApp,FragmentSoccerSeasonBinding, SoccerSeasonViewModel> implements ISoccerSeasonViewModel {
 
     private DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     private AutoClearedValue<SoccerSeasonAdapter> adapter;
@@ -67,6 +64,6 @@ public class SoccerSeasonFragment extends BaseFragmentMVVM<FragmentSoccerSeasonB
 
     @Override
     public void onItemSoccerSeasonClick(SoccerSeasonModel item) {
-        mNavigatorApp.goToTeamActivity(activity(), item.id);
+        mNavigator.goToTeamActivity(activity(), item.id);
     }
 }

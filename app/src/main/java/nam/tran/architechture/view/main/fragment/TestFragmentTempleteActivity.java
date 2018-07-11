@@ -3,6 +3,7 @@ package nam.tran.architechture.view.main.fragment;
 import android.os.Bundle;
 
 import nam.tran.architechture.R;
+import nam.tran.architechture.view.NavigatorApp;
 import nam.tran.architechture.view.main.fragment.parent.ParentFragment;
 import tran.nam.core.view.BaseActivityWithFragment;
 import tran.nam.core.view.BaseFragment;
@@ -11,7 +12,7 @@ import android.databinding.DataBindingUtil;
 
 import nam.tran.architechture.databinding.ActivityTestFragmentTempleteBinding;
 
-public class TestFragmentTempleteActivity extends BaseActivityWithFragment {
+public class TestFragmentTempleteActivity extends BaseActivityWithFragment<NavigatorApp>{
 
     private ActivityTestFragmentTempleteBinding mViewDataBinding;
 
