@@ -13,10 +13,11 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.HasSupportFragmentInjector;
+import tran.nam.core.Navigator;
 import tran.nam.core.di.module.BaseFragmentModule;
 
 @SuppressWarnings({"unused", "deprecation"})
-public abstract class BaseFragmentInjection extends BaseFragment implements HasSupportFragmentInjector {
+public abstract class BaseFragmentInjection<T extends Navigator> extends BaseFragment implements HasSupportFragmentInjector {
 
     /**
      * A reference to the activity Context is injected and used instead of the getter method. This
@@ -39,6 +40,8 @@ public abstract class BaseFragmentInjection extends BaseFragment implements HasS
     @Inject
     @Named(BaseFragmentModule.CHILD_FRAGMENT_MANAGER)
     protected FragmentManager childFragmentManager;
+
+    protected T mNavigator;
 
     @Inject
     DispatchingAndroidInjector<Fragment> childFragmentInjector;

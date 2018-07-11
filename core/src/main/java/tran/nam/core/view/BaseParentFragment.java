@@ -9,9 +9,10 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import tran.nam.core.Navigator;
 import tran.nam.util.Constant;
 
-public abstract class BaseParentFragment extends BaseFragmentInjection implements HasSupportFragmentInjector, IFragmentProvider<BaseFragment>,IParentFragmentListener {
+public abstract class BaseParentFragment<T extends Navigator> extends BaseFragmentInjection<T> implements HasSupportFragmentInjector, IFragmentProvider<BaseFragment>,IParentFragmentListener {
 
     public FragmentHelper<BaseFragment> mChildFragmentHelper;
 

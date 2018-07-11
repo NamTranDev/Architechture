@@ -30,13 +30,14 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import tran.nam.core.Navigator;
 import tran.nam.core.view.BaseActivity;
 import tran.nam.core.view.BaseActivityInjection;
 import tran.nam.core.viewmodel.BaseActivityViewModel;
 import tran.nam.core.viewmodel.IViewModel;
 
 @SuppressWarnings("unchecked")
-public abstract class BaseActivityMVVM<V extends ViewDataBinding, VM extends BaseActivityViewModel> extends BaseActivityInjection implements IViewModel{
+public abstract class BaseActivityMVVM<T extends Navigator,V extends ViewDataBinding, VM extends BaseActivityViewModel> extends BaseActivityInjection<T> implements IViewModel{
 
     @Inject
     protected ViewModelProvider.Factory mViewModelFactory;

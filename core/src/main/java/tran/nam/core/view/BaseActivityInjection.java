@@ -21,10 +21,10 @@ import tran.nam.core.di.module.BaseActivityModule;
  * dagger code for free. However, we want to avoid inheritance (if possible and it is in this case)
  * so that we have to option to inherit from something else later on if needed.
  */
-public abstract class BaseActivityInjection extends BaseActivity implements HasSupportFragmentInjector {
+public abstract class BaseActivityInjection<T extends Navigator> extends BaseActivity implements HasSupportFragmentInjector {
 
     @Inject
-    protected Navigator mNavigator;
+    protected T mNavigator;
 
     /**
      * A reference to the FragmentManager is injected and used instead of the getter method. This

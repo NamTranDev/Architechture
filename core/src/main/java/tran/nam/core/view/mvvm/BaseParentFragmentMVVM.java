@@ -30,12 +30,13 @@ import android.widget.Toast;
 import javax.inject.Inject;
 
 import tran.nam.common.AutoClearedValue;
+import tran.nam.core.Navigator;
 import tran.nam.core.view.BaseParentFragment;
 import tran.nam.core.viewmodel.BaseFragmentViewModel;
 import tran.nam.core.viewmodel.IViewModel;
 
 @SuppressWarnings("unchecked")
-public abstract class BaseParentFragmentMVVM<V extends ViewDataBinding, VM extends BaseFragmentViewModel> extends BaseParentFragment implements IViewModel {
+public abstract class BaseParentFragmentMVVM<T extends Navigator,V extends ViewDataBinding, VM extends BaseFragmentViewModel> extends BaseParentFragment<T> implements IViewModel {
 
     /**
      * MVVM ViewModel ViewModelProvider.Factory

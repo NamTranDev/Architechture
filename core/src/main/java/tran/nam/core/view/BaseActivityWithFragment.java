@@ -5,8 +5,10 @@ import android.support.v4.app.FragmentManager;
 
 import javax.inject.Inject;
 
+import tran.nam.core.Navigator;
+
 @SuppressWarnings("unused")
-public abstract class BaseActivityWithFragment extends BaseActivityInjection implements IFragmentProvider {
+public abstract class BaseActivityWithFragment<T extends Navigator> extends BaseActivityInjection<T> implements IFragmentProvider {
 
     @Inject
     public FragmentHelper<BaseFragment> mFragmentHelper;

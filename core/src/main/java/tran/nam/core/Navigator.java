@@ -5,10 +5,7 @@ import javax.inject.Inject;
 import tran.nam.core.view.BaseActivity;
 
 @SuppressWarnings("unused")
-public class Navigator {
-
-    @Inject
-    public Navigator(){}
+abstract public class Navigator {
 
     public void finish(BaseActivity activity) {
         activity.finish();
