@@ -1,4 +1,4 @@
 # Architechture
 Base Architechture with Java code and simple demo
 
-Use templete from https://github.com/NamTranDev/Templete-Android
+Core and templete : https://github.com/NamTranDev/Architechture-Templete-Android/tree/templete
