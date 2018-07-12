@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<template
+	format="5"
+    revision="1"
+	name="Clean Architecture"
+	minApi="19"
+    minBuildApi="19"
+	description="Create a new application templete with dagger 2 follow clean architecture">
+
+	<category value="Activity" />
+    <formfactor value="Mobile" />
+
+    <parameter
+        id="funtionName"
+        name="Funtion Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        help="Activity funtion folder" />
+
+	<parameter
+		id="activityName"
+		name="Activity Name"
+		type="String"
+		constraints="class|unique|nonempty"
+		help="The name of the activity class to create" />
+
+	<parameter
+		id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="activity_${classToResource(activityName)}"
+        help="The name of the layout to create for the activity"/>
+
+    <parameter
+        id="Name"
+        name="Name"
+        type="string"
+        constraints="class|nonempty|unique"
+        visibility="false"
+        suggest="${underscoreToCamelCase(classToResource(activityName))}"
+        help="The name of the view model to create" />
+
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="namtran.app" />
+
+    <parameter 
+        id="hasStatusBar"
+        name="include status bar funtion"
+        type="boolean"
+        default="false"
+        help="If true, will include status bar funtion in activity"/>
+
+    <!-- 128x128 thumbnails relative to template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>clean_architechture.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+	
+</template>
