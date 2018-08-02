@@ -32,7 +32,7 @@ public abstract class BaseActivityWithFragment<T extends Navigator> extends Base
 
     @Override
     public FragmentManager fragmentManager() {
-        return fragmentManager;
+        return getSupportFragmentManager();
     }
 
     protected void popToRoot() {

@@ -6,8 +6,6 @@ import android.databinding.DataBindingComponent;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import nam.tran.architechture.R;
 import nam.tran.architechture.databinding.FragmentSoccerSeasonBinding;
 import nam.tran.architechture.model.SoccerSeasonModel;
@@ -19,7 +17,7 @@ import tran.nam.common.AutoClearedValue;
 import tran.nam.core.biding.FragmentDataBindingComponent;
 import tran.nam.core.view.mvvm.BaseFragmentMVVM;
 
-public class SoccerSeasonFragment extends BaseFragmentMVVM<NavigatorApp,FragmentSoccerSeasonBinding, SoccerSeasonViewModel> implements ISoccerSeasonViewModel {
+public class SoccerSeasonFragment extends BaseFragmentMVVM<NavigatorApp, FragmentSoccerSeasonBinding, SoccerSeasonViewModel> implements ISoccerSeasonViewModel {
 
     private DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     private AutoClearedValue<SoccerSeasonAdapter> adapter;

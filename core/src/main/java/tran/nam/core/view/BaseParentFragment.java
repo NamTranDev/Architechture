@@ -39,7 +39,7 @@ public abstract class BaseParentFragment<T extends Navigator> extends BaseFragme
 
     @Override
     public FragmentManager fragmentManager() {
-        return childFragmentManager;
+        return getChildFragmentManager();
     }
 
     @Override
