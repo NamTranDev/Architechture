@@ -1,0 +1,67 @@
+<!-- A template for a mvvm fragment -->
+<template
+	format="5"
+	revision="1"
+	name="Fragment Mvvm"
+	minApi="11"
+    minBuildApi="17"
+	description="Create a new Fragment Mvvm">
+
+	<category value="NamTran" />
+    <formfactor value="Mobile" />
+
+    <parameter
+        id="funtionName"
+        name="Funtion Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        help="Activity funtion folder" />
+
+	<parameter
+		id="fragmentName"
+		name="Activity Name"
+		type="String"
+		constraints="class|unique|nonempty"
+		help="The name of the fragment class to create" />
+
+	<parameter
+		id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="fragment_${classToResource(fragmentName)}"
+        help="The name of the layout to create for the fragment"/>
+
+    <parameter
+        id="Name"
+        name="Name"
+        type="string"
+        constraints="class|nonempty|unique"
+        visibility="false"
+        suggest="${underscoreToCamelCase(classToResource(fragmentName))}" />
+
+    <parameter 
+        id="isChild"
+        name="use as child fragment"
+        type="boolean"
+        default="false"
+        help="If true, will use as child fragment"/>
+
+    <parameter 
+        id="hasArgument"
+        name="add argument to fragment"
+        type="boolean"
+        default="false"
+        help="If true, will create contractor with argument for fragment"/>
+
+    <parameter 
+        id="hasProgress"
+        name="include progress with MVVM Architechture"
+        type="boolean"
+        default="false"
+        help="If true, will include progress bar in xml with Resource"/>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+	
+</template>
