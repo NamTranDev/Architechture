@@ -1,4 +1,6 @@
 apply plugin: 'com.android.feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
@@ -54,4 +56,8 @@ dependencies {
     implementation project(':domain')
     implementation project(':util')
     application project(':app')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
