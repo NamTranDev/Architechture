@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package tran.nam.core.di.inject;
+package tran.nam.core.di.inject
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Retention
+import java.lang.annotation.RetentionPolicy
 
-import javax.inject.Scope;
+import javax.inject.Scope
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PerActivity {
-}
+annotation class PerFragment
