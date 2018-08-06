@@ -19,7 +19,7 @@ package nam.tran.domain.entity.state
 import nam.tran.domain.entity.state.Status.ERROR
 import nam.tran.domain.entity.state.Status.LOADING
 import nam.tran.domain.entity.state.Status.SUCCESS
-import tran.nam.util.Constant.EMPTY
+import tran.nam.util.Constant.Companion.EMPTY
 
 /**
  * A generic class that holds a value with its loading status.

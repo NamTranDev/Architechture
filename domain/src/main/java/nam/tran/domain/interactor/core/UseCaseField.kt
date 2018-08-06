@@ -9,7 +9,6 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.subscribers.DisposableSubscriber
 import nam.tran.domain.IRepository
 import nam.tran.domain.executor.SchedulerProvider
-import tran.nam.util.Checker
 
 /**
  * Abstract class for a Use Case Field(Interactor in terms of Clean Architecture).
@@ -44,13 +43,11 @@ abstract class UseCaseField<T, Params>(protected var iRepository: IRepository, p
      * by [.buildUseCaseFlowable] ()} method.
      * @param params     Parameters (Optional) used to build/execute this use case.
      */
-    fun execute(subscriber: DisposableSubscriber<T>, params: Params): Disposable {
-        Checker.checkNotNull(subscriber)
-        if (subscriber.isDisposed)
-            subscriber.dispose()
+    fun execute(subscriber: DisposableSubscriber<T>, params: Params, isSubscribeAndObserve: Boolean): Disposable {
         val flowable = this.buildUseCaseFlowable(params)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
+        if (isSubscribeAndObserve)
+            flowable.subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
         return flowable.subscribeWith(subscriber)
     }
 
@@ -61,13 +58,11 @@ abstract class UseCaseField<T, Params>(protected var iRepository: IRepository, p
      * by [.buildUseCaseObserve] ()} method.
      * @param params   Parameters (Optional) used to build/execute this use case.
      */
-    fun execute(observer: DisposableObserver<T>, params: Params): Disposable {
-        Checker.checkNotNull(observer)
-        if (observer.isDisposed)
-            observer.dispose()
-        val observable = this.buildUseCaseObserve(params)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
+    fun execute(observer: DisposableObserver<T>, params: Params, isSubscribeAndObserve: Boolean): Disposable {
+        val observable = this.buildUseCaseObserve(params);
+        if (isSubscribeAndObserve)
+            observable.subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
         return observable.subscribeWith(observer)
     }
 
@@ -78,11 +73,11 @@ abstract class UseCaseField<T, Params>(protected var iRepository: IRepository, p
      * by [.buildUseCaseFlowable] ()} method.
      * @param params     Parameters (Optional) used to build/execute this use case.
      */
-    fun execute(subscriber: DisposableCompletableObserver, params: Params): Disposable {
-        Checker.checkNotNull(subscriber)
+    fun execute(subscriber: DisposableCompletableObserver, params: Params, isSubscribeAndObserve: Boolean): Disposable {
         val completable = this.buildUseCaseCompletable(params)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
+        if (isSubscribeAndObserve)
+            completable.subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
         return completable.subscribeWith(subscriber)
     }
 }

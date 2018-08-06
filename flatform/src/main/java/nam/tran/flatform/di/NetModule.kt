@@ -20,7 +20,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-import tran.nam.util.Constant.API_URL
+import tran.nam.util.Constant.Companion.API_URL
 
 @Module
 class NetModule {
