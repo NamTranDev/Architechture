@@ -1,0 +1,26 @@
+package ${packageName}.${funtionName}.viewmodel
+
+import android.app.Application
+
+import javax.inject.Inject
+
+import tran.nam.core.viewmodel.BaseActivityViewModel
+import tran.nam.core.viewmodel.IProgressViewModel
+<#if hasProgress>
+import nam.tran.domain.entity.state.Resource
+import android.arch.lifecycle.MutableLiveData
+</#if>
+
+class ${Name}ViewModel @Inject internal constructor(application: Application)
+: BaseActivityViewModel(application)<#if hasProgress>, IProgressViewModel </#if>{
+
+     <#if hasProgress>
+     private val results = MutableLiveData<Resource<String>>()
+
+     override fun resource(): Resource<*>?{
+             return results.value
+         }
+     </#if>
+
+
+}

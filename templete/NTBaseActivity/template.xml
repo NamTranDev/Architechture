@@ -1,0 +1,68 @@
+<!-- A template for a mvvm fragment -->
+<template
+	format="5"
+	revision="1"
+	name="Activity Base"
+	minApi="11"
+    minBuildApi="17"
+	description="Create a new Base Activity">
+
+	<category value="NamTran" />
+    <formfactor value="Mobile" />
+
+    <parameter
+        id="funtionName"
+        name="Funtion Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        help="Activity funtion folder" />
+
+	<parameter
+		id="activityName"
+		name="Activity Name"
+		type="String"
+		constraints="class|unique|nonempty"
+		help="The name of the base activity class to create" />
+
+	<parameter
+		id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        suggest="activity_${classToResource(activityName)}"
+        help="The name of the layout to create for the base activity"/>
+
+    <parameter
+        id="Name"
+        name="Name"
+        type="string"
+        constraints="class|nonempty|unique"
+        visibility="false"
+        suggest="${underscoreToCamelCase(classToResource(activityName))}"
+        help="The name of the view model to create" />
+
+    <parameter 
+        id="hasBiding"
+        name="include biding xml"
+        type="boolean"
+        default="true"
+        help="If true, will include biding in xml and activity"/>
+
+    <parameter 
+        id="hasStatusBar"
+        name="include status bar funtion"
+        type="boolean"
+        default="false"
+        help="If true, will include status bar funtion in activity"/>
+
+    <parameter 
+        id="hasInject"
+        name="inject activity with dagger"
+        type="boolean"
+        default="false"
+        help="If true, will inject activity with dagger"/>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+	
+</template>

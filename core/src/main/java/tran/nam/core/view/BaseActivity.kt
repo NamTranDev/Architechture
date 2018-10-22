@@ -24,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
     @LayoutRes
     abstract fun layoutId(): Int
 
-    protected fun setStatusBar() {}
+    protected open fun setStatusBar() {}
 
     /*
      * Init Fragment Helper
