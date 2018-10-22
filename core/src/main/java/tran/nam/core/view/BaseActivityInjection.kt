@@ -19,10 +19,7 @@ import tran.nam.core.Navigator
  * dagger code for free. However, we want to avoid inheritance (if possible and it is in this case)
  * so that we have to option to inherit from something else later on if needed.
  */
-abstract class BaseActivityInjection<T : Navigator> : BaseActivity(), HasSupportFragmentInjector {
-
-    var mNavigator: T? = null
-        @Inject set
+abstract class BaseActivityInjection: BaseActivity(), HasSupportFragmentInjector {
 
     var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null
         @Inject set

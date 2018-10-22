@@ -14,10 +14,7 @@ import dagger.android.support.HasSupportFragmentInjector
 import tran.nam.core.Navigator
 
 @Suppress("DEPRECATION", "OverridingDeprecatedMember")
-abstract class BaseFragmentInjection<T : Navigator> : BaseFragment(), HasSupportFragmentInjector {
-
-    var mNavigator: T? = null
-        @Inject set
+abstract class BaseFragmentInjection : BaseFragment(), HasSupportFragmentInjector {
 
     var childFragmentInjector: DispatchingAndroidInjector<Fragment>? = null
         @Inject set
@@ -44,46 +41,46 @@ abstract class BaseFragmentInjection<T : Navigator> : BaseFragment(), HasSupport
     }
 
     protected fun addFragmentFromActivity(fragment: BaseFragment) {
-        if (activity() != null && activity() is BaseActivityWithFragment<*> && !activity()!!.isFinishing)
-            (activity() as BaseActivityWithFragment<*>).addFragment(fragment)
+        if (activity() != null && activity() is BaseActivityWithFragment && !activity()!!.isFinishing)
+            (activity() as BaseActivityWithFragment).addFragment(fragment)
     }
 
     protected fun showFragmentFromActivity(position: Int) {
-        if (activity() != null && activity() is BaseActivityWithFragment<*> && !activity()!!.isFinishing)
-            (activity() as BaseActivityWithFragment<*>).showFragment(position)
+        if (activity() != null && activity() is BaseActivityWithFragment && !activity()!!.isFinishing)
+            (activity() as BaseActivityWithFragment).showFragment(position)
     }
 
     protected fun replaceFragmentFromActivity(fragment: BaseFragment) {
-        if (activity() != null && activity() is BaseActivityWithFragment<*> && !activity()!!.isFinishing)
-            (activity() as BaseActivityWithFragment<*>).replaceFragment(fragment)
+        if (activity() != null && activity() is BaseActivityWithFragment && !activity()!!.isFinishing)
+            (activity() as BaseActivityWithFragment).replaceFragment(fragment)
     }
 
     protected fun popFragmentToRoot() {
-        if (activity() != null && activity() is BaseActivityWithFragment<*> && !activity()!!.isFinishing)
-            (activity() as BaseActivityWithFragment<*>).popToRoot()
+        if (activity() != null && activity() is BaseActivityWithFragment && !activity()!!.isFinishing)
+            (activity() as BaseActivityWithFragment).popToRoot()
     }
 
     protected fun addFragmentFromFragment(fragment: BaseFragment) {
-        if (parentFragment != null && parentFragment is BaseParentFragment<*>) {
-            (parentFragment as BaseParentFragment<*>).addChildFragment(fragment)
+        if (parentFragment != null && parentFragment is BaseParentFragment) {
+            (parentFragment as BaseParentFragment).addChildFragment(fragment)
         }
     }
 
     protected fun showFragmentFromFragment(position: Int) {
-        if (parentFragment != null && parentFragment is BaseParentFragment<*>) {
-            (parentFragment as BaseParentFragment<*>).showChildFragment(position)
+        if (parentFragment != null && parentFragment is BaseParentFragment) {
+            (parentFragment as BaseParentFragment).showChildFragment(position)
         }
     }
 
     protected fun replaceFragmentFromFragment(fragment: BaseFragment) {
-        if (parentFragment != null && parentFragment is BaseParentFragment<*>) {
-            (parentFragment as BaseParentFragment<*>).replaceChildFragment(fragment)
+        if (parentFragment != null && parentFragment is BaseParentFragment) {
+            (parentFragment as BaseParentFragment).replaceChildFragment(fragment)
         }
     }
 
     protected open fun popChildFragmentToRoot() {
-        if (parentFragment != null && parentFragment is BaseParentFragment<*>) {
-            (parentFragment as BaseParentFragment<*>).popChildFragmentToRoot()
+        if (parentFragment != null && parentFragment is BaseParentFragment) {
+            (parentFragment as BaseParentFragment).popChildFragmentToRoot()
         }
     }
 }

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package tran.nam.core.biding
 
 import android.databinding.BindingAdapter
@@ -18,23 +20,23 @@ object BidingCommon {
     fun visibleContainLoading(view: View, iProgress: IProgressViewModel?) {
         val resource = iProgress?.resource()
         resource?.let {
-            when (resource.status) {
-                Status.ERROR -> when (resource.loading) {
+            when (it.status) {
+                Status.ERROR -> when (it.loading) {
                     Loading.LOADING_DIALOG -> {
                         view.visibility = View.GONE
-                        dialogError(view, resource.message)
+                        dialogError(view, it.message)
                     }
-                    Loading.LOADING_NONE -> Toast.makeText(view.context, resource.message, Toast.LENGTH_SHORT).show()
+                    Loading.LOADING_NONE -> Toast.makeText(view.context, it.message, Toast.LENGTH_SHORT).show()
                     Loading.LOADING_NORMAL -> {
                     }
                 }
-                Status.LOADING -> when (resource.loading) {
+                Status.LOADING -> when (it.loading) {
                     Loading.LOADING_DIALOG -> loadingDialog(view, true)
                     Loading.LOADING_NONE -> {
                     }
                     Loading.LOADING_NORMAL -> view.visibility = View.VISIBLE
                 }
-                Status.SUCCESS -> when (resource.loading) {
+                Status.SUCCESS -> when (it.loading) {
                     Loading.LOADING_DIALOG -> loadingDialog(view, false)
                     Loading.LOADING_NONE -> {
                     }
@@ -49,9 +51,9 @@ object BidingCommon {
     fun visibleProgress(view: View, iProgress: IProgressViewModel?) {
         val resource = iProgress?.resource()
         resource?.let {
-            when (resource.status) {
+            when (it.status) {
                 Status.ERROR, Status.SUCCESS -> view.visibility = View.GONE
-                Status.LOADING -> when (resource.loading) {
+                Status.LOADING -> when (it.loading) {
                     Loading.LOADING_DIALOG, Loading.LOADING_NONE -> {
                     }
                     Loading.LOADING_NORMAL -> view.visibility = View.VISIBLE
@@ -65,15 +67,15 @@ object BidingCommon {
     fun visibleError(textView: TextView, iProgress: IProgressViewModel?) {
         val resource = iProgress?.resource()
         resource?.let {
-            when (resource.status) {
-                Status.ERROR -> when (resource.loading) {
+            when (it.status) {
+                Status.ERROR -> when (it.loading) {
                     Loading.LOADING_DIALOG -> {
                     }
                     Loading.LOADING_NONE -> {
                     }
                     Loading.LOADING_NORMAL -> {
                         textView.visibility = View.VISIBLE
-                        textView.text = resource.message
+                        textView.text = it.message
                     }
                 }
                 Status.LOADING, Status.SUCCESS -> textView.visibility = View.GONE
@@ -86,12 +88,12 @@ object BidingCommon {
     fun visibleView(view: View, iProgress: IProgressViewModel?) {
         val resource = iProgress?.resource()
         resource?.let {
-            when (resource.status) {
-                Status.ERROR -> when (resource.loading) {
+            when (it.status) {
+                Status.ERROR -> when (it.loading) {
                     Loading.LOADING_DIALOG, Loading.LOADING_NONE -> view.visibility = View.VISIBLE
                     Loading.LOADING_NORMAL -> view.visibility = View.GONE
                 }
-                Status.LOADING -> when (resource.loading) {
+                Status.LOADING -> when (it.loading) {
                     Loading.LOADING_DIALOG, Loading.LOADING_NONE -> view.visibility = View.VISIBLE
                     Loading.LOADING_NORMAL -> view.visibility = View.GONE
                 }
@@ -105,10 +107,9 @@ object BidingCommon {
     fun textError(text: TextView, iProgress: IProgressViewModel?) {
         val resource = iProgress?.resource()
         resource?.let {
-            when (resource.status) {
-                Status.ERROR -> text.text = resource.message
-                Status.LOADING, Status.SUCCESS -> {
-                }
+            when (it.status) {
+                Status.ERROR -> text.text = it.message
+                Status.LOADING, Status.SUCCESS -> {}
             }
         }
     }
@@ -122,10 +123,10 @@ object BidingCommon {
                 (context as IViewModel).hideDialogLoading()
             }
         } else {
-            if (context is BaseActivityWithFragment<*>) {
+            if (context is BaseActivityWithFragment) {
                 val fragmentHelper = context.mFragmentHelper
                 val fragment = fragmentHelper?.getCurrentFragment()
-                if (fragment != null && fragment is BaseParentFragment<*>) {
+                if (fragment != null && fragment is BaseParentFragment) {
                     val fragmentHelperChild = fragment.mChildFragmentHelper
                     val childFragment = fragmentHelperChild.getCurrentFragment()
                     if (childFragment is IViewModel) {
@@ -145,10 +146,10 @@ object BidingCommon {
         if (context is IViewModel) {
             (context as IViewModel).onShowDialogError(error)
         } else {
-            if (context is BaseActivityWithFragment<*>) {
+            if (context is BaseActivityWithFragment) {
                 val fragmentHelper = context.mFragmentHelper
                 val fragment = fragmentHelper?.getCurrentFragment()
-                if (fragment != null && fragment is BaseParentFragment<*>) {
+                if (fragment != null && fragment is BaseParentFragment) {
                     val fragmentHelperChild = fragment.mChildFragmentHelper
                     val childFragment = fragmentHelperChild.getCurrentFragment()
                     if (childFragment is IViewModel) {

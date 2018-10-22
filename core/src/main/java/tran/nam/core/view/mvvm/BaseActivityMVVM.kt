@@ -30,7 +30,7 @@ import tran.nam.core.viewmodel.BaseActivityViewModel
 import tran.nam.core.viewmodel.IViewModel
 import javax.inject.Inject
 
-abstract class BaseActivityMVVM<T : Navigator, V : ViewDataBinding, VM : BaseActivityViewModel> : BaseActivityInjection<T>(), IViewModel {
+abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseActivityViewModel> : BaseActivityInjection(), IViewModel {
 
     var mViewModelFactory: ViewModelProvider.Factory? = null
         @Inject set

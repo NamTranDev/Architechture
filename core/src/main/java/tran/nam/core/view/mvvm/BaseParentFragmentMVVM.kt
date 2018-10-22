@@ -24,16 +24,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
-import javax.inject.Inject
-
 import tran.nam.common.AutoClearedValue
-import tran.nam.core.Navigator
 import tran.nam.core.view.BaseParentFragment
 import tran.nam.core.viewmodel.BaseFragmentViewModel
 import tran.nam.core.viewmodel.IViewModel
+import javax.inject.Inject
 
-abstract class BaseParentFragmentMVVM<T : Navigator, V : ViewDataBinding, VM : BaseFragmentViewModel> : BaseParentFragment<T>(), IViewModel {
+abstract class BaseParentFragmentMVVM<V : ViewDataBinding, VM : BaseFragmentViewModel> : BaseParentFragment(), IViewModel {
 
     /**
      * MVVM ViewModel ViewModelProvider.Factory

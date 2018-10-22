@@ -21,15 +21,12 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.widget.Toast
-import tran.nam.core.Navigator
-
-import javax.inject.Inject
-
 import tran.nam.core.view.BaseActivityWithFragment
 import tran.nam.core.viewmodel.BaseActivityViewModel
 import tran.nam.core.viewmodel.IViewModel
+import javax.inject.Inject
 
-abstract class BaseActivityWithFragmentMVVM<T: Navigator,V : ViewDataBinding, VM : BaseActivityViewModel> : BaseActivityWithFragment<T>(), IViewModel {
+abstract class BaseActivityWithFragmentMVVM<V : ViewDataBinding, VM : BaseActivityViewModel> : BaseActivityWithFragment(), IViewModel {
 
     var mViewModelFactory: ViewModelProvider.Factory? = null
         @Inject set

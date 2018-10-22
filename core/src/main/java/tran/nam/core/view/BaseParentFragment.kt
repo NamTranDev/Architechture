@@ -8,7 +8,7 @@ import dagger.android.support.HasSupportFragmentInjector
 import tran.nam.core.Navigator
 import javax.inject.Inject
 
-abstract class BaseParentFragment<T : Navigator> : BaseFragmentInjection<T>(), HasSupportFragmentInjector, IFragmentProvider<BaseFragment>, IParentFragmentListener {
+abstract class BaseParentFragment : BaseFragmentInjection(), HasSupportFragmentInjector, IFragmentProvider<BaseFragment>, IParentFragmentListener {
 
     lateinit var mChildFragmentHelper: FragmentHelper<BaseFragment>
 

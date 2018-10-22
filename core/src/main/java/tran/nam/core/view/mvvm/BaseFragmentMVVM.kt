@@ -20,23 +20,17 @@ import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
-import javax.inject.Inject
-
-import tran.nam.common.AutoClearedValue
 import tran.nam.common.autoCleared
-import tran.nam.core.Navigator
-import tran.nam.core.view.BaseFragment
 import tran.nam.core.view.BaseFragmentInjection
 import tran.nam.core.viewmodel.BaseFragmentViewModel
 import tran.nam.core.viewmodel.IViewModel
+import javax.inject.Inject
 
-abstract class BaseFragmentMVVM<T : Navigator, V : ViewDataBinding, VM : BaseFragmentViewModel> : BaseFragmentInjection<T>(), IViewModel {
+abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseFragmentViewModel> : BaseFragmentInjection(), IViewModel {
 
     /**
      * MVVM ViewModel ViewModelProvider.Factory
