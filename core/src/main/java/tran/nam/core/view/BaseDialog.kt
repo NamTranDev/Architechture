@@ -20,7 +20,7 @@ abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
     protected abstract fun layoutID(): Int
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = Dialog(activity)
+        val dialog = Dialog(context!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCanceledOnTouchOutside(cancelOnTouch())
         if (dialog.window != null) {
