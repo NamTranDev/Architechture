@@ -8,8 +8,8 @@ import ${packageName}.${funtionName}.viewmodel.${Name}ViewModel
 
 import ${packageName}.view.NavigatorApp
 
-import ${applicationPackage}.R
-import ${applicationPackage}.databinding.Activity${Name}Binding
+import ${packageName}.R
+import ${packageName}.databinding.Activity${Name}Binding
 
 import tran.nam.core.view.mvvm.BaseActivityMVVM
 

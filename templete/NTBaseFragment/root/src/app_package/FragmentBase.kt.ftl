@@ -4,7 +4,7 @@ package ${packageName}.${funtionName}
 import android.os.Bundle
 </#if>
 
-import ${applicationPackage}.R
+import ${packageName}.R
 
 <#if hasBiding>
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.databinding.DataBindingUtil
-import ${applicationPackage}.databinding.Fragment${Name}Binding
+import ${packageName}.databinding.Fragment${Name}Binding
 </#if>
 
 <#if hasInject>

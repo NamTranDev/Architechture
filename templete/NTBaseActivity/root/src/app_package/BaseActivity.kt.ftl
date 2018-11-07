@@ -2,7 +2,7 @@ package ${packageName}.${funtionName}
 
 import android.os.Bundle
 
-import ${applicationPackage}.R
+import ${packageName}.R
 <#if hasInject>
 import tran.nam.core.view.BaseActivityInjection
 <#else>
@@ -11,7 +11,7 @@ import tran.nam.core.view.BaseActivity
 
 <#if hasBiding>
 import android.databinding.DataBindingUtil
-import ${applicationPackage}.databinding.Activity${Name}Binding
+import ${packageName}.databinding.Activity${Name}Binding
 </#if>
 
 class ${activityName} : <#if hasInject>BaseActivityInjection<#else>BaseActivity</#if>(){

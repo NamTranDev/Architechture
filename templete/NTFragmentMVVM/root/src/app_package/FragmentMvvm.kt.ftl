@@ -9,8 +9,8 @@ import android.os.Bundle
 import ${packageName}.${funtionName}.viewmodel.I${Name}ViewModel
 import ${packageName}.${funtionName}.viewmodel.${Name}ViewModel
 
-import ${applicationPackage}.R
-import ${applicationPackage}.databinding.Fragment${Name}Binding
+import ${packageName}.R
+import ${packageName}.databinding.Fragment${Name}Binding
 
 import tran.nam.core.view.mvvm.BaseFragmentMVVM
 

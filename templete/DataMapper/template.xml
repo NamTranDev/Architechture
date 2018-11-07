@@ -1,0 +1,42 @@
+<!-- A template for a mvvm fragment -->
+<template
+	format="1"
+	revision="1"
+	name="Data Mapper"
+	minApi="11"
+    minBuildApi="17"
+	description="Create a new data mapper for Clean Architechture">
+
+	<category value="NamTran" />
+    <formfactor value="Mobile" />
+
+	<parameter
+		id="DataMapperName"
+		name="Data mapper name"
+		type="String"
+		constraints="class|unique|nonempty"
+		suggest=""
+		help="The name of the data mapper class to create" />
+
+	<parameter
+		id="datafrom"
+		name="Data mapper from"
+		type="String"
+		constraints="class|unique|nonempty"/>
+
+	<parameter
+		id="datato"
+		name="Data mapper to"
+		type="String"
+		constraints="class|unique|nonempty"/>
+
+    <parameter 
+        id="isDomain"
+        name="mapper data in domain layer"
+        type="boolean"
+        default="true"/>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+	
+</template>

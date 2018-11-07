@@ -2,13 +2,13 @@ package ${packageName}.${funtionName}
 
 import android.os.Bundle
 
-import ${applicationPackage}.R
+import ${packageName}.R
 import tran.nam.core.view.BaseActivityWithFragment
 import tran.nam.core.view.BaseFragment
 
 <#if hasBiding>
 import android.databinding.DataBindingUtil
-import ${applicationPackage}.databinding.Activity${Name}Binding
+import ${packageName}.databinding.Activity${Name}Binding
 </#if>
 
 class ${activityName} : BaseActivityWithFragment() {

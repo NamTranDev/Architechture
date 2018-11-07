@@ -19,8 +19,8 @@
     <open file="${escapeXmlAttribute(resOut)}/layout/${escapeXmlAttribute(layoutName)}.xml" />
 
     <#if hasInject>
-	<instantiate from="root/src/app_package/ActivityModule.kt.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/${funtionName}/${Name}ActivityModule.kt" />
+  	<instantiate from="root/src/app_package/ActivityModule.kt.ftl"
+                     to="${escapeXmlAttribute(srcOut)}/${funtionName}/${Name}ActivityModule.kt" />
 
     <open file="${escapeXmlAttribute(srcOut)}/${funtionName}/${Name}ActivityModule.kt" />
     </#if>
