@@ -1,8 +1,8 @@
 package nam.tran.architechture.view.splash
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
+import androidx.databinding.DataBindingUtil
 import nam.tran.architechture.R
 import nam.tran.architechture.databinding.ActivitySplashBinding
 import tran.nam.core.view.BaseActivity
@@ -21,11 +21,11 @@ class SplashActivity : BaseActivity() {
         return R.layout.activity_splash
     }
 
-    override fun initView(savedInstanceState: Bundle?) {
-        mViewDataBinding = DataBindingUtil.setContentView(this, layoutId())
-    }
+    override fun init(savedInstanceState: Bundle?) {
+        super.init(savedInstanceState)
 
-    override fun initData(savedInstanceState: Bundle?) {
+        mViewDataBinding = DataBindingUtil.setContentView(this, layoutId())
+
         handler = Handler()
         handler!!.postDelayed(runnable, 3000)
     }

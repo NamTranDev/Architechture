@@ -32,9 +32,15 @@
 
     <parameter 
         id="isDomain"
-        name="mapper data in domain layer"
+        name="isDomain mapper data"
         type="boolean"
         default="true"/>
+
+    <parameter
+    	id="isReverse"
+    	name="isReverse mapper data"
+    	type="boolean"
+    	default="false"/>
 
     <globals file="globals.xml.ftl" />
     <execute file="recipe.xml.ftl" />

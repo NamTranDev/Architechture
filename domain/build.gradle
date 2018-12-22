@@ -6,9 +6,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-
     }
 
     buildTypes {
@@ -22,25 +19,13 @@ android {
         sourceCompatibility rootProject.java_version
         targetCompatibility rootProject.java_version
     }
-
-    configurations.all {
-        resolutionStrategy {
-            force "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid"
-        }
-    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation "junit:junit:$rootProject.junit"
+    testImplementation 'junit:junit:4.12'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid"
-
     api project(':flatform')
-    implementation project(':util')
-}
-repositories {
-    mavenCentral()
 }

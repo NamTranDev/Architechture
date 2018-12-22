@@ -8,14 +8,14 @@ import tran.nam.core.viewmodel.BaseActivityViewModel
 import tran.nam.core.viewmodel.IProgressViewModel
 <#if hasProgress>
 import nam.tran.domain.entity.state.Resource
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 </#if>
 
 class ${Name}ViewModel @Inject internal constructor(application: Application)
 : BaseActivityViewModel(application)<#if hasProgress>, IProgressViewModel </#if>{
 
      <#if hasProgress>
-     private val results = MutableLiveData<Resource<String>>()
+     private val results = MutableLiveData<Resource<*>>()
 
      override fun resource(): Resource<*>?{
              return results.value

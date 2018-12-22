@@ -1,14 +1,14 @@
 package tran.nam.core.view
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import tran.nam.core.Navigator
 import javax.inject.Inject
 
-abstract class BaseParentFragment : BaseFragmentInjection(), HasSupportFragmentInjector, IFragmentProvider<BaseFragment>, IParentFragmentListener {
+abstract class BaseParentFragment : BaseFragmentInjection(), HasSupportFragmentInjector,
+    IFragmentProvider<BaseFragment>, IParentFragmentListener {
 
     lateinit var mChildFragmentHelper: FragmentHelper<BaseFragment>
 

@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class Preference @Inject
-internal constructor(private val mApp: Application) : IPreference {
+internal constructor(mApp: Application) : IPreference {
 
     private val mPref: SharedPreferences
 
@@ -22,6 +22,6 @@ internal constructor(private val mApp: Application) : IPreference {
         /**
          * normal configurations
          */
-        private val SHARED_REFERENCE_NAME = "Alarm Timer Config"
+        private val SHARED_REFERENCE_NAME = "Application Config"
     }
 }

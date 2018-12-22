@@ -2,10 +2,10 @@ package tran.nam.core.view
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.app.AppCompatDelegate
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -40,9 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
      **/
     protected open fun inject() {}
 
-    abstract fun initView(savedInstanceState: Bundle?)
-
-    abstract fun initData(savedInstanceState: Bundle?)
+    open fun init(savedInstanceState: Bundle?) {}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,8 +50,7 @@ abstract class BaseActivity : AppCompatActivity() {
         initLayout()
         initFragment()
         mLoadingDialog = LoadingDialog(this)
-        initView(savedInstanceState)
-        initData(savedInstanceState)
+        init(savedInstanceState)
     }
 
     fun showLoadingDialog() {

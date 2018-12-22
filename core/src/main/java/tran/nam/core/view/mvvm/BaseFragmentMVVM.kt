@@ -16,21 +16,23 @@
 
 package tran.nam.core.view.mvvm
 
-import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
 import tran.nam.common.autoCleared
 import tran.nam.core.view.BaseFragmentInjection
 import tran.nam.core.viewmodel.BaseFragmentViewModel
-import tran.nam.core.viewmodel.IViewModel
+import tran.nam.core.viewmodel.IView
 import javax.inject.Inject
 
-abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseFragmentViewModel> : BaseFragmentInjection(), IViewModel {
+abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseFragmentViewModel> : BaseFragmentInjection(), IView {
 
     /**
      * MVVM ViewModel ViewModelProvider.Factory
@@ -40,9 +42,12 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseFragmentViewModel>
 
     protected var mViewModel: VM? = null
 
-    protected lateinit var mViewDataBinding: V
+    protected var mViewDataBinding: V? = null
 
     protected var binding by autoCleared<V>()
+
+    private var handler: Handler? = null
+    private var runnable: Runnable? = null
 
     abstract fun initViewModel(factory: ViewModelProvider.Factory?)
 
@@ -52,19 +57,23 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseFragmentViewModel>
         mViewModel?.onAttach(this)
     }
 
-    override fun initialized() {
-        super.initialized()
-        mViewModel?.onInitialized()
-    }
-
     override fun initLayout(inflater: LayoutInflater, container: ViewGroup?): View {
         mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        binding = mViewDataBinding
-        return mViewDataBinding.root
+        binding = mViewDataBinding as V
+        return binding.root
+    }
+
+    open fun navigation(navigator: (() -> Unit)) {
+        handler = Handler()
+        runnable = Runnable {
+            navigator()
+        }
+        handler?.postDelayed(runnable, 300)
     }
 
     override fun onDestroy() {
-        this.mViewDataBinding.unbind()
+        this.mViewDataBinding?.unbind()
+        handler?.removeCallbacks(runnable)
         super.onDestroy()
     }
 
@@ -76,8 +85,8 @@ abstract class BaseFragmentMVVM<V : ViewDataBinding, VM : BaseFragmentViewModel>
         hideLoadingDialog()
     }
 
-    override fun onShowDialogError(message: String?) {
+    override fun onShowDialogError(message: String?, codeError: Int?) {
         hideDialogLoading()
-        Toast.makeText(activity(), "Error Dialog", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

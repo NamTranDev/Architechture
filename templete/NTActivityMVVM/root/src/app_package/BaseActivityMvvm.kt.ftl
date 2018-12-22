@@ -1,15 +1,13 @@
 package ${packageName}.${funtionName}
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 
 import ${packageName}.${funtionName}.viewmodel.I${Name}ViewModel
 import ${packageName}.${funtionName}.viewmodel.${Name}ViewModel
 
-import ${packageName}.view.NavigatorApp
-
-import ${packageName}.R
-import ${packageName}.databinding.Activity${Name}Binding
+import ${applicationPackage}.R
+import ${applicationPackage}.databinding.Activity${Name}Binding
 
 import tran.nam.core.view.mvvm.BaseActivityMVVM
 
@@ -20,17 +18,13 @@ class ${activityName} : BaseActivityMVVM<Activity${Name}Binding, ${Name}ViewMode
         return R.layout.${layoutName}
     }
 
-    override fun initView(savedInstanceState: Bundle?) {
-        mViewDataBinding.viewModel = mViewModel
-    }
-
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
-
     <#if hasStatusBar>
     override fun setStatusBar() {
 
     }
     </#if>
+
+    override fun init(savedInstanceState: Bundle?) {
+        mViewDataBinding.viewModel = mViewModel
+    }
 }

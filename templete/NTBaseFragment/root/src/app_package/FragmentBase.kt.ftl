@@ -1,18 +1,14 @@
 package ${packageName}.${funtionName}
 
-<#if hasArgument>
-import android.os.Bundle
-</#if>
-
-import ${packageName}.R
+import ${applicationPackage}.R
 
 <#if hasBiding>
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import android.databinding.DataBindingUtil
-import ${packageName}.databinding.Fragment${Name}Binding
+import androidx.databinding.DataBindingUtil
+import ${applicationPackage}.databinding.Fragment${Name}Binding
 </#if>
 
 <#if hasInject>
@@ -27,20 +23,6 @@ class ${fragmentName} : <#if hasInject>BaseFragmentInjection<#else>BaseFragment<
     private lateinit var mViewDataBinding : Fragment${Name}Binding
     </#if>
 
-    companion object {
-
-            <#if hasArgument>
-            fun newInstance() = ${fragmentName}().apply {
-                           arguments = Bundle().apply {
-
-                           }
-                       }
-            <#else>
-            @JvmStatic
-            fun newInstance(): ${fragmentName} = ${fragmentName}()
-            </#if>
-        }
-
     public override fun layoutId(): Int {
          return R.layout.${layoutName}
     }
@@ -51,12 +33,4 @@ class ${fragmentName} : <#if hasInject>BaseFragmentInjection<#else>BaseFragment<
         return mViewDataBinding.root
     }
     </#if>
-
-    override fun onVisible() {
-        <#if hasArgument>
-        arguments?.let {
-
-        }
-        </#if>
-    }
 }

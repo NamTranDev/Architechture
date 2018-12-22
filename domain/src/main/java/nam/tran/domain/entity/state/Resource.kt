@@ -16,17 +16,20 @@
 
 package nam.tran.domain.entity.state
 
-import nam.tran.domain.entity.state.Status.ERROR
-import nam.tran.domain.entity.state.Status.LOADING
-import nam.tran.domain.entity.state.Status.SUCCESS
-import tran.nam.util.Constant.Companion.EMPTY
+import nam.tran.domain.entity.state.Status.*
 
 /**
  * A generic class that holds a value with its loading status.
  *
  * @param <T>
 </T> */
-class Resource<T>(@Status val status: Int, val data: T?, val message: String?, @Loading var loading: Int) {
+@Suppress("unused")
+class Resource<T>(
+    @Status val status: Int, val data: T?, val errorResource: ErrorResource?, @Loading var loading: Int,
+    val retry: (() -> Unit)?
+) {
+
+    var initial = true
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -39,13 +42,13 @@ class Resource<T>(@Status val status: Int, val data: T?, val message: String?, @
         val resource = other as Resource<*>?
 
         return (status == resource!!.status
-                && (if (message != null) message == resource.message else resource.message == null)
+                && (if (errorResource != null) errorResource == resource.errorResource else resource.errorResource == null)
                 && if (data != null) data == resource.data else resource.data == null)
     }
 
     override fun hashCode(): Int {
         var result = status
-        result = 31 * result + (message?.hashCode() ?: 0)
+        result = 31 * result + (errorResource?.hashCode() ?: 0)
         result = 31 * result + (data?.hashCode() ?: 0)
         return result
     }
@@ -54,18 +57,18 @@ class Resource<T>(@Status val status: Int, val data: T?, val message: String?, @
         return "Resource{" +
                 "status=" + getStatus(status) + "\n" +
                 "loading=" + getLoading(loading) + "\n" +
-                ", message='" + message + '\''.toString() + "\n" +
+                ", message='" + errorResource + '\''.toString() + "\n" +
                 ", data=" + data +
                 '}'.toString()
     }
 
     private fun getStatus(@Status status: Int): String {
         when (status) {
-            ERROR -> return "Error"
+            ERROR -> return "ErrorResource"
             LOADING -> return "Loading"
             SUCCESS -> return "Success"
         }
-        return EMPTY
+        return ""
     }
 
     private fun getLoading(@Loading loading: Int): String {
@@ -74,24 +77,63 @@ class Resource<T>(@Status val status: Int, val data: T?, val message: String?, @
             Loading.LOADING_NONE -> return "Loading None"
             Loading.LOADING_NORMAL -> return "Loading Normal"
         }
-        return EMPTY
+        return ""
+    }
+
+    fun isSuccess(): Boolean {
+        return status == Status.SUCCESS
+    }
+
+    fun isLoading(): Boolean {
+        return status == Status.LOADING
     }
 
     companion object {
 
         @JvmStatic
-        fun <T> success(data: T?, loading: Int): Resource<T> {
-            return Resource(SUCCESS, data, null, loading)
+        fun <T> success(data: T?, loading: Int = Loading.LOADING_NORMAL): Resource<T> {
+            return Resource(SUCCESS, data, null, loading, null)
         }
 
         @JvmStatic
-        fun <T> error(msg: String?, data: T?, loading: Int): Resource<T> {
-            return Resource(ERROR, data, msg, loading)
+        fun <T> successPaging(data: T?, loading: Int = Loading.LOADING_NORMAL): Resource<T> {
+            val resource = Resource(SUCCESS, data, null, loading, null)
+            resource.initial = false
+            return resource
         }
 
         @JvmStatic
-        fun <T> loading(data: T?, @Loading loading: Int): Resource<T> {
-            return Resource(LOADING, data, null, loading)
+        fun <T> error(
+            msg: ErrorResource?,
+            data: T?,
+            loading: Int = Loading.LOADING_NORMAL,
+            retry: () -> Unit
+        ): Resource<T> {
+            return Resource(ERROR, data, msg, loading, retry)
+        }
+
+        @JvmStatic
+        fun <T> errorPaging(
+            msg: ErrorResource?,
+            data: T?,
+            loading: Int = Loading.LOADING_NORMAL,
+            retry: () -> Unit
+        ): Resource<T> {
+            val resource = Resource(ERROR, data, msg, loading, retry)
+            resource.initial = false
+            return resource
+        }
+
+        @JvmStatic
+        fun <T> loading(data: T?, @Loading loading: Int = Loading.LOADING_NORMAL): Resource<T> {
+            return Resource(LOADING, data, null, loading, null)
+        }
+
+        @JvmStatic
+        fun <T> loadingPaging(data: T?, @Loading loading: Int = Loading.LOADING_NORMAL): Resource<T> {
+            val resource = Resource(LOADING, data, null, loading, null)
+            resource.initial = false
+            return resource
         }
     }
 }

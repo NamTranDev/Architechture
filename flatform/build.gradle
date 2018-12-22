@@ -8,9 +8,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-
     }
 
     buildTypes {
@@ -37,10 +34,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //room sql
-    api "android.arch.persistence.room:runtime:$rootProject.room"
-    testImplementation "android.arch.persistence.room:testing:$rootProject.room"
-    api "android.arch.persistence.room:rxjava2:$rootProject.room"
-    kapt "android.arch.persistence.room:compiler:$rootProject.room"
+    api "androidx.room:room-runtime:$rootProject.room"
+    testImplementation "androidx.room:room-testing:$rootProject.room"
+    kapt "androidx.room:room-compiler:$rootProject.room"
 
     // Retrofit2
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
@@ -56,11 +52,11 @@ dependencies {
     api "com.google.dagger:dagger-android:$rootProject.dagger"
     api "com.google.dagger:dagger-android-support:$rootProject.dagger"
 
-    //live data
-    api "android.arch.lifecycle:runtime:$rootProject.lifecycle"
-    api "android.arch.lifecycle:extensions:$rootProject.lifecycle"
-    kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
+    api "androidx.paging:paging-runtime:$rootProject.paging"
 
-    implementation project(':util')
+    //live data
+    api "androidx.lifecycle:lifecycle-runtime:$rootProject.lifecycle"
+    api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle"
 
 }

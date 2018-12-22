@@ -8,18 +8,14 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
         enabled = true
     }
 
     baseFeature true
-
+    
     buildTypes {
         release {
             minifyEnabled false
@@ -44,12 +40,20 @@ kapt {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation "junit:junit:$rootProject.junit"
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation "androidx.test:runner:$rootProject.runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
 
-    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraint_layout"
-    implementation "com.android.support:appcompat-v7:$rootProject.android_support"
-    implementation "com.android.support:recyclerview-v7:$rootProject.android_support"
+    api "androidx.core:core-ktx:$rootProject.core_ktx"
+    api "com.google.android.material:material:$rootProject.material"
+    api "androidx.vectordrawable:vectordrawable:$rootProject.vectordrawable"
+
+    api "androidx.constraintlayout:constraintlayout:$rootProject.constraint_layout"
+    api "androidx.appcompat:appcompat:$rootProject.appcompat"
+    api "androidx.recyclerview:recyclerview:$rootProject.recyclerview"
+
+    api "androidx.paging:paging-runtime:$rootProject.paging"
+
+    api "androidx.multidex:multidex:$rootProject.multidex"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -61,18 +65,20 @@ dependencies {
     api "com.google.dagger:dagger-android-support:$rootProject.dagger"
 
     //lifecycle
-    api "android.arch.lifecycle:runtime:$rootProject.lifecycle"
-    api "android.arch.lifecycle:extensions:$rootProject.lifecycle"
-    kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
+    api "androidx.lifecycle:lifecycle-runtime:$rootProject.lifecycle"
+    api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle"
+
+    api "com.github.bumptech.glide:glide:$rootProject.glide"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glide"
 
     //loading
     api "com.wang.avi:library:$rootProject.progress_loading"
 
-    implementation project(':domain')
-    implementation project(':util')
+    kapt 'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta02'
+    annotationProcessor 'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta02'
+
+    api project(':domain')
     application project(':app')
 
-}
-repositories {
-    mavenCentral()
 }

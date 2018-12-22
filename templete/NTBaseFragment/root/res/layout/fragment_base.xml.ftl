@@ -10,16 +10,16 @@
             type="${packageName}.${funtionName}.${fragmentName}"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="${packageName}.${funtionName}.${fragmentName}">
         
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
 <#else>
-	<android.support.constraint.ConstraintLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
     	xmlns:tools="http://schemas.android.com/tools"
@@ -27,5 +27,5 @@
         android:layout_height="match_parent"
         tools:context="${packageName}.${funtionName}.${fragmentName}">
         
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </#if>

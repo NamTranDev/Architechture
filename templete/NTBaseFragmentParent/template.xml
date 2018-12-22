@@ -47,13 +47,6 @@
         default="true"
         help="If true, will include biding in xml and fragment"/>
 
-    <parameter 
-        id="hasArgument"
-        name="add argument to fragment"
-        type="boolean"
-        default="false"
-        help="If true, will create contractor with argument for fragment"/>
-
     <globals file="globals.xml.ftl" />
     <execute file="recipe.xml.ftl" />
 	

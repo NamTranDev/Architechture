@@ -9,7 +9,7 @@ class DbModule {
 //    @Provides
 //    fun provideDb(app: Application): DbProvider {
 //        return Room
-//                .databaseBuilder(app, DbProvider::class.java, "architechture.db")
+//                .databaseBuilder(app, DbProvider::class.java, "application.db")
 //                .fallbackToDestructiveMigration()
 //                .build()
 //    }

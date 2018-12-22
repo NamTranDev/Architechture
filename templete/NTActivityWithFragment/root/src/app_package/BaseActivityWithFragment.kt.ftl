@@ -2,13 +2,13 @@ package ${packageName}.${funtionName}
 
 import android.os.Bundle
 
-import ${packageName}.R
+import ${applicationPackage}.R
 import tran.nam.core.view.BaseActivityWithFragment
 import tran.nam.core.view.BaseFragment
 
 <#if hasBiding>
-import android.databinding.DataBindingUtil
-import ${packageName}.databinding.Activity${Name}Binding
+import androidx.databinding.DataBindingUtil
+import ${applicationPackage}.databinding.Activity${Name}Binding
 </#if>
 
 class ${activityName} : BaseActivityWithFragment() {
@@ -26,21 +26,17 @@ class ${activityName} : BaseActivityWithFragment() {
     override fun layoutId(): Int {
         return R.layout.${layoutName}
     }
-
-    override fun initView(savedInstanceState: Bundle?) {
-        <#if hasBiding>
-        mViewDataBinding = DataBindingUtil.setContentView(this, layoutId())
-        mViewDataBinding.view = this
-        </#if>
-    }
-    
-    override fun initData(savedInstanceState: Bundle?) {
-    
-    }
     
     <#if hasStatusBar>
     override fun setStatusBar() {
     
+    }
+
+    override fun init(savedInstanceState: Bundle?) {
+        <#if hasBiding>
+        mViewDataBinding = DataBindingUtil.setContentView(this, layoutId())
+        mViewDataBinding.view = this
+        </#if>
     }
     </#if>
 }

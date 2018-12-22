@@ -16,21 +16,20 @@
 
 package tran.nam.core.view.mvvm
 
-import android.arch.lifecycle.ViewModelProvider
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.EditText
 import android.widget.Toast
-import tran.nam.core.Navigator
 import tran.nam.core.view.BaseActivityInjection
 import tran.nam.core.viewmodel.BaseActivityViewModel
-import tran.nam.core.viewmodel.IViewModel
+import tran.nam.core.viewmodel.IView
 import javax.inject.Inject
 
-abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseActivityViewModel> : BaseActivityInjection(), IViewModel {
+abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseActivityViewModel> : BaseActivityInjection(), IView {
 
     var mViewModelFactory: ViewModelProvider.Factory? = null
         @Inject set
@@ -43,7 +42,7 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseActivityViewModel>
         mViewDataBinding = DataBindingUtil.setContentView(this, layoutId())
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun init(savedInstanceState: Bundle?) {
         mViewModel?.onCreated(this)
     }
 
@@ -68,10 +67,10 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseActivityViewModel>
                 }
             }
         }
-        try {
-            return super.dispatchTouchEvent(event)
+        return try {
+            super.dispatchTouchEvent(event)
         } catch (e: Exception) {
-            return true
+            true
         }
 
     }
@@ -89,8 +88,9 @@ abstract class BaseActivityMVVM<V : ViewDataBinding, VM : BaseActivityViewModel>
         hideLoadingDialog()
     }
 
-    override fun onShowDialogError(message: String?) {
-        Toast.makeText(this, "Error Dialog", Toast.LENGTH_SHORT).show()
+    override fun onShowDialogError(message: String?, codeError: Int?) {
+        hideLoadingDialog()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
 

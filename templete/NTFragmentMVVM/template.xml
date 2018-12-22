@@ -48,13 +48,6 @@
         help="If true, will use as child fragment"/>
 
     <parameter 
-        id="hasArgument"
-        name="add argument to fragment"
-        type="boolean"
-        default="false"
-        help="If true, will create contractor with argument for fragment"/>
-
-    <parameter 
         id="hasProgress"
         name="include progress with MVVM Architechture"
         type="boolean"

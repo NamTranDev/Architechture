@@ -1,1 +1,1 @@
-include ':app',  ':flatform',':domain', 'core','util'
+include ':app',  ':flatform',':domain', 'core'

@@ -11,7 +11,7 @@ import javax.inject.Singleton
 /**
  * Provides application-wide dependencies.
  */
-@Module(includes = arrayOf(AndroidSupportInjectionModule::class, ViewModelModule::class, DataModule::class))
+@Module(includes = [AndroidSupportInjectionModule::class, ViewModelModule::class, DataModule::class])
 abstract class AppModule {
 
     @Binds

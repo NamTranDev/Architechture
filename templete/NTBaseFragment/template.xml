@@ -49,7 +49,7 @@
 
     <parameter 
         id="hasInject"
-        name="inject activity with dagger"
+        name="inject fragment with dagger"
         type="boolean"
         default="false"
         help="If true, will inject fragment with dagger"/>
@@ -60,13 +60,6 @@
         type="boolean"
         default="false"
         help="If true, will use as child fragment"/>
-
-    <parameter 
-        id="hasArgument"
-        name="add argument to fragment"
-        type="boolean"
-        default="false"
-        help="If true, will create contractor with argument for fragment"/>
 
     <globals file="globals.xml.ftl" />
     <execute file="recipe.xml.ftl" />

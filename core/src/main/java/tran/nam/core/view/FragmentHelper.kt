@@ -1,6 +1,6 @@
 package tran.nam.core.view
 
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 import java.util.*
 import javax.inject.Inject
 
@@ -58,7 +58,7 @@ internal constructor(private val fragmentProvider: IFragmentProvider<T>) {
 
         val hideFragment = currentStack.peek()
         currentStack.push(fragment)
-        if (mOnChangedFragmentListener != null){
+        if (mOnChangedFragmentListener != null) {
             mOnChangedFragmentListener!!.onChangedFragment(fragment)
             mOnChangedFragmentListener?.onHideFragment(hideFragment)
         }
@@ -93,7 +93,10 @@ internal constructor(private val fragmentProvider: IFragmentProvider<T>) {
         var level = levelPop
         if (level <= 0) return false
         val parentFragment = mPageList[mPageIndex].peek()
-        if (parentFragment is IParentFragmentListener && (parentFragment as IParentFragmentListener).popChildFragment(level)) {
+        if (parentFragment is IParentFragmentListener && (parentFragment as IParentFragmentListener).popChildFragment(
+                level
+            )
+        ) {
             return true
         }
         if (mPageList[mPageIndex].size <= level) return false
@@ -154,7 +157,7 @@ internal constructor(private val fragmentProvider: IFragmentProvider<T>) {
         else
             transaction.detach(hideFragment)
         transaction.commitAllowingStateLoss()
-        if (mOnChangedFragmentListener != null){
+        if (mOnChangedFragmentListener != null) {
             mOnChangedFragmentListener?.onHideFragment(hideFragment)
             mOnChangedFragmentListener!!.onChangedFragment(showFragment)
         }

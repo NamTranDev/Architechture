@@ -18,15 +18,14 @@ package tran.nam.core.view
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
 import tran.nam.core.R
 
 /**
@@ -59,9 +58,9 @@ abstract class BaseFragment : Fragment() {
      * @return layout resource id
      */
     @LayoutRes
-    protected abstract fun  layoutId(): Int
+    protected abstract fun layoutId(): Int
 
-    protected open fun isHaveAnimation(): Boolean{
+    protected open fun isHaveAnimation(): Boolean {
         return true
     }
 
@@ -69,36 +68,36 @@ abstract class BaseFragment : Fragment() {
 
     val isShouldSave: Boolean = true
 
-    protected open fun pushExitAnimId(): Int{
-        return R.anim.slide_out_left
+    protected open fun pushExitAnimId(): Int {
+        return R.anim.slide_left_out
     }
 
-    protected open fun popEnterAnimId(): Int{
-        return R.anim.slide_in_left
+    protected open fun popEnterAnimId(): Int {
+        return R.anim.slide_left_in
     }
 
-    protected open fun popExitAnimId(): Int{
-        return R.anim.slide_out_right
+    protected open fun popExitAnimId(): Int {
+        return R.anim.slide_right_out
     }
 
-    protected open fun pushEnterAnimId(): Int{
-        return R.anim.slide_in_right
+    protected open fun pushEnterAnimId(): Int {
+        return R.anim.slide_right_in
     }
 
-    protected open fun leftInAnimId(): Int{
-        return  R.anim.slide_in_left
+    protected open fun leftInAnimId(): Int {
+        return R.anim.slide_left_in
     }
 
-    protected open fun rightInAnimId(): Int{
-        return R.anim.slide_in_right
+    protected open fun rightInAnimId(): Int {
+        return R.anim.slide_right_in
     }
 
-    protected open fun leftOutAnimId(): Int{
-        return R.anim.slide_out_left
+    protected open fun leftOutAnimId(): Int {
+        return R.anim.slide_left_out
     }
 
-    protected open fun rightOutAnimId(): Int{
-        return R.anim.slide_out_right
+    protected open fun rightOutAnimId(): Int {
+        return R.anim.slide_right_out
     }
 
     /*

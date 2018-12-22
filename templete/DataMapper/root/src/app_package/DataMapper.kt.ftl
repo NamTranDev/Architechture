@@ -14,8 +14,15 @@
  */
 package ${packageName}
 
+<#if !isDomain>
+import dev.tran.nam.download.model.${datato}
+import nam.tran.domain.entity.${datafrom}
+import nam.tran.domain.entity.state.Resource
+<#else>
 import nam.tran.domain.entity.${datato}
 import nam.tran.flatform.model.response.${datafrom}
+</#if>
+
 import java.util.*
 import javax.inject.Inject
 
@@ -33,11 +40,10 @@ class ${DataMapperName} @Inject constructor() {
      * @return [${datato}].
      */
     fun transform(data: ${datafrom}?): ${datato} {
-        if (data == null) {
-            throw IllegalArgumentException("Cannot transform a null value")
+        data?.let {
+	            val result = ${datato}()
+	        	return result
         }
-
-        return ${datato}()
     }
 
     /**
@@ -46,7 +52,7 @@ class ${DataMapperName} @Inject constructor() {
      * @param datas Objects to be transformed.
      * @return List of [${datato}].
      */
-    fun transform(datas: List<${datafrom}>?): List<${datato}> {
+    fun transform<#if isDomain>Entity<#else>Model</#if>(datas: List<${datafrom}>?): List<${datato}> {
         val <#if isDomain>dataEntitys<#else>dataModels</#if>: MutableList<${datato}>
 
         if (datas != null && !datas.isEmpty()) {
@@ -60,4 +66,48 @@ class ${DataMapperName} @Inject constructor() {
 
         return <#if isDomain>dataEntitys<#else>dataModels</#if>
     }
+
+    <#if isReverse>
+
+    /**
+     * Transform a [${datato}] into an [${datafrom}].
+     *
+     * @param data Object to be transformed.
+     * @return [${datafrom}].
+     */
+    fun transform(data: ${datato}?): ${datafrom} {
+        data?.let {
+	            val result = ${datafrom}()
+	        	return result
+        }
+    }
+
+    /**
+     * Transform a Collection of [${datato}] into a Collection of [${datafrom}].
+     *
+     * @param datas Objects to be transformed.
+     * @return List of [${datafrom}].
+     */
+    fun transform(datas: List<${datato}>?): List<${datafrom}> {
+        val data: MutableList<${datafrom}>
+
+        if (datas != null && !datas.isEmpty()) {
+            data = ArrayList()
+            for (dataItem in datas) {
+                data.add(transform(dataItem))
+            }
+        } else {
+            data = ArrayList()
+        }
+
+        return data
+    }
+
+    </#if>
+
+    <#if !isDomain>
+    fun transform(data: Resource<List<${datafrom}>>): Resource<List<${datato}>> {
+        return Resource(data.status, transformModel(data.data), data.errorResource, data.loading, data.retry)
+    }
+    </#if>
 }

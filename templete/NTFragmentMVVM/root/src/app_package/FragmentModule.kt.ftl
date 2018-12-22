@@ -1,8 +1,6 @@
 package ${packageName}.${funtionName}
 
-import android.support.v4.app.Fragment
-
-import javax.inject.Named
+import androidx.fragment.app.Fragment
 
 import dagger.Binds
 import dagger.Module

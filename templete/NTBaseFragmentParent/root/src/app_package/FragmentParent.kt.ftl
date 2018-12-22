@@ -1,9 +1,5 @@
 package ${packageName}.${funtionName};
 
-<#if hasArgument>
-import android.os.Bundle
-</#if>
-
 import ${applicationPackage}.R
 
 <#if hasBiding>
@@ -11,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import ${applicationPackage}.databinding.Fragment${Name}Binding
 </#if>
 import tran.nam.core.view.BaseFragment
@@ -22,19 +18,6 @@ class ${fragmentName} : BaseParentFragment(){
     <#if hasBiding>
     private lateinit var mViewDataBinding : Fragment${Name}Binding
     </#if>
-
-    companion object {
-                <#if hasArgument>
-                fun newInstance() = ${fragmentName}().apply {
-                               arguments = Bundle().apply {
-    
-                              }
-                          }
-                <#else>
-                @JvmStatic
-                fun newInstance(): ${fragmentName} = ${fragmentName}()
-                </#if>
-            }
 
     public override fun layoutId(): Int {
         return R.layout.${layoutName}
@@ -51,20 +34,9 @@ class ${fragmentName} : BaseParentFragment(){
         mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
         return mViewDataBinding.root
     }
-    </#if> 
-    override fun onVisible() {
-        <#if hasArgument>
-        arguments?.let { 
-        }
-        </#if>
-    }
+    </#if>
 
     override fun isHaveAnimation(): Boolean {
         return false
     }
-
-    override val fragments: Array<BaseFragment>
-            get() = arrayOf()
-    
-    override val
 }
