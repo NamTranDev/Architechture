@@ -59,4 +59,6 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle"
 
+    implementation "net.zetetic:android-database-sqlcipher:$rootProject.sqlcipher"
+
 }

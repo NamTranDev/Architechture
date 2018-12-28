@@ -27,6 +27,7 @@ buildscript {
         retrofit2 = '2.3.0'
         okhttp3 = '3.9.0'
         paging = "2.1.0-rc01"
+        sqlcipher = "4.0.1@aar"
 
         runner = "1.1.0"
         espresso = "3.1.0"

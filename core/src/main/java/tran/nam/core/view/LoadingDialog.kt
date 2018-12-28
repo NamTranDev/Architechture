@@ -2,15 +2,15 @@ package tran.nam.core.view
 
 import android.app.Activity
 import android.app.Dialog
-import androidx.databinding.DataBindingUtil
-import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import tran.nam.core.R
 import tran.nam.core.databinding.IncludeProgressLayoutBinding
+import tran.nam.util.Logger
 import javax.inject.Inject
 
 @Suppress("unused")
@@ -57,7 +57,7 @@ internal constructor(activity: AppCompatActivity) {
             }
 
         } catch (e: Exception) {
-            Log.d("LoadingDialog", e.message)
+            Logger.debug(e.message)
         }
 
     }
