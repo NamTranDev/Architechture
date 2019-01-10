@@ -9,6 +9,7 @@ import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import nam.tran.architechture.BuildConfig
 import nam.tran.architechture.di.component.AppComponent
 import nam.tran.architechture.di.component.DaggerAppComponent
 import javax.inject.Inject
@@ -23,12 +24,14 @@ class AppState : MultiDexApplication(), Application.ActivityLifecycleCallbacks,
 
     override fun onCreate() {
         super.onCreate()
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return
+        if (BuildConfig.DEBUG) {
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                // This process is dedicated to LeakCanary for heap analysis.
+                // You should not init your app in this process.
+                return
+            }
+            LeakCanary.install(this)
         }
-        LeakCanary.install(this)
         appComponent = DaggerAppComponent.builder().application(this).build()
         appComponent!!.inject(this)
         registerActivityLifecycleCallbacks(this)
