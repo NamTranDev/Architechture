@@ -6,7 +6,6 @@ import androidx.databinding.ViewDataBinding
 import android.graphics.Point
 import android.os.Bundle
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.DialogFragment
 import android.view.*
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import tran.nam.core.R
@@ -43,7 +42,7 @@ abstract class BaseDialog<T : ViewDataBinding> : androidx.fragment.app.DialogFra
 
     override fun onResume() {
         // Store access variables for window and blank point
-        val window = dialog.window
+        val window = dialog?.window
         if (window != null) {
             val size = Point()
             // Store dimensions of the screen in `size`

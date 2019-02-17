@@ -17,19 +17,20 @@
 
     <open file="${escapeXmlAttribute(srcOut)}/${funtionName}/${activityName}.kt" />
   
-	  <instantiate from="root/src/app_package/ActivityModule.kt.ftl"
+  	<#if hasInject || isViewModel || isViewModelLoading>
+
+	<instantiate from="root/src/app_package/ActivityModule.kt.ftl"
                    to="${escapeXmlAttribute(srcOut)}/${funtionName}/${Name}ActivityModule.kt" />
 
     <open file="${escapeXmlAttribute(srcOut)}/${funtionName}/${Name}ActivityModule.kt" />
 
-    <instantiate from="root/src/app_package/IViewModel.kt.ftl"
-                   to="${escapeXmlAttribute(srcOut)}/${funtionName}/viewmodel/I${Name}ViewModel.kt"/>
+    </#if>
 
-    <open file="${escapeXmlAttribute(srcOut)}/${funtionName}/viewmodel/${Name}ViewModel.kt" />
-
+    <#if isViewModel || isViewModelLoading>
     <instantiate from="root/src/app_package/ViewModel.kt.ftl"
                    to="${escapeXmlAttribute(srcOut)}/${funtionName}/viewmodel/${Name}ViewModel.kt" />
 
-    <open file="${escapeXmlAttribute(srcOut)}/${funtionName}/viewmodel/I${Name}ViewModel.kt" />
+    <open file="${escapeXmlAttribute(srcOut)}/${funtionName}/viewmodel/${Name}ViewModel.kt" />
+    </#if>
 	
 </recipe>

@@ -35,6 +35,7 @@ class NetModule {
             .create()
     }
 
+    @Suppress("UNUSED_PARAMETER")
     @Provides
     @Singleton
     fun provideOkHttpClient(cache: Cache, iPreference: IPreference): OkHttpClient {
@@ -53,10 +54,9 @@ class NetModule {
     @Provides
     @Singleton
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
-        val API_URL = ""
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(API_URL)
+            .baseUrl(BuildConfig.URL_API)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()

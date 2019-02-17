@@ -16,7 +16,7 @@ abstract class BaseFragmentInjection : BaseFragment(), HasSupportFragmentInjecto
     var childFragmentInjector: DispatchingAndroidInjector<Fragment>? = null
         @Inject set
 
-    override fun onAttach(activity: Activity?) {
+    override fun onAttach(activity: Activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             // Perform injection here before M, L (API 22) and below because onAttach(Context)
             // is not yet available at L.
@@ -25,7 +25,7 @@ abstract class BaseFragmentInjection : BaseFragment(), HasSupportFragmentInjecto
         super.onAttach(activity)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Perform injection here for M (API 23) due to deprecation of onAttach(Activity).
             AndroidSupportInjection.inject(this)

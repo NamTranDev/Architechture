@@ -11,11 +11,7 @@ class SplashActivity : BaseActivity() {
 
     private var mViewDataBinding: ActivitySplashBinding? = null
     private var handler: Handler? = null
-    private var runnable: Runnable? = object : Runnable {
-        override fun run() {
-
-        }
-    }
+    private var runnable: Runnable? = Runnable { }
 
     override fun layoutId(): Int {
         return R.layout.activity_splash

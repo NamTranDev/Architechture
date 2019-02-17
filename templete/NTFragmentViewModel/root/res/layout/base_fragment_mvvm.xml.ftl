@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<#if isViewModel || isViewModelLoading>
+<#if isViewModel>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -13,9 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="${packageName}.${funtionName}.${activityName}">
+        tools:context="${packageName}.${funtionName}.${fragmentName}">
 
-        <#if isViewModelLoading>
+        <#if isLoading>
         <include
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,25 +39,25 @@
     <data>
         <variable
             name="view"
-            type="${packageName}.${funtionName}.${activityName}"/>
+            type="${packageName}.${funtionName}.${fragmentName}"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="${packageName}.${funtionName}.${activityName}">
+        tools:context="${packageName}.${funtionName}.${fragmentName}">
         
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
-<#elseif !isViewModel && !isViewModelLoading>
+<#elseif !isViewModel>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="${packageName}.${funtionName}.${activityName}">
+        tools:context="${packageName}.${funtionName}.${fragmentName}">
         
     </androidx.constraintlayout.widget.ConstraintLayout>
 </#if>

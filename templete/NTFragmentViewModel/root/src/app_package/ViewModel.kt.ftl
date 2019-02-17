@@ -4,16 +4,16 @@ import android.app.Application
 
 import javax.inject.Inject
 
-import tran.nam.core.viewmodel.BaseActivityViewModel
-<#if isViewModelLoading>
+import tran.nam.core.viewmodel.BaseFragmentViewModel
+<#if isLoading>
 import nam.tran.data.model.core.state.Resource
 import androidx.lifecycle.LiveData
 </#if>
 
 class ${Name}ViewModel @Inject internal constructor(application: Application)
-: BaseActivityViewModel(application){
+: BaseFragmentViewModel(application){
 
-     <#if isViewModelLoading>
+     <#if isLoading>
      var results: LiveData<Resource<*>>? = null
 
      fun resource(): Resource<*>? {

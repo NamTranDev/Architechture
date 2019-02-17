@@ -46,19 +46,28 @@ kapt {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger"
-    kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+    kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glide"
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    kapt 'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta02'
-    annotationProcessor 'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta02'
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanary"
+
+    kapt "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
+    annotationProcessor "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
+
     implementation project(':core')
     implementation project(':data')
+
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.core_testing"
+    androidTestImplementation "androidx.test:runner:$rootProject.runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
+    androidTestImplementation "org.mockito:mockito-core:$rootProject.mockito_core"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
 
 

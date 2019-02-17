@@ -50,6 +50,8 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout:$rootProject.constraint_layout"
     api "androidx.appcompat:appcompat:$rootProject.appcompat"
     api "androidx.recyclerview:recyclerview:$rootProject.recyclerview"
+    api "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigation"
+    api "android.arch.navigation:navigation-ui-ktx:$rootProject.navigation"
 
     api "androidx.paging:paging-runtime:$rootProject.paging"
 
@@ -75,10 +77,15 @@ dependencies {
     //loading
     api "com.wang.avi:library:$rootProject.progress_loading"
 
-    kapt 'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta02'
-    annotationProcessor 'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta02'
+    kapt "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
+    annotationProcessor "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
 
     implementation project(':data')
     application project(':app')
+
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.core_testing"
+    androidTestImplementation "androidx.test:runner:$rootProject.runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
+    androidTestImplementation "org.mockito:mockito-core:$rootProject.mockito_core"
 
 }

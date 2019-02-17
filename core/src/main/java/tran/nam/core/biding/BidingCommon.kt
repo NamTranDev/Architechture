@@ -7,12 +7,13 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
+import androidx.navigation.fragment.NavHostFragment
 import nam.tran.data.model.core.state.Loading
 import nam.tran.data.model.core.state.Resource
 import nam.tran.data.model.core.state.Status
-import tran.nam.core.view.BaseActivityWithFragment
-import tran.nam.core.view.BaseParentFragment
-import tran.nam.core.viewmodel.IView
+import tran.nam.core.view.BaseActivity
+import tran.nam.core.view.navigation.CustomNavHostFragment
+import tran.nam.core.viewmodel.IViewLoading
 
 object BidingCommon {
 
@@ -24,12 +25,12 @@ object BidingCommon {
                 Status.ERROR -> when (it.loading) {
                     Loading.LOADING_DIALOG -> {
                         view.visibility = View.GONE
-                        dialogError(view, it.errorResource?.message, it.errorResource?.code)
+                        dialogError(view, it.errorResource?.message,it.errorResource?.code)
                     }
                     Loading.LOADING_NONE -> Toast.makeText(
-                        view.context,
-                        it.errorResource?.message,
-                        Toast.LENGTH_SHORT
+                            view.context,
+                            it.errorResource?.message,
+                            Toast.LENGTH_SHORT
                     ).show()
                     Loading.LOADING_NORMAL -> {
                         if (it.initial) {
@@ -134,24 +135,39 @@ object BidingCommon {
 
     private fun loadingDialog(view: View, isShow: Boolean?) {
         val context = view.context
-        if (context is IView) {
+        if (context is IViewLoading) {
             if (isShow!!) {
-                (context as IView).showDialogLoading()
+                context.showDialogLoading()
             } else {
-                (context as IView).hideDialogLoading()
+                context.hideDialogLoading()
             }
         } else {
-            if (context is BaseActivityWithFragment) {
-                val fragmentHelper = context.mFragmentHelper
-                val fragment = fragmentHelper?.getCurrentFragment()
-                if (fragment != null && fragment is BaseParentFragment) {
-                    val fragmentHelperChild = fragment.mChildFragmentHelper
-                    val childFragment = fragmentHelperChild.getCurrentFragment()
-                    if (childFragment is IView) {
-                        if (isShow!!) {
-                            (childFragment as IView).showDialogLoading()
-                        } else {
-                            (childFragment as IView).hideDialogLoading()
+            if (context is BaseActivity) {
+                val manager = context.supportFragmentManager.primaryNavigationFragment
+                if (manager != null) {
+                    val fragment = manager.childFragmentManager.primaryNavigationFragment
+                    if (fragment != null) {
+                        if (fragment is IViewLoading)
+                            if (isShow!!) {
+                                fragment.showDialogLoading()
+                            } else {
+                                fragment.hideDialogLoading()
+                            }
+                        else {
+                            val managerChild = fragment.childFragmentManager
+                            if (managerChild.fragments.size > 0) {
+                                if (managerChild.fragments[0] is NavHostFragment) {
+                                    val fragmentChild =
+                                            managerChild.fragments[0].childFragmentManager.primaryNavigationFragment
+                                    if (fragmentChild != null && fragmentChild is IViewLoading) {
+                                        if (isShow!!) {
+                                            fragmentChild.showDialogLoading()
+                                        } else {
+                                            fragmentChild.hideDialogLoading()
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -159,19 +175,30 @@ object BidingCommon {
         }
     }
 
-    private fun dialogError(view: View, error: String?, codeError: Int?) {
+    private fun dialogError(view: View, error: String?,codeError : Int?) {
         val context = view.context
-        if (context is IView) {
-            (context as IView).onShowDialogError(error, codeError)
+        if (context is IViewLoading) {
+            context.onShowDialogError(error, codeError)
         } else {
-            if (context is BaseActivityWithFragment) {
-                val fragmentHelper = context.mFragmentHelper
-                val fragment = fragmentHelper?.getCurrentFragment()
-                if (fragment != null && fragment is BaseParentFragment) {
-                    val fragmentHelperChild = fragment.mChildFragmentHelper
-                    val childFragment = fragmentHelperChild.getCurrentFragment()
-                    if (childFragment is IView) {
-                        (childFragment as IView).onShowDialogError(error, codeError)
+            if (context is BaseActivity) {
+                val manager = context.supportFragmentManager.primaryNavigationFragment
+                if (manager != null) {
+                    val fragment = manager.childFragmentManager.primaryNavigationFragment
+                    if (fragment != null) {
+                        if (fragment is IViewLoading)
+                            fragment.onShowDialogError(error,codeError)
+                        else {
+                            val managerChild = fragment.childFragmentManager
+                            if (managerChild.fragments.size > 0) {
+                                if (managerChild.fragments[0] is CustomNavHostFragment) {
+                                    val fragmentChild =
+                                            managerChild.fragments[0].childFragmentManager.primaryNavigationFragment
+                                    if (fragmentChild != null && fragmentChild is IViewLoading) {
+                                        fragmentChild.onShowDialogError(error, codeError)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

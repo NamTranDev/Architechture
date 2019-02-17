@@ -2,10 +2,10 @@
 <template
 	format="5"
 	revision="1"
-	name="Activity Mvvm"
+	name="Activity"
 	minApi="11"
     minBuildApi="17"
-	description="Create a new Activity Mvvm">
+	description="Create a new Activity">
 
 	<category value="NamTran" />
     <formfactor value="Mobile" />
@@ -49,11 +49,32 @@
         help="If true, will include status bar funtion in activity"/>
 
     <parameter 
-        id="hasProgress"
-        name="include progress with MVVM Architechture"
+        id="hasInject"
+        name="inject activity with dagger"
         type="boolean"
         default="false"
-        help="If true, will include progress bar in xml with Resource"/>
+        help="If true, will inject activity with dagger"/>
+
+    <parameter 
+        id="hasBiding"
+        name="include biding xml"
+        type="boolean"
+        default="false"
+        help="If true, will include biding in xml and activity"/>
+
+    <parameter 
+        id="isViewModel"
+        name="use view model structure"
+        type="boolean"
+        default="false"
+        help="If true, will use view model structure"/>
+
+    <parameter 
+        id="isViewModelLoading"
+        name="use view model structure with loading"
+        type="boolean"
+        default="false"
+        help="If true, will use view model structure with include loading with resource in xml"/>
 
     <globals file="globals.xml.ftl" />
     <execute file="recipe.xml.ftl" />

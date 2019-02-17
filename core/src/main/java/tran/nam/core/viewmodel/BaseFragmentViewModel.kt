@@ -12,18 +12,18 @@ import java.lang.ref.WeakReference
 open class BaseFragmentViewModel(application: Application) : AndroidViewModel(application), LifecycleObserver {
 
     @Volatile
-    var mViewWeakReference: WeakReference<IView>? = null
+    var mViewLoadingWeakReference: WeakReference<IViewLifecycle>? = null
 
-    protected inline fun<reified V: IView> view(): V? {
-        if (mViewWeakReference == null || mViewWeakReference?.get() == null)
+    protected inline fun<reified V: IViewLifecycle> view(): V? {
+        if (mViewLoadingWeakReference == null || mViewLoadingWeakReference?.get() == null)
             return null
-        return V::class.java.cast(mViewWeakReference?.get())
+        return V::class.java.cast(mViewLoadingWeakReference?.get())
     }
 
-    fun onAttach(view: IView) {
+    fun onAttach(viewLoading: IViewLifecycle) {
         Logger.w("BaseFragmentViewModel : onAttach()")
-        mViewWeakReference = WeakReference(view)
-        view.lifecycle.addObserver(this)
+        mViewLoadingWeakReference = WeakReference(viewLoading)
+        viewLoading.lifecycle.addObserver(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -55,7 +55,7 @@ open class BaseFragmentViewModel(application: Application) : AndroidViewModel(ap
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     internal fun onDestroy() {
         Logger.w("BaseFragmentViewModel : onDestroy()")
-        val viewWeakReference = this.mViewWeakReference
+        val viewWeakReference = this.mViewLoadingWeakReference
         if (viewWeakReference != null) {
             val view = viewWeakReference.get()
             view?.lifecycle?.removeObserver(this)

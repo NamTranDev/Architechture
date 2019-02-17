@@ -26,10 +26,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected open fun setStatusBar() {}
 
-    /*
-     * Init Fragment Helper
-     **/
-    protected open fun initFragment() {}
 
     protected open fun initLayout() {
         setContentView(layoutId())
@@ -48,34 +44,36 @@ abstract class BaseActivity : AppCompatActivity() {
         inject()
         super.onCreate(savedInstanceState)
         initLayout()
-        initFragment()
         mLoadingDialog = LoadingDialog(this)
         init(savedInstanceState)
     }
 
     fun showLoadingDialog() {
-        if (mLoadingDialog != null && !mLoadingDialog!!.isShowing()) {
-            mLoadingDialog!!.showDialog()
+        mLoadingDialog?.run {
+            if (!isShowing())
+                showDialog()
         }
     }
 
     fun hideLoadingDialog() {
-        if (mLoadingDialog != null && mLoadingDialog!!.isShowing()) {
-            mLoadingDialog!!.hideDialog()
+        mLoadingDialog?.run {
+            if (isShowing())
+                hideDialog()
         }
     }
 
     fun hideKeyboard() {
-        val view = currentFocus
-        if (view != null) {
+        currentFocus?.run {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
+            imm.hideSoftInputFromWindow(windowToken, 0)
         }
     }
 
     fun showKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        currentFocus?.run {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        }
     }
 
     override fun onDestroy() {

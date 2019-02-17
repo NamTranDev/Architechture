@@ -9,7 +9,7 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        buildConfigField "String", "LINK_RSS", "\"https://vnexpress.net/rss/tin-moi-nhat.rss\""
+        buildConfigField "String", "URL_API", "\"\""
         buildConfigField "String", "DB_KEY", "\"NamTranDev\""
         multiDexEnabled true
 
@@ -35,6 +35,10 @@ android {
 
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
+    }
+
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -73,13 +77,8 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle"
     implementation "net.zetetic:android-database-sqlcipher:$rootProject.sqlcipher"
 
-    testImplementation "androidx.arch.core:core-testing:2.0.0"
-    testImplementation 'androidx.test:runner:1.1.1'
-    testImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    testImplementation 'org.mockito:mockito-core:2.22.0'
-
-    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'org.mockito:mockito-core:2.22.0'
+    testImplementation "androidx.arch.core:core-testing:$rootProject.core_testing"
+    testImplementation "androidx.test:runner:$rootProject.runner"
+    testImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
+    testImplementation "org.mockito:mockito-core:$rootProject.mockito_core"
 }
