@@ -4,8 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import tran.nam.core.R
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -74,6 +76,24 @@ abstract class BaseActivity : AppCompatActivity() {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         }
+    }
+
+    open fun alert(message: String?, codeError: Int? = null, callbackAlertError: ((Int?) -> Unit?)? = null) {
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setMessage(message)
+        alertDialog.setOnCancelListener {
+            callbackAlertError?.invoke(codeError)
+        }
+        alertDialog.setPositiveButton(
+                getString(R.string.text_ok)
+        ) { dialog, _ ->
+            run {
+                callbackAlertError?.invoke(codeError)
+                dialog.dismiss()
+            }
+        }
+
+        alertDialog.create().show()
     }
 
     override fun onDestroy() {

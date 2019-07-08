@@ -2,15 +2,13 @@
 ?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=2686-->
 
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
         android:id="@+id/progress_loading"
         android:layout_width="@dimen/progress_width_height"
         android:layout_height="@dimen/progress_width_height"
-        app:indicatorName="BallClipRotatePulseIndicator"
-        app:indicatorColor="#000000"/>
+        android:indeterminateDrawable="@drawable/loading_style_dialog"/>
 
 </layout>
 

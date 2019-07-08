@@ -2,6 +2,7 @@ package tran.nam.core.viewmodel
 
 
 import android.app.Application
+import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -19,6 +20,8 @@ open class BaseFragmentViewModel(application: Application) : AndroidViewModel(ap
             return null
         return V::class.java.cast(mViewLoadingWeakReference?.get())
     }
+
+    open fun onInitialized(bundle: Bundle?) {}
 
     fun onAttach(viewLoading: IViewLifecycle) {
         Logger.w("BaseFragmentViewModel : onAttach()")

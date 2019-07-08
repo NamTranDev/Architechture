@@ -9,15 +9,15 @@ class DisplayUtil {
         private var deviceWidth = 0
         private var deviceHeight = 0
 
-        fun getDeviceWidth(context: Context): Int {
+        fun getDeviceWidth(context: Context?): Int {
             if (deviceWidth == 0)
-                deviceWidth = context.resources.displayMetrics.widthPixels
+                deviceWidth = context?.resources?.displayMetrics?.widthPixels ?: 0
             return deviceWidth
         }
 
-        fun getDeviceHeight(context: Context): Int {
+        fun getDeviceHeight(context: Context?): Int {
             if (deviceHeight == 0)
-                deviceHeight = context.resources.displayMetrics.heightPixels
+                deviceHeight = context?.resources?.displayMetrics?.heightPixels ?: 0
             return deviceHeight
         }
 

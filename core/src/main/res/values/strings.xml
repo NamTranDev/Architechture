@@ -9,7 +9,10 @@
 
     <string name="unknown_error">"Unknown Error</string>
     <string name="bt_retry">Retry</string>
-    <string name="text_ok">Ok</string>
+    <string name="text_ok">OK</string>
+    <string name="text_yes">YES</string>
+    <string name="text_no">NO</string>
+    <string name="text_cancel">Cancel</string>
     <string name="title_error">Error</string>
 
 </resources>

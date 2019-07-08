@@ -55,7 +55,7 @@ dependencies {
 
     api "androidx.paging:paging-runtime:$rootProject.paging"
 
-    api "androidx.multidex:multidex:$rootProject.multidex"
+//    api "androidx.multidex:multidex:$rootProject.multidex"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -75,7 +75,7 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$rootProject.glide"
 
     //loading
-    api "com.wang.avi:library:$rootProject.progress_loading"
+//    api "com.wang.avi:library:$rootProject.progress_loading"
 
     kapt "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
     annotationProcessor "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"

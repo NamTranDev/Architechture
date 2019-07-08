@@ -37,6 +37,12 @@ android {
         exclude 'META-INF/rxjava.properties'
     }
 
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }
+
     androidExtensions {
         experimental = true
     }

@@ -30,6 +30,7 @@ class Resource<T>(
 ) {
 
     var initial = true
+    var displayErrorDialog = false
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

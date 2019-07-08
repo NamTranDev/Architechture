@@ -20,10 +20,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import nam.tran.data.Logger
+import tran.nam.core.R
 
 abstract class BaseFragment : Fragment() {
+
+    private var mViewCreated = false
+    private var mViewDestroyed = false
+
+    private var mWaitThread: WaitThread? = null
 
     /**
      * @return layout resource id
@@ -39,31 +48,104 @@ abstract class BaseFragment : Fragment() {
         return initLayout(inflater, container)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (isWaitProgress()) {
+            view.postDelayed({
+                onInitialized(arguments)
+            }, resources.getInteger(R.integer.animation_time_full).toLong())
+        } else {
+            mViewCreated = true
+            mViewDestroyed = false
+            mWaitThread?.continueProcessing()
+        }
+    }
+
+    open fun isWaitProgress(): Boolean {
+        return false
+    }
+
+    fun isViewCreated(): Boolean {
+        return mViewCreated
+    }
+
+    open fun onInitialized(bundle: Bundle?) {
+
+    }
+
     protected fun showLoadingDialog() {
-        requireActivity().run {
+        activity?.run {
             if (this is BaseActivity && !isFinishing)
                 showLoadingDialog()
         }
     }
 
     protected fun hideLoadingDialog() {
-        requireActivity().run {
+        activity?.run {
             if (this is BaseActivity && !isFinishing)
                 hideLoadingDialog()
         }
     }
 
     protected fun showKeyboard() {
-        requireActivity().run {
+        activity?.run {
             if (this is BaseActivity && !isFinishing)
                 showKeyboard()
         }
     }
 
     protected fun hideKeyboard() {
-        requireActivity().run {
+        activity?.run {
             if (this is BaseActivity && !isFinishing)
                 hideKeyboard()
         }
+    }
+
+    protected fun showAlert(message: String?, codeError: Int? = null, callbackAlertError: ((Int?) -> Unit?)? = null){
+        activity?.run {
+            if (this is BaseActivity && !isFinishing)
+                alert(message, codeError, callbackAlertError)
+        }
+    }
+
+    override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
+        var animation = super.onCreateAnimation(transit, enter, nextAnim)
+//        Logger.debug("Animation Fragment : $this")
+//        Logger.debug("Animation Fragment - onCreateAnimation : $animation")
+//        Logger.debug("Animation Fragment - nextAnim : $nextAnim")
+        if (enter) {
+            if (animation == null && nextAnim != 0) {
+                animation = AnimationUtils.loadAnimation(activity, nextAnim);
+            }
+
+            view?.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+
+            animation?.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation) {}
+                override fun onAnimationEnd(animation: Animation) {
+                    view?.setLayerType(View.LAYER_TYPE_NONE, null);
+                    if (mViewDestroyed)
+                        return
+//                    Logger.debug("Animation Fragment : " + "onAnimationEnd")
+//                    Logger.debug("Animation Fragment : $mWaitThread")
+                    if (mWaitThread == null) {
+                        mWaitThread = WaitThread(this@BaseFragment)
+                        mWaitThread?.start()
+                    }
+                }
+
+                override fun onAnimationRepeat(animation: Animation) {}
+            })
+        }
+
+        return animation
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+//        Logger.debug("Animation Fragment : $this")
+        mWaitThread?.stopProcessing()
+        mViewDestroyed = true
+        mViewCreated = false
     }
 }

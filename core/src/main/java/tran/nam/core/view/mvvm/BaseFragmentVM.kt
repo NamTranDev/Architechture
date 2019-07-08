@@ -17,16 +17,15 @@
 package tran.nam.core.view.mvvm
 
 import android.content.Context
+import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import tran.nam.common.autoCleared
-import tran.nam.core.R
 import tran.nam.core.view.BaseFragmentInjection
 import tran.nam.core.viewmodel.BaseFragmentViewModel
 import tran.nam.core.viewmodel.IViewLoading
@@ -58,18 +57,15 @@ abstract class BaseFragmentVM<V : ViewDataBinding, VM : BaseFragmentViewModel> :
         mViewModel?.onAttach(this)
     }
 
+    override fun onInitialized(bundle: Bundle?) {
+        super.onInitialized(bundle)
+        mViewModel?.onInitialized(bundle)
+    }
+
     override fun initLayout(inflater: LayoutInflater, container: ViewGroup?): View {
         mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
         binding = mViewDataBinding as V
         return binding.root
-    }
-
-    open fun navigation(navigator: (() -> Unit)) {
-        handler = Handler()
-        runnable = Runnable {
-            navigator()
-        }
-        handler?.postDelayed(runnable, 300)
     }
 
     override fun onDestroy() {
@@ -88,14 +84,12 @@ abstract class BaseFragmentVM<V : ViewDataBinding, VM : BaseFragmentViewModel> :
 
     override fun onShowDialogError(message: String?, codeError: Int?) {
         hideDialogLoading()
-        val alertDialog = AlertDialog.Builder(context!!)
-        alertDialog.setTitle(R.string.title_error)
-        alertDialog.setMessage(message)
-
-        alertDialog.setPositiveButton(
-            getString(R.string.text_ok)
-        ) { dialog, _ -> dialog.dismiss() }
-
-        alertDialog.create().show()
+        showAlert(message, codeError) {
+            callbackAlertError(codeError)
+        }
     }
+
+    open fun callbackAlertError(codeError: Int?) {}
+
+
 }
