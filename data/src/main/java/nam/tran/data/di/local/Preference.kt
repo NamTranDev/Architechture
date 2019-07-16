@@ -1,4 +1,4 @@
-package nam.tran.data.local
+package nam.tran.data.di.local
 
 import android.app.Application
 import android.content.Context
@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 open class Preference @Inject
 internal constructor(mApp: Application) : IPreference {
 

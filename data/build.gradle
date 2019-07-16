@@ -11,7 +11,7 @@ android {
 
         buildConfigField "String", "URL_API", "\"\""
         buildConfigField "String", "DB_KEY", "\"NamTranDev\""
-        multiDexEnabled true
+//        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,9 +64,8 @@ dependencies {
 
     // Retrofit2
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2"
+    api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2"
     api "com.squareup.retrofit2:converter-gson:$rootProject.retrofit2"
-    implementation "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofit2"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3"
 
     //dagger
@@ -75,12 +74,18 @@ dependencies {
     api "com.google.dagger:dagger:$rootProject.dagger"
     api "com.google.dagger:dagger-android:$rootProject.dagger"
     api "com.google.dagger:dagger-android-support:$rootProject.dagger"
+
     api "androidx.paging:paging-runtime:$rootProject.paging"
+
+    //rx
+    api "io.reactivex.rxjava2:rxjava:$rxjava"
+    api "io.reactivex.rxjava2:rxandroid:$rxAndroid"
 
     //live data
     api "androidx.lifecycle:lifecycle-runtime:$rootProject.lifecycle"
     api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle"
+
     implementation "net.zetetic:android-database-sqlcipher:$rootProject.sqlcipher"
 
     testImplementation "androidx.arch.core:core-testing:$rootProject.core_testing"

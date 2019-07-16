@@ -6,9 +6,9 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import nam.tran.data.BuildConfig
-import nam.tran.data.api.*
-import nam.tran.data.local.IPreference
-import nam.tran.data.local.PreferenceModule
+import nam.tran.data.di.network.*
+import nam.tran.data.di.local.IPreference
+import nam.tran.data.di.local.PreferenceModule
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -57,6 +57,7 @@ class NetModule {
         return trustManagerController.trustManager
     }
 
+    @Suppress("UNUSED_PARAMETER")
     @Provides
     fun provideOkHttpClient(cache: Cache, iPreference: IPreference, iNetworkMonitor: INetworkMonitor, trustAllCerts: Array<TrustManager>): OkHttpClient {
 

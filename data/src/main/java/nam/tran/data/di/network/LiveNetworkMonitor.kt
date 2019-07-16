@@ -1,4 +1,4 @@
-package nam.tran.data.api
+package nam.tran.data.di.network
 
 import android.annotation.SuppressLint
 import android.content.Context

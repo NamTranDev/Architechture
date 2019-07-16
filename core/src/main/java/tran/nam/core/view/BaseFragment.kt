@@ -52,7 +52,7 @@ abstract class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (isWaitProgress()) {
             view.postDelayed({
-                onInitialized(arguments)
+                onInitialized()
             }, resources.getInteger(R.integer.animation_time_full).toLong())
         } else {
             mViewCreated = true
@@ -69,9 +69,7 @@ abstract class BaseFragment : Fragment() {
         return mViewCreated
     }
 
-    open fun onInitialized(bundle: Bundle?) {
-
-    }
+    open fun onInitialized() {}
 
     protected fun showLoadingDialog() {
         activity?.run {

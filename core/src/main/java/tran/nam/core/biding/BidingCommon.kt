@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.navigation.fragment.NavHostFragment
 import nam.tran.data.model.core.state.Loading
-import nam.tran.data.model.core.state.Resource
+import nam.tran.data.model.core.state.State
 import nam.tran.data.model.core.state.Status
 import tran.nam.core.view.BaseActivity
 import tran.nam.core.view.navigation.CustomNavHostFragment
@@ -19,20 +19,20 @@ object BidingCommon {
 
     @JvmStatic
     @BindingAdapter("visibleContainLoading")
-    fun visibleContainLoading(view: View, resource: Resource<*>?) {
-        resource?.let {
+    fun visibleContainLoading(view: View, state : State?) {
+        state?.let {
             when (it.status) {
                 Status.ERROR -> when (it.loading) {
                     Loading.LOADING_DIALOG -> {
                         view.visibility = View.GONE
-                        if (!resource.displayErrorDialog) {
-                            resource.displayErrorDialog = true
-                            dialogError(view, it.errorResource?.message, it.errorResource?.code)
+                        if (!state.displayErrorDialog) {
+                            state.displayErrorDialog = true
+                            dialogError(view, it.errorState?.message, it.errorState?.code)
                         }
                     }
                     Loading.LOADING_NONE -> Toast.makeText(
                             view.context,
-                            it.errorResource?.message,
+                            it.errorState?.message,
                             Toast.LENGTH_SHORT
                     ).show()
                     Loading.LOADING_NORMAL -> {
@@ -65,8 +65,8 @@ object BidingCommon {
 
     @JvmStatic
     @BindingAdapter("visibleProgress")
-    fun visibleProgress(view: View, resource: Resource<*>?) {
-        resource?.let {
+    fun visibleProgress(view: View, state : State?) {
+        state?.let {
             when (it.status) {
                 Status.ERROR, Status.SUCCESS -> view.visibility = View.GONE
                 Status.LOADING -> when (it.loading) {
@@ -80,8 +80,8 @@ object BidingCommon {
 
     @JvmStatic
     @BindingAdapter("visibleView")
-    fun visibleView(view: View, resource: Resource<*>?) {
-        resource?.let {
+    fun visibleView(view: View, state : State?) {
+        state?.let {
             when (it.status) {
                 Status.ERROR -> when (it.loading) {
                     Loading.LOADING_DIALOG, Loading.LOADING_NONE -> view.visibility = View.VISIBLE
@@ -102,8 +102,8 @@ object BidingCommon {
 
     @JvmStatic
     @BindingAdapter("visibleTextError")
-    fun visibleTextError(text: TextView, resource: Resource<*>?) {
-        resource?.let {
+    fun visibleTextError(text: TextView, state : State?) {
+        state?.let {
             when (it.status) {
                 Status.ERROR -> when (it.loading) {
                     Loading.LOADING_DIALOG -> {
@@ -112,7 +112,7 @@ object BidingCommon {
                     }
                     Loading.LOADING_NORMAL -> {
                         text.visibility = View.VISIBLE
-                        text.text = it.errorResource?.message
+                        text.text = it.errorState?.message
                     }
                 }
                 Status.LOADING, Status.SUCCESS -> text.visibility = View.GONE
@@ -122,13 +122,13 @@ object BidingCommon {
 
     @JvmStatic
     @BindingAdapter("visibleButtonError")
-    fun visibleButtonError(bt: Button, resource: Resource<*>?) {
-        resource?.let {
+    fun visibleButtonError(bt: Button, state : State?) {
+        state?.let {
             when (it.status) {
                 Status.ERROR -> {
                     bt.visibility = View.VISIBLE
                     bt.setOnClickListener {
-                        resource.retry?.invoke()
+                        state.retry?.invoke()
                     }
                 }
                 Status.LOADING, Status.SUCCESS -> bt.visibility = View.GONE

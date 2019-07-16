@@ -18,59 +18,70 @@ package tran.nam.core.view.mvvm
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import tran.nam.common.autoCleared
 import tran.nam.core.view.BaseFragmentInjection
-import tran.nam.core.viewmodel.BaseFragmentViewModel
+import tran.nam.core.viewmodel.BaseViewModel
 import tran.nam.core.viewmodel.IViewLoading
+import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
 
-abstract class BaseFragmentVM<V : ViewDataBinding, VM : BaseFragmentViewModel> : BaseFragmentInjection(), IViewLoading {
+abstract class BaseFragmentVM<V : ViewDataBinding, VM : BaseViewModel> : BaseFragmentInjection(), IViewLoading {
 
-    /**
-     * MVVM ViewModel ViewModelProvider.Factory
-     */
-    var mViewModelFactory: ViewModelProvider.Factory? = null
-        @Inject set
+    @Inject
+    internal lateinit var mViewModelFactory: ViewModelProvider.Factory
 
-    var mViewModel: VM? = null
+    protected lateinit var mViewModel: VM
 
-    var mViewDataBinding: V? = null
+    protected lateinit var mViewDataBinding: V
 
-    var binding by autoCleared<V>()
-
-    private var handler: Handler? = null
-    private var runnable: Runnable? = null
+    private var binding by autoCleared<V>()
 
     abstract fun initViewModel(factory: ViewModelProvider.Factory?)
 
+    @Suppress("UNCHECKED_CAST")
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        initViewModel(mViewModelFactory)
-        mViewModel?.onAttach(this)
+        val viewModelClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[2] as Class<VM>
+        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(viewModelClass)
+        mViewModel.onAttach(this)
     }
 
-    override fun onInitialized(bundle: Bundle?) {
-        super.onInitialized(bundle)
-        mViewModel?.onInitialized(bundle)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mViewModel.onCreated()
+        mViewModel.setArgument(arguments)
+    }
+
+    override fun onInitialized() {
+        super.onInitialized()
+        mViewModel.onInitialized()
     }
 
     override fun initLayout(inflater: LayoutInflater, container: ViewGroup?): View {
         mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        binding = mViewDataBinding as V
+        binding = mViewDataBinding
         return binding.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        mViewModel.onSaveState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        mViewModel.onRestoreState(savedInstanceState)
+    }
+
     override fun onDestroy() {
-        this.mViewDataBinding?.unbind()
-        handler?.removeCallbacks(runnable)
+        this.mViewDataBinding.unbind()
         super.onDestroy()
     }
 
@@ -90,6 +101,4 @@ abstract class BaseFragmentVM<V : ViewDataBinding, VM : BaseFragmentViewModel> :
     }
 
     open fun callbackAlertError(codeError: Int?) {}
-
-
 }

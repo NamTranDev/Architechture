@@ -1,8 +1,4 @@
-package nam.tran.data.database
-
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+package nam.tran.data.di.database
 
 //@Database(entities = [], version = 1, exportSchema = false)
 //@TypeConverters(ConvertData::class)

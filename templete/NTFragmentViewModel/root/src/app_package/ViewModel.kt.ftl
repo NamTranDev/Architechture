@@ -4,7 +4,7 @@ import android.app.Application
 
 import javax.inject.Inject
 
-import tran.nam.core.viewmodel.BaseFragmentViewModel
+import tran.nam.core.viewmodel.BaseViewModel
 <#if isLoading>
 import nam.tran.data.model.core.state.Resource
 import androidx.lifecycle.LiveData

@@ -1,4 +1,4 @@
-package nam.tran.data.api
+package nam.tran.data.di.network
 
 import java.io.IOException
 

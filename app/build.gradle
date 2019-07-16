@@ -58,7 +58,6 @@ dependencies {
     annotationProcessor "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
 
     implementation project(':core')
-    implementation project(':data')
 
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.core_testing"
     androidTestImplementation "androidx.test:runner:$rootProject.runner"

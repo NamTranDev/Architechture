@@ -12,7 +12,7 @@
  https://commonsware.com/Android
  */
 
-package nam.tran.data.database.core;
+package nam.tran.data.di.database.core;
 
 import android.util.SparseArray;
 

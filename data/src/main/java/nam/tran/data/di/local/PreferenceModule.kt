@@ -1,4 +1,4 @@
-package nam.tran.data.local
+package nam.tran.data.di.local
 
 import dagger.Binds
 import dagger.Module

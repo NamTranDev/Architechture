@@ -1,4 +1,4 @@
-package nam.tran.data.api;
+package nam.tran.data.di.network;
 
 import android.annotation.SuppressLint;
 
@@ -9,8 +9,7 @@ import javax.net.ssl.X509TrustManager;
 public class TrustManagerController {
 
     @Inject
-    public TrustManagerController() {
-    }
+    TrustManagerController() {}
 
     @SuppressLint("TrustAllX509TrustManager")
     public TrustManager[] getTrustManager() {

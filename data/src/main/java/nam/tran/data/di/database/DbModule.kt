@@ -1,18 +1,10 @@
-package nam.tran.data.database
+package nam.tran.data.di.database
 
-import android.app.Application
-import android.text.SpannableStringBuilder
-import androidx.room.Room
 import dagger.Module
-import dagger.Provides
-import nam.tran.data.BuildConfig
 import nam.tran.data.Logger
-import nam.tran.data.database.core.SafeHelperFactory
-import net.sqlcipher.database.SQLiteDatabase
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
-import javax.inject.Singleton
 
 @Module
 class DbModule {

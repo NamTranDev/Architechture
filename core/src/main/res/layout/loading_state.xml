@@ -20,15 +20,15 @@
 
     <data>
         <variable
-                name="resource"
-                type="nam.tran.data.model.core.state.Resource"/>
+                name="state"
+                type="nam.tran.data.model.core.state.State"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:visibleContainLoading="@{resource}"
+            app:visibleContainLoading="@{state}"
             tools:visibility="visible">
 
         <ProgressBar
@@ -38,7 +38,7 @@
                 android:indeterminateDrawable="@drawable/loading_style_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:visibleProgress="@{resource}"
+                app:visibleProgress="@{state}"
                 tools:ignore="MissingConstraints"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -47,9 +47,10 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_13sp"
                 android:text="@string/unknown_error"
-                app:visibleTextError="@{resource}"
+                app:visibleTextError="@{state}"
                 app:layout_constraintTop_toBottomOf="@+id/progress_loading"
-                tools:text="@string/unknown_error" tools:ignore="MissingConstraints"/>
+                tools:text="@string/unknown_error"
+            tools:ignore="MissingConstraints"/>
 
         <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
@@ -60,7 +61,7 @@
                 android:layout_marginTop="@dimen/positive_5dp"
                 app:layout_constraintTop_toBottomOf="@+id/error_msg"
                 app:layout_constraintEnd_toEndOf="@+id/error_msg"
-                app:visibleButtonError="@{resource}"
+                app:visibleButtonError="@{state}"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"/>

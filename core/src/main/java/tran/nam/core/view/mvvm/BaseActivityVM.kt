@@ -16,19 +16,22 @@
 
 package tran.nam.core.view.mvvm
 
-import androidx.lifecycle.ViewModelProvider
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.EditText
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import tran.nam.core.view.BaseActivityInjection
-import tran.nam.core.viewmodel.BaseActivityViewModel
+import tran.nam.core.viewmodel.BaseViewModel
 import tran.nam.core.viewmodel.IViewLifecycle
+import tran.nam.core.viewmodel.IViewLoading
+import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
-abstract class BaseActivityVM<V : ViewDataBinding, VM : BaseActivityViewModel> : BaseActivityInjection(), IViewLifecycle {
+abstract class BaseActivityVM<V : ViewDataBinding, VM : BaseViewModel> : BaseActivityInjection(), IViewLifecycle, IViewLoading {
 
     var mViewModelFactory: ViewModelProvider.Factory? = null
         @Inject set
@@ -41,18 +44,27 @@ abstract class BaseActivityVM<V : ViewDataBinding, VM : BaseActivityViewModel> :
         mViewDataBinding = DataBindingUtil.setContentView(this, layoutId())
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun init(savedInstanceState: Bundle?) {
-        mViewModel?.onCreated(this)
+        val viewModelClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[2] as Class<VM>
+        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(viewModelClass)
+        mViewModel?.onAttach(this)
+        mViewModel?.onCreated()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mViewModel?.onSaveInstanceState(outState)
+        mViewModel?.onSaveState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        mViewModel?.onRestoreInstanceState(savedInstanceState)
+        mViewModel?.onRestoreState(savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        this.mViewDataBinding.unbind()
+        super.onDestroy()
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -74,9 +86,16 @@ abstract class BaseActivityVM<V : ViewDataBinding, VM : BaseActivityViewModel> :
 
     }
 
-    override fun onDestroy() {
-        this.mViewDataBinding.unbind()
-        super.onDestroy()
+    override fun showDialogLoading() {
+        showLoadingDialog()
+    }
+
+    override fun hideDialogLoading() {
+        hideLoadingDialog()
+    }
+
+    override fun onShowDialogError(message: String?, codeError: Int?) {
+        hideLoadingDialog()
     }
 }
 

@@ -42,7 +42,7 @@ class WaitThread(fragment: BaseFragment) : Thread() {
             val finalFragment = fragmentWeak?.get()
             finalFragment?.activity?.runOnUiThread {
 //                Logger.debug("Animation Fragment : " + "finalFragment.onInitialized()")
-                finalFragment.onInitialized(finalFragment.arguments)
+                finalFragment.onInitialized()
             }
         }
     }

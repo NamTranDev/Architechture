@@ -4,7 +4,6 @@ package nam.tran.architechture.view
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import androidx.multidex.MultiDexApplication
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -15,7 +14,7 @@ import nam.tran.architechture.di.component.DaggerAppComponent
 import nam.tran.data.Logger
 import javax.inject.Inject
 
-class AppState : MultiDexApplication(), Application.ActivityLifecycleCallbacks,
+class AppState : Application(), Application.ActivityLifecycleCallbacks,
         HasActivityInjector {
 
     var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>? = null

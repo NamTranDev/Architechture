@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package nam.tran.data.database.core;
+package nam.tran.data.di.database.core;
 
 import android.content.Context;
 import android.text.Editable;

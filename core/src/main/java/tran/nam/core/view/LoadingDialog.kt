@@ -8,9 +8,9 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import nam.tran.data.Logger
 import tran.nam.core.R
 import tran.nam.core.databinding.IncludeProgressLayoutBinding
-import nam.tran.data.Logger
 import javax.inject.Inject
 
 @Suppress("unused")
@@ -66,6 +66,7 @@ internal constructor(activity: AppCompatActivity) {
         try {
             dialog!!.dismiss()
         } catch (ignored: Exception) {
+            Logger.debug(ignored)
         }
 
     }
@@ -76,8 +77,8 @@ internal constructor(activity: AppCompatActivity) {
                 dialog!!.cancel()
                 dialog = null
             } catch (ignored: Exception) {
+                Logger.debug(ignored)
             }
-
         }
     }
 

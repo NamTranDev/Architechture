@@ -1,4 +1,4 @@
-package nam.tran.data.database
+package nam.tran.data.di.database
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

@@ -53,7 +53,7 @@ dependencies {
     api "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigation"
     api "android.arch.navigation:navigation-ui-ktx:$rootProject.navigation"
 
-    api "androidx.paging:paging-runtime:$rootProject.paging"
+//    api "androidx.paging:paging-runtime:$rootProject.paging"
 
 //    api "androidx.multidex:multidex:$rootProject.multidex"
 
@@ -80,7 +80,7 @@ dependencies {
     kapt "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
     annotationProcessor "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
 
-    implementation project(':data')
+    api project(':data')
     application project(':app')
 
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.core_testing"
