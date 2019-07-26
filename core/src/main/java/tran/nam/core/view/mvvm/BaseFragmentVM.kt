@@ -44,12 +44,10 @@ abstract class BaseFragmentVM<V : ViewDataBinding, VM : BaseViewModel> : BaseFra
 
     private var binding by autoCleared<V>()
 
-    abstract fun initViewModel(factory: ViewModelProvider.Factory?)
-
     @Suppress("UNCHECKED_CAST")
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val viewModelClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[2] as Class<VM>
+        val viewModelClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>
         mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(viewModelClass)
         mViewModel.onAttach(this)
     }

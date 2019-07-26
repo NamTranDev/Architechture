@@ -57,7 +57,7 @@ dependencies {
 
 //    api "androidx.multidex:multidex:$rootProject.multidex"
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     //dagger 2
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger"

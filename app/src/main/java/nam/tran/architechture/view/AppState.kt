@@ -12,6 +12,7 @@ import nam.tran.architechture.BuildConfig
 import nam.tran.architechture.di.component.AppComponent
 import nam.tran.architechture.di.component.DaggerAppComponent
 import nam.tran.data.Logger
+import net.sqlcipher.database.SQLiteDatabase
 import javax.inject.Inject
 
 class AppState : Application(), Application.ActivityLifecycleCallbacks,
@@ -24,6 +25,7 @@ class AppState : Application(), Application.ActivityLifecycleCallbacks,
 
     override fun onCreate() {
         super.onCreate()
+        SQLiteDatabase.loadLibs(this)
         if (BuildConfig.DEBUG) {
             if (LeakCanary.isInAnalyzerProcess(this)) {
                 // This process is dedicated to LeakCanary for heap analysis.

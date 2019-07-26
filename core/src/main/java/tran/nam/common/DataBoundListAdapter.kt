@@ -16,12 +16,12 @@
 
 package tran.nam.common
 
+import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncDifferConfig
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import android.view.ViewGroup
-import nam.tran.data.executor.AppExecutors
+import androidx.recyclerview.widget.ListAdapter
+import java.util.concurrent.Executors
 
 /**
  * A generic RecyclerView adapter that uses Data Binding & DiffUtil.
@@ -30,12 +30,11 @@ import nam.tran.data.executor.AppExecutors
  * @param <V> The type of the ViewDataBinding
 </V></T> */
 abstract class DataBoundListAdapter<T, V : ViewDataBinding>(
-    appExecutors: AppExecutors,
-    diffCallback: DiffUtil.ItemCallback<T>
+        diffCallback: DiffUtil.ItemCallback<T>
 ) : ListAdapter<T, DataBoundViewHolder<V>>(
-    AsyncDifferConfig.Builder<T>(diffCallback)
-        .setBackgroundThreadExecutor(appExecutors.diskIO())
-        .build()
+        AsyncDifferConfig.Builder<T>(diffCallback)
+                .setBackgroundThreadExecutor(Executors.newFixedThreadPool(4))
+                .build()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder<V> {
         val binding = createBinding(parent)

@@ -21,7 +21,7 @@
     <data>
         <variable
                 name="state"
-                type="nam.tran.data.model.core.state.State"/>
+                type="nam.tran.data.entities.core.state.State"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

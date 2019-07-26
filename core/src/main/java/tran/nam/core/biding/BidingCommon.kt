@@ -8,9 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.navigation.fragment.NavHostFragment
-import nam.tran.data.model.core.state.Loading
-import nam.tran.data.model.core.state.State
-import nam.tran.data.model.core.state.Status
+import nam.tran.data.entities.core.state.Loading
+import nam.tran.data.entities.core.state.State
+import nam.tran.data.entities.core.state.Status
 import tran.nam.core.view.BaseActivity
 import tran.nam.core.view.navigation.CustomNavHostFragment
 import tran.nam.core.viewmodel.IViewLoading

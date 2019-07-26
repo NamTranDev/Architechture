@@ -1,7 +1,7 @@
 package tran.nam.core.viewmodel
 
 import android.os.Bundle
-import androidx.annotation.MainThread
+import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,8 +10,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import nam.tran.data.Logger
-import nam.tran.data.model.core.state.State
-import tran.nam.extention.setValueIfNew
+import nam.tran.data.entities.core.state.State
 import java.lang.ref.WeakReference
 
 open class BaseViewModel : ViewModel(), LifecycleObserver {
@@ -23,7 +22,7 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
     protected val arguments = BehaviorSubject.create<Bundle>()
 
     // view state
-    val status: MutableLiveData<State> = MutableLiveData()
+    val status = ObservableField<State>()
 
     fun <T> bindTolifecycle(): ObservableTransformer<T, T> {
         return ObservableTransformer { upstream ->
@@ -91,21 +90,6 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
 
     @Suppress("UNUSED_PARAMETER")
     fun onRestoreState(state: Bundle?) {}
-
-    /**
-     * Get current state, [initState] will be returned if current state is null
-     */
-    protected fun state() = status.value
-
-    /**
-     * set new view state and post it through [state] live data
-     *
-     * @param stateFunc provide new state by applying current state
-     */
-    @MainThread
-    protected fun setState(state: State) {
-        status.setValueIfNew(state)
-    }
 
     /**
      * Add an Rx's disposable into [mCompositeDisposable]. All disposables will be disposed when the ViewModel is

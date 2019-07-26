@@ -6,16 +6,14 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import nam.tran.data.BuildConfig
-import nam.tran.data.di.network.*
-import nam.tran.data.di.local.IPreference
-import nam.tran.data.di.local.PreferenceModule
+import nam.tran.data.network.*
+import nam.tran.data.local.IPreference
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -28,12 +26,6 @@ class NetModule {
         System.loadLibrary("keys")
     }
 
-    companion object {
-        const val KEY_CONTENT_TYPE = "Content-Type"
-        const val KEY_AUTHORIZATION = "Authorization"
-        const val VALUE_CONTENT_TYPE = "application/json"
-    }
-
     @Provides
     fun provideOkHttpCache(application: Application): Cache {
         val cacheSize = 10 * 1024 * 1024  // 10 MB
@@ -42,7 +34,7 @@ class NetModule {
 
     @Provides
     fun provideNetWorkMonitor(application: Application): INetworkMonitor {
-        return LiveNetworkMonitor(application.applicationContext)
+        return NetworkMonitor(application.applicationContext)
     }
 
     @Provides
@@ -75,21 +67,8 @@ class NetModule {
                 .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
                 .cache(cache)
                 .addNetworkInterceptor(loggingInterceptor)
-                .addInterceptor { chain ->
-                    if (iNetworkMonitor.isConnected()) {
-                        val request = chain.request()
-                        val builder = request.newBuilder()
-
-                        val headers = HashMap<String, String>()
-                        headers[KEY_CONTENT_TYPE] = VALUE_CONTENT_TYPE
-                        for ((key, value) in headers) {
-                            builder.addHeader(key, value)
-                        }
-                        chain.proceed(builder.build())
-                    } else {
-                        throw NoNetWorkException()
-                    }
-                }
+                .addInterceptor(ContentTypeInterceptor(iPreference))
+                .addInterceptor(ExeptionInterceptor(iNetworkMonitor))
                 .hostnameVerifier { _, _ -> true }
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(90, TimeUnit.SECONDS)

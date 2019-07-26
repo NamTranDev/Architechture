@@ -46,7 +46,7 @@ abstract class BaseActivityVM<V : ViewDataBinding, VM : BaseViewModel> : BaseAct
 
     @Suppress("UNCHECKED_CAST")
     override fun init(savedInstanceState: Bundle?) {
-        val viewModelClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[2] as Class<VM>
+        val viewModelClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<VM>
         mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(viewModelClass)
         mViewModel?.onAttach(this)
         mViewModel?.onCreated()
