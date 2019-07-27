@@ -22,8 +22,7 @@ object BindingCommon{
             GlideApp.with(image).load(it.avatarUrl)
                     .thumbnail(0.5f)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .placeholder(circularProgressDrawable)
                     .error(R.drawable.image_error).into(image)
         }

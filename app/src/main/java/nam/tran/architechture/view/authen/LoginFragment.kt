@@ -33,10 +33,6 @@ class LoginFragment : BaseFragmentVM<FragmentLoginBinding, LoginViewModel>() {
                 Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                         .navigate(R.id.action_loginFragment_to_homeFragment)
         })
-
-        mViewModel.status.observe(viewLifecycleOwner, Observer {
-            mViewDataBinding.viewModel = mViewModel
-        })
     }
 
 }
