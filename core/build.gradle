@@ -53,7 +53,7 @@ dependencies {
     api "android.arch.navigation:navigation-fragment-ktx:$rootProject.navigation"
     api "android.arch.navigation:navigation-ui-ktx:$rootProject.navigation"
 
-//    api "androidx.paging:paging-runtime:$rootProject.paging"
+    api "androidx.paging:paging-runtime:$rootProject.paging"
 
 //    api "androidx.multidex:multidex:$rootProject.multidex"
 
@@ -73,6 +73,8 @@ dependencies {
 
     api "com.github.bumptech.glide:glide:$rootProject.glide"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glide"
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
     //loading
 //    api "com.wang.avi:library:$rootProject.progress_loading"
