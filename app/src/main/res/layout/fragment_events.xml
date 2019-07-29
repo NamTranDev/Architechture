@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="viewModel"
             type="nam.tran.architechture.view.event.viewmodel.EventsViewModel" />
+        <import type="nam.tran.data.entities.core.state.State" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+        app:refreshLayout="@{viewModel.status}"
         tools:context="nam.tran.architechture.view.event.EventsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvItems"
+            android:id="@+id/rvEvent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/adapter_event"
+            app:loadMore="@{viewModel.status}"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

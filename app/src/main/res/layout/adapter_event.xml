@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="event"
+            type="nam.tran.domain.entities.EventEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/positive_5dp"
+        android:layout_marginEnd="@dimen/positive_5dp"
+        android:layout_marginTop="@dimen/positive_5dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/positive_50dp"
+            android:layout_height="@dimen/positive_50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/iv_avarta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:loadAvarta="@{event.actor.avatarUrl}"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_14sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_avarta"
+            app:layout_constraintTop_toTopOf="@+id/iv_avarta"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_avarta"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{event.actor.displayLogin}"
+            android:textAllCaps="true"
+            tools:text="riggaroo"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_action"
+            android:text="@{event.payload.action}"
+            android:textSize="@dimen/text_size_12sp"
+            android:layout_marginTop="@dimen/positive_5dp"
+            android:layout_marginStart="@dimen/positive_5dp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_avarta"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="started"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/positive_5dp"
+            android:layout_marginTop="@dimen/positive_5dp"
+            android:id="@+id/tv_repo_name"
+            android:text="@{event.repo.name}"
+            android:textSize="@dimen/text_size_12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_action"
+            app:layout_constraintTop_toBottomOf="@+id/iv_avarta"
+            tools:text="jamieowen/glsl-blend" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginEnd="@dimen/positive_10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_repo_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/positive_5dp"
+            tools:text="2 days ago"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -13,6 +13,6 @@ interface IApi{
     @GET("user")
     fun login(@Header("Authorization") basicToken: String): Single<UserEntityData>
 
-    @GET("users")
-    fun getEvent(@Path("user") user : String,@Query("page") page : Int,@Query("per_page") per_page : Int = 15) : Single<List<EventEntityData>>
+    @GET("users/{user}/received_events")
+    fun getEvent(@Path("user") user : String,@Query("page") page : Int,@Query("per_page") per_page : Int) : Single<List<EventEntityData>>
 }

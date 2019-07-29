@@ -27,5 +27,5 @@ data class ActorEvent(
 )
 
 data class PayloadEvent(
-        val action: String
+        val action: String?
 )

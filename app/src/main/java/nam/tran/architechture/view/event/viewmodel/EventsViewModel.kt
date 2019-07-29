@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import androidx.paging.RxPagedListBuilder
+import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import nam.tran.data.Logger
@@ -18,31 +19,36 @@ import javax.inject.Inject
 class EventsViewModel @Inject internal constructor(private val eventUseCase: EventUseCase)
     : BaseViewModel(){
 
-    private val pagedSize = 20
+    private val pagedSize = 10
     private val _eventData = MutableLiveData<PagedList<EventEntity>>()
     val eventData : LiveData<PagedList<EventEntity>>
         get() = _eventData
+
+    private val sourceFactory : EventDataSourceFactory = EventDataSourceFactory(
+            eventUseCase,status
+    )
+
     init {
-        val sourceFactory = EventDataSourceFactory(
-                eventUseCase,status
-        )
         val config = PagedList.Config.Builder()
                 .setPageSize(pagedSize)
-                .setInitialLoadSizeHint(pagedSize * 3)
+                .setInitialLoadSizeHint(pagedSize * 2)
                 .setPrefetchDistance(10)
-                .setEnablePlaceholders(false)
+                .setEnablePlaceholders(true)
                 .build()
 
         addDisposable {
             RxPagedListBuilder(sourceFactory, config)
                     .setFetchScheduler(Schedulers.io())
                     .buildObservable()
-                    .cache().observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        _eventData.value = it
-                    },{
+                    .cache()
+                    .subscribe {
                         Logger.debug(it)
-                    })
+                        _eventData.postValue(it)
+                    }
         }
+    }
+
+    fun onRefresh(){
+        sourceFactory.refresh()
     }
 }

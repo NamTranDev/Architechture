@@ -185,7 +185,7 @@ object BidingCommon {
         }
     }
 
-    private fun dialogError(view: View, error: String?, codeError: Int?) {
+    fun dialogError(view: View, error: String?, codeError: Int?) {
         val context = view.context
         if (context is IViewLoading) {
             context.onShowDialogError(error, codeError)

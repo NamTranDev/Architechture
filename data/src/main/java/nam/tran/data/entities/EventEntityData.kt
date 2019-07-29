@@ -46,5 +46,5 @@ data class ActorEvent(
 
 data class PayloadEvent(
         @SerializedName("action")
-        val action: String
+        val action: String?
 )

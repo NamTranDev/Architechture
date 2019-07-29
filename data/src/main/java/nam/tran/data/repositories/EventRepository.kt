@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class EventRepository @Inject constructor(private val iPreference: IPreference, private val iApi: IApi) : IEventRepository {
 
-    override fun getEvent(page: Int) : Single<List<EventEntity>> {
-        return iApi.getEvent(iPreference.user,page).map {
+    override fun getEvent(page: Int,perPage : Int) : Single<List<EventEntity>> {
+        return iApi.getEvent(iPreference.user,page,perPage).map {
             val mapper = EventEntityMapper()
             mapper.mapFrom(it)
         }

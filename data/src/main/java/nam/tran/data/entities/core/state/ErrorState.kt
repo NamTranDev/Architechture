@@ -7,7 +7,6 @@ import nam.tran.data.network.NetWorkException
 data class ErrorState(var message: String? = null, var code: Int? = 0){
 
     companion object {
-
         fun getErrorMessage(t: Throwable): ErrorState {
             Logger.debug(t)
             val errorHandler = ErrorState()

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class EventUseCase @Inject constructor(private val iEventRepository: IEventRepository){
 
-    fun getEvent(page: Int): Single<List<EventEntity>> {
-        return iEventRepository.getEvent(page)
+    fun getEvent(page: Int,perPage : Int): Single<List<EventEntity>> {
+        return iEventRepository.getEvent(page,perPage)
     }
 }

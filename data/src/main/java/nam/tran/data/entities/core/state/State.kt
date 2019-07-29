@@ -79,11 +79,15 @@ class State(
     }
 
     fun isSuccess(): Boolean {
-        return status == Status.SUCCESS
+        return status == SUCCESS
     }
 
     fun isLoading(): Boolean {
-        return status == Status.LOADING
+        return status == LOADING
+    }
+
+    fun isLoadingInitial() : Boolean{
+        return status == LOADING && initial
     }
 
     companion object {
