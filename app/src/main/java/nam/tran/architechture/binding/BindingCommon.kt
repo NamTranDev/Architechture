@@ -45,12 +45,6 @@ object BindingCommon {
             if (this is ILoadMore){
                 if (state?.initial == true){
                     this.setNetworkState(null)
-                    if (state.status == Status.ERROR && state.loading == Loading.LOADING_DIALOG){
-                        if (!state.displayErrorDialog) {
-                            state.displayErrorDialog = true
-                            dialogError(recyclerView,state.errorState?.message,state.errorState?.code)
-                        }
-                    }
                 } else
                     this.setNetworkState(state)
             }

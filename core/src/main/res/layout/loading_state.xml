@@ -38,6 +38,7 @@
                 android:indeterminateDrawable="@drawable/loading_style_normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
                 app:visibleProgress="@{state}"
                 tools:ignore="MissingConstraints"/>
 

@@ -28,8 +28,8 @@ class UserRepository @Inject internal constructor(private val iApi: IApi,private
     override fun getUserInfo(): Flowable<UserEntity> {
         return iApi.getUserInfo(iPreference.user).doOnNext {
             iDbProvider.userAccess().update(it)
-        }.onErrorResumeNext { t: Throwable ->
-            Logger.debug("doOnError")
+        }.onErrorResumeNext { _: Throwable ->
+            Logger.debug("onErrorResumeNext")
             Flowable.empty()
         }.flatMap {
             iDbProvider.userAccess().getUser(iPreference.user).map {
