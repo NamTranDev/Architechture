@@ -8,5 +8,5 @@ import nam.tran.data.entities.UserEntityData
 @Database(entities = [UserEntityData::class], version = 1, exportSchema = false)
 @TypeConverters(ConvertData::class)
 abstract class DbProvider : RoomDatabase() {
-    abstract fun userAccess() : UserDAO
+    abstract fun userAccess(): UserDAO
 }

@@ -14,6 +14,7 @@ data class ErrorState(var message: String? = null, var code: Int? = 0){
                 errorHandler.message = t.message
                 errorHandler.code = t.code
             }else{
+                errorHandler.message = "Unknown error"
                 errorHandler.code = CodeError.UN_KNOWN_ERROR.code
             }
             return errorHandler

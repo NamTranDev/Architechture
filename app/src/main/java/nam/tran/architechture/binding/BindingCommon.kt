@@ -12,9 +12,11 @@ import nam.tran.architechture.di.module.GlideApp
 import nam.tran.architechture.view.event.EventAdapter
 import nam.tran.data.entities.core.state.Loading
 import nam.tran.data.entities.core.state.State
+import nam.tran.data.entities.core.state.Status
 import nam.tran.domain.entities.UserEntity
 import tran.nam.core.biding.BidingCommon
 import tran.nam.core.biding.BidingCommon.dialogError
+import tran.nam.core.view.ILoadMore
 
 object BindingCommon {
 
@@ -40,15 +42,17 @@ object BindingCommon {
     fun loadMore(recyclerView: RecyclerView,state : State?){
         val adapter = recyclerView.adapter
         adapter?.run {
-            if (this is EventAdapter){
-                if (state?.initial == false){
-                    this.setNetworkState(state)
-                }else if (state?.loading == Loading.LOADING_DIALOG){
-                    if (!state.displayErrorDialog) {
-                        state.displayErrorDialog = true
-                        dialogError(recyclerView, state.errorState?.message, state.errorState?.code)
+            if (this is ILoadMore){
+                if (state?.initial == true){
+                    this.setNetworkState(null)
+                    if (state.status == Status.ERROR && state.loading == Loading.LOADING_DIALOG){
+                        if (!state.displayErrorDialog) {
+                            state.displayErrorDialog = true
+                            dialogError(recyclerView,state.errorState?.message,state.errorState?.code)
+                        }
                     }
-                }
+                } else
+                    this.setNetworkState(state)
             }
         }
     }

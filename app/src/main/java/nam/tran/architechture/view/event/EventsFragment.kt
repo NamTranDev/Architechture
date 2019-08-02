@@ -36,7 +36,13 @@ class EventsFragment : BaseFragmentVM<FragmentEventsBinding, EventsViewModel>() 
         )
 
         mViewModel.eventData.observe(viewLifecycleOwner, Observer {
+            Logger.debug(it)
             adapter.submitList(it)
+        })
+
+        mViewModel.state.observe(viewLifecycleOwner, Observer {
+            Logger.debug(it)
+            mViewModel.status.set(it)
         })
     }
 }

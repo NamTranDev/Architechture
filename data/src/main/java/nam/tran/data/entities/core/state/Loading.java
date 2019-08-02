@@ -12,7 +12,7 @@ import static nam.tran.data.entities.core.state.Loading.LOADING_NORMAL;
 /**
  * Status of a resource that is provided to the UI.
  * <p>
- * These are usually created by the Repository classes where they return
+ * These are usually created by the RepoRepository classes where they return
  * {@code LiveData<Resource<T>>} to pass back the latest data to the UI with its fetch status.
  */
 

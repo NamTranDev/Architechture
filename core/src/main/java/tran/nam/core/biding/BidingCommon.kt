@@ -72,8 +72,10 @@ object BidingCommon {
                 Status.LOADING -> when (it.loading) {
                     Loading.LOADING_DIALOG, Loading.LOADING_NONE -> {
                     }
-                    Loading.LOADING_NORMAL -> view.visibility = View.VISIBLE
-                }
+                    Loading.LOADING_NORMAL -> {
+                        if (!state.hasRefresh)
+                            view.visibility = View.VISIBLE
+                    }}
             }
         }
     }

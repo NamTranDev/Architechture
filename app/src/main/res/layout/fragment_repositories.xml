@@ -11,22 +11,27 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="nam.tran.architechture.view.repository.RepositoriesFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+            app:refreshLayout="@{viewModel.status}"
+            tools:context="nam.tran.architechture.view.repository.RepositoriesFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRepository"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="RepositoriesFragment"
-            android:layout_marginTop="@dimen/positive_15dp"
-            android:textSize="@dimen/text_size_15sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/adapter_repository"
+            app:loadMore="@{viewModel.status}"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <include
+            android:id="@+id/include2"
             layout="@layout/loading_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

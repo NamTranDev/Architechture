@@ -1,4 +1,4 @@
-package nam.tran.architechture.view.event
+package nam.tran.architechture.view.repository
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,19 +9,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import nam.tran.architechture.R
 import nam.tran.architechture.databinding.AdapterEventBinding
+import nam.tran.architechture.databinding.AdapterRepositoryBinding
 import nam.tran.architechture.databinding.AdapterStateBinding
 import nam.tran.data.entities.core.state.State
 import nam.tran.domain.entities.EventEntity
+import nam.tran.domain.entities.RepositoryEntity
 import tran.nam.core.view.ILoadMore
 
-class EventAdapter constructor(private val dataBindingComponent: DataBindingComponent)
-    : ILoadMore, PagedListAdapter<EventEntity, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<EventEntity>() {
-    override fun areItemsTheSame(oldItem: EventEntity, newItem: EventEntity): Boolean {
+class RepositoryAdapter constructor(private val dataBindingComponent: DataBindingComponent)
+    : ILoadMore,PagedListAdapter<RepositoryEntity, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<RepositoryEntity>() {
+    override fun areItemsTheSame(oldItem: RepositoryEntity, newItem: RepositoryEntity): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: EventEntity, newItem: EventEntity): Boolean {
-        return oldItem.createdAt == newItem.createdAt && oldItem.type == newItem.type
+    override fun areContentsTheSame(oldItem: RepositoryEntity, newItem: RepositoryEntity): Boolean {
+        return oldItem.name == newItem.name && oldItem.language == newItem.language && oldItem.description == newItem.description
     }
 }) {
 
@@ -29,11 +31,11 @@ class EventAdapter constructor(private val dataBindingComponent: DataBindingComp
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.adapter_event -> {
-                val holder = EventItemViewHolder(
+            R.layout.adapter_repository -> {
+                val holder = RepositoryItemViewHolder(
                         DataBindingUtil.inflate(
                                 LayoutInflater.from(parent.context),
-                                R.layout.adapter_event,
+                                R.layout.adapter_repository,
                                 parent,
                                 false,
                                 dataBindingComponent
@@ -56,7 +58,7 @@ class EventAdapter constructor(private val dataBindingComponent: DataBindingComp
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            R.layout.adapter_event -> (holder as EventItemViewHolder).bind(getItem(position))
+            R.layout.adapter_repository -> (holder as RepositoryItemViewHolder).bind(getItem(position))
             R.layout.adapter_state -> (holder as StateItemViewHolder).bind(state)
         }
     }
@@ -65,7 +67,7 @@ class EventAdapter constructor(private val dataBindingComponent: DataBindingComp
         return if (hasExtraRow() && position == itemCount - 1) {
             R.layout.adapter_state
         } else {
-            R.layout.adapter_event
+            R.layout.adapter_repository
         }
     }
 
@@ -99,12 +101,12 @@ class EventAdapter constructor(private val dataBindingComponent: DataBindingComp
         }
     }
 
-    class EventItemViewHolder(
-            val binding: AdapterEventBinding
+    class RepositoryItemViewHolder(
+            val binding: AdapterRepositoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(event: EventEntity?) {
-            binding.event = event
+        fun bind(repository: RepositoryEntity?) {
+            binding.repository = repository
             binding.executePendingBindings()
         }
     }

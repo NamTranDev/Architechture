@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="repository"
+            type="nam.tran.domain.entities.RepositoryEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/positive_5dp"
+        android:layout_marginEnd="@dimen/positive_5dp"
+        android:layout_marginTop="@dimen/positive_5dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_14sp"
+            android:id="@+id/tv_repo_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{repository.name}"
+            android:textAllCaps="true"
+            tools:text="CleanArchitechture"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_language"
+            android:text="@{repository.language}"
+            android:textSize="@dimen/text_size_12sp"
+            android:layout_marginTop="@dimen/positive_5dp"
+            android:layout_marginStart="@dimen/positive_5dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_repo_name"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Java"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/positive_5dp"
+            android:layout_marginTop="@dimen/positive_5dp"
+            android:id="@+id/tv_owner_name"
+            android:text="@{repository.owner.login}"
+            android:textSize="@dimen/text_size_12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_language"
+            app:layout_constraintTop_toBottomOf="@+id/tv_repo_name"
+            tools:text="NamTranDev" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginEnd="@dimen/positive_10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_repo_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/positive_5dp"
+            tools:text="2 days ago"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

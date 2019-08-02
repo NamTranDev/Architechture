@@ -8,6 +8,6 @@ import nam.tran.data.entities.UserEntityData
 @Dao
 abstract class UserDAO : BaseDao<UserEntityData>(){
 
-    @Query("SELECT * FROM User WHERE login = :username")
+    @Query("SELECT * FROM user WHERE login = :username")
     abstract fun getUser(username: String) : Flowable<UserEntityData>
 }

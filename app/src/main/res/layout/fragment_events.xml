@@ -10,12 +10,16 @@
         <import type="nam.tran.data.entities.core.state.State" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:onRefreshListener="@{() -> viewModel.onRefresh()}"
-        app:refreshLayout="@{viewModel.status}"
-        tools:context="nam.tran.architechture.view.event.EventsFragment">
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+            app:refreshLayout="@{viewModel.status}"
+            tools:context="nam.tran.architechture.view.event.EventsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvEvent"
@@ -26,5 +30,17 @@
             app:loadMore="@{viewModel.status}"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <include
+            android:id="@+id/include2"
+            layout="@layout/loading_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:state="@{viewModel.status}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

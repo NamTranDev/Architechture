@@ -1,4 +1,4 @@
-package nam.tran.architechture.view.event.viewmodel
+package nam.tran.architechture.view.repository.viewmodel
 
 import android.annotation.SuppressLint
 import io.reactivex.disposables.Disposable
@@ -7,20 +7,20 @@ import nam.tran.data.Logger
 import nam.tran.data.base.BasePageKeyedDataSource
 import nam.tran.data.entities.core.state.ErrorState
 import nam.tran.data.entities.core.state.State
-import nam.tran.domain.entities.EventEntity
+import nam.tran.domain.entities.RepositoryEntity
 import nam.tran.domain.interactor.UserUseCase
 
 @SuppressLint("CheckResult")
-class EventDataSource constructor(private val useCase: UserUseCase) : BasePageKeyedDataSource<EventEntity>() {
-
-    override fun getData(isLoadMore: Boolean, page: Int, countItem: Int, callback: (List<EventEntity>, Int, Int?) -> Unit): Disposable {
+class RepoDataSource constructor(private val useCase: UserUseCase)
+    : BasePageKeyedDataSource<RepositoryEntity>() {
+    override fun getData(isLoadMore: Boolean, page: Int, countItem: Int, callback: (List<RepositoryEntity>, Int, Int?) -> Unit): Disposable {
         if (isLoadMore) {
-            return useCase.getEvent(page, countItem)
+            return useCase.getRepositories(page, countItem)
                     .subscribeOn(Schedulers.io())
                     .doOnSubscribe {
-                Logger.debug("Loading")
-                state.postValue(State.loadingPaging())
-            }
+                        Logger.debug("Loading")
+                        state.postValue(State.loadingPaging())
+                    }
                     .subscribe({
                         Logger.debug("success")
                         state.postValue(State.successPaging())
@@ -35,7 +35,7 @@ class EventDataSource constructor(private val useCase: UserUseCase) : BasePageKe
                         }))
                     })
         } else {
-            return useCase.getEvent(page, countItem).doOnSubscribe {
+            return useCase.getRepositories(page, countItem).doOnSubscribe {
                 Logger.debug("Loading")
                 state.postValue(State.loading(hasRefresh = true))
             }

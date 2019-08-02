@@ -57,8 +57,6 @@ dependencies {
     kapt "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
     annotationProcessor "com.android.tools.build.jetifier:jetifier-core:$rootProject.jetifier"
 
-    implementation "android.arch.paging:rxjava2:$paging"
-
     implementation project(':core')
 
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.core_testing"

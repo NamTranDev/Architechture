@@ -30,6 +30,7 @@ class State(
 ) {
 
     var initial = true
+    var hasRefresh = false
     var displayErrorDialog = false
 
     override fun equals(other: Any?): Boolean {
@@ -125,8 +126,10 @@ class State(
         }
 
         @JvmStatic
-        fun loading(@Loading loading: Int = Loading.LOADING_NORMAL): State {
-            return State(LOADING, null, loading, null)
+        fun loading(@Loading loading: Int = Loading.LOADING_NORMAL,hasRefresh : Boolean = false): State {
+            val state = State(LOADING, null, loading, null)
+            state.hasRefresh = hasRefresh
+            return state
         }
 
         @JvmStatic

@@ -39,6 +39,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:hint="User"
+            android:text="namtran09061992@gmail.com"
             android:nextFocusDown="@+id/edtPassword"
             app:layout_constraintBottom_toTopOf="@+id/edtPassword"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,6 +53,7 @@
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:hint="Password"
+            android:text="namtran@dev123"
             android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtUserName" />

@@ -23,8 +23,10 @@ class UserViewModel @Inject internal constructor(private val iUserUseCase: UserU
     }
 
     fun loadInfo(){
-        status.set(State.loading())
         addDisposable { iUserUseCase.getUser().subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    status.set(State.loading())
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     status.set(State.success())
