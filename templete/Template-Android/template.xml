@@ -10,13 +10,6 @@
 	<category value="NamTran" />
     <formfactor value="Mobile" />
 
-    <parameter
-        id="funtionName"
-        name="Funtion Name"
-        type="string"
-        constraints="class|unique|nonempty"
-        help="Activity funtion folder" />
-
 	<parameter
 		id="fragmentName"
 		name="Fragment Name"
@@ -41,25 +34,11 @@
         suggest="${underscoreToCamelCase(classToResource(fragmentName))}" />
 
     <parameter 
-        id="isChild"
-        name="use as child fragment"
-        type="boolean"
-        default="false"
-        help="If true, will use as child fragment"/>
-
-    <parameter 
         id="hasBiding"
         name="include biding xml"
         type="boolean"
         default="true"
         help="If true, will include biding in xml and fragment"/>
-
-    <parameter 
-        id="hasInject"
-        name="inject fragment with dagger"
-        type="boolean"
-        default="true"
-        help="If true, will inject fragment with dagger"/>
 
     <parameter 
         id="isViewModel"

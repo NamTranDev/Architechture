@@ -7,24 +7,18 @@
     <data>
         <variable
             name="viewModel"
-            type="${packageName}.${funtionName}.viewmodel.${Name}ViewModel"/>
+            type="${packageName}.${Name}ViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="${packageName}.${funtionName}.${fragmentName}">
+        tools:context="${packageName}.${fragmentName}">
 
         <#if isLoading>
         <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             layout="@layout/loading_state"
-            app:resource="@{viewModel.resource()}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:state="@{viewModel.status}" />
         </#if>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -39,13 +33,13 @@
     <data>
         <variable
             name="view"
-            type="${packageName}.${funtionName}.${fragmentName}"/>
+            type="${packageName}.${fragmentName}"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="${packageName}.${funtionName}.${fragmentName}">
+        tools:context="${packageName}.${fragmentName}">
         
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -57,7 +51,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="${packageName}.${funtionName}.${fragmentName}">
+        tools:context="${packageName}.${fragmentName}">
         
     </androidx.constraintlayout.widget.ConstraintLayout>
 </#if>
